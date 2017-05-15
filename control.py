@@ -6,7 +6,7 @@ class Control:
 		self.Fhash = "fhash"
 		self.Mhash = "mhash"
 		self.Rhash = "rhash"
-		pass
+		self.Runner = set()
 	def on_publish(self, client, userdata, mid):
                 print("mid: "+str(mid))
         def Publish(self, target, channel, message):
@@ -46,6 +46,16 @@ class Control:
 			if x=="":continue
 			Rset.add(x.split("/")[2])
 		return Rset
+	def SetRunner(self):
+		Rset = set()
+		cmd = "ipfs swarm peers"
+		output = subprocess.check_output(cmd, shell=True)
+		tmp = output.split("\n")
+		for x in tmp:
+			if x=="":continue
+			tmpp = x.split("/")
+			self.Runner.add((tmpp[2],tmpp[len(tmpp)-1]))
+		print self.Runner
 	def CallDownload(self):
 		if self.Fhash == "fhash" or self.Mhash == "mhash" or self.Rhash == "rhash":
 			print "PLEASE UPLOAD FIRST"
