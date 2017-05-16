@@ -1,4 +1,7 @@
 import control
 a = control.Control()
 
-a.SetRunner()
+a.DataUpload()
+a.SetKRunner(3)
+a.CallDownload()
+a.CallMap()

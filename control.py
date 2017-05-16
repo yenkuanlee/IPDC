@@ -1,5 +1,6 @@
 import subprocess
 import paho.mqtt.client as mqtt
+import json
 class Control:
 	def __init__(self):
 		self.Fname = "fname"
@@ -7,13 +8,16 @@ class Control:
 		self.Mhash = "mhash"
 		self.Rhash = "rhash"
 		self.Runner = set()
+
 	def on_publish(self, client, userdata, mid):
                 print("mid: "+str(mid))
+
         def Publish(self, target, channel, message):
                 client = mqtt.Client()
                 client.on_publish = self.on_publish
                 client.connect(target, 1883)
                 (rc, mid) = client.publish(channel, message, qos=0)
+
 	def DataUpload(self):
 		# Data Upload
 		cmd = "timeout 10 ipfs add data.dat"
@@ -22,13 +26,14 @@ class Control:
 		self.Fhash = tmp[1]
 		self.Fname = tmp[2].replace("\n","")
 		# Map Upload
-		cmd = "timeout 10 ipfs add map.py"
+		cmd = "timeout 10 ipfs add Map.py"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Mhash = output.split(" ")[1]
 		# Reduce Upload
 		cmd = "timeout 10 ipfs add reduce.py"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Rhash = output.split(" ")[1]
+
 	'''
 	def DataDownload(self):
 		if self.Fhash == "fhash":
@@ -37,6 +42,7 @@ class Control:
 		cmd = "timeout 10 ipfs get "+self.Fhash+" -o kevin.dat"
 		output = subprocess.check_output(cmd, shell=True)
 	'''
+
 	def GetSwarm(self):
 		Rset = set()
 		cmd = "ipfs swarm peers"
@@ -46,6 +52,7 @@ class Control:
 			if x=="":continue
 			Rset.add(x.split("/")[2])
 		return Rset
+
 	def SetRunner(self):
 		Rset = set()
 		cmd = "ipfs swarm peers"
@@ -56,12 +63,35 @@ class Control:
 			tmpp = x.split("/")
 			self.Runner.add((tmpp[2],tmpp[len(tmpp)-1]))
 		print self.Runner
+
+	def SetKRunner(self,K):
+		# How to choose K good machine...
+		# To be continued...
+                Rset = set()
+                cmd = "ipfs swarm peers"
+                output = subprocess.check_output(cmd, shell=True)
+                tmp = output.split("\n")
+                for i in range(len(tmp)):
+			if i >= K or tmp[i]=="": break
+                        tmpp = tmp[i].split("/")
+                        self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],i)) # format : tuple(IP, NodeID, RunnerID)
+                print self.Runner
+
 	def CallDownload(self):
 		if self.Fhash == "fhash" or self.Mhash == "mhash" or self.Rhash == "rhash":
 			print "PLEASE UPLOAD FIRST"
 			return
-		Swarm = self.GetSwarm()
-		for x in Swarm:
-			self.Publish(x,"Download",self.Fhash+"###"+self.Fname)
-			self.Publish(x,"Download",self.Mhash+"###map.py")
-			self.Publish(x,"Download",self.Rhash+"###reduce.py")
+		for x in self.Runner:
+			self.Publish(x[0],"Download",self.Fhash+"###"+self.Fname)
+			self.Publish(x[0],"Download",self.Mhash+"###Map.py")
+			self.Publish(x[0],"Download",self.Rhash+"###reduce.py")
+
+	def CallMap(self):
+		Jconf = dict()
+		RunnerList = list(self.Runner)
+		for x in self.Runner:
+			Jconf = dict()
+			Jconf["RunnerList"] = RunnerList
+			Jconf["RunnerID"] = x[2]
+			self.Publish(x[0],"DoMap",json.dumps(Jconf))
+			###self.Publish(x[0],"DoMap",str(x[2])+"###"+str(len(self.Runner)))
