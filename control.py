@@ -16,9 +16,9 @@ class Control:
 
         def Publish(self, target, channel, message):
                 client = mqtt.Client()
-                client.on_publish = self.on_publish
+                #client.on_publish = self.on_publish
                 client.connect(target, 1883)
-                (rc, mid) = client.publish(channel, message, qos=0)
+                client.publish(channel, message, qos=0)
 
 	def DataUpload(self):
 		# Data Upload

@@ -17,12 +17,13 @@ def on_publish(client, userdata, mid):
 
 def Publish(target,channel,message):
 	client = mqtt.Client()
-	client.on_publish = on_publish
+	#client.on_publish = on_publish
 	client.connect(target, 1883)
 	(rc, mid) = client.publish(channel, message, qos=0)
 
 def Download(message):
 	# format : Fhash###Fname
+	print "CallDownload : "+message
 	tmp = message.split("###")
 	Fhash = tmp[0]
 	Fname = tmp[1]
@@ -40,19 +41,22 @@ def DoMap(message):
 	JobDict[JobID] = Jconf
 	Mclass = Map.Map(JobID, RunnerID, RunnerList)
 	Mclass.RunMap()
+	print "Do Map !!!!!!!!!!!!!!"
 		
 BufferDict = dict()
 def Buffer(message):
+	print "Start Buffer !!!!!!!!!!!"
 	global BufferDict
 	global JobDict
 	Jmessage = json.loads(message)
 	JobID = Jmessage["JobID"]
 	key = Jmessage["key"]
 	value = Jmessage["value"]
+	print Jmessage
 	if JobID not in JobDict:
 		time.sleep(1)
 		print "You are so lucky"
-		Publish("localhost","Buffer",message)
+		#Publish("localhost","Buffer",message)
 		return
 	RunnerList = JobDict[JobID]["RunnerList"]
 	if JobID not in BufferDict:
@@ -66,6 +70,7 @@ def Buffer(message):
 			# Throw to reduce
 			BufferDict[JobID].pop("DoneDone", None)
 			import Reduce
+			print "Start Reduce"
 			JobOwner = JobDict[JobID]["JobOwner"]
 			Rclass = Reduce.Reduce(JobID, JobOwner, BufferDict[JobID])
 			Rclass.RunReduce()
@@ -95,6 +100,7 @@ def on_message(client, userdata, msg):
 		print str(msg.payload)
 		GetResult(str(msg.payload))
 	elif msg.topic=="CleanUp":
+		print "KEVIN"
 		os.system("rm Map.py* Reduce.py* output.txt data.dat")
 
 client = mqtt.Client()
