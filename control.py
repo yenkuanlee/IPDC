@@ -1,6 +1,7 @@
 import subprocess
 import paho.mqtt.client as mqtt
 import json
+import time
 class Control:
 	def __init__(self):
 		self.Fname = "fname"
@@ -8,6 +9,7 @@ class Control:
 		self.Mhash = "mhash"
 		self.Rhash = "rhash"
 		self.Runner = set()
+		self.JobID = "JobID"
 
 	def on_publish(self, client, userdata, mid):
                 print("mid: "+str(mid))
@@ -30,7 +32,7 @@ class Control:
 		output = subprocess.check_output(cmd, shell=True)
 		self.Mhash = output.split(" ")[1]
 		# Reduce Upload
-		cmd = "timeout 10 ipfs add reduce.py"
+		cmd = "timeout 10 ipfs add Reduce.py"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Rhash = output.split(" ")[1]
 
@@ -84,14 +86,30 @@ class Control:
 		for x in self.Runner:
 			self.Publish(x[0],"Download",self.Fhash+"###"+self.Fname)
 			self.Publish(x[0],"Download",self.Mhash+"###Map.py")
-			self.Publish(x[0],"Download",self.Rhash+"###reduce.py")
+			self.Publish(x[0],"Download",self.Rhash+"###Reduce.py")
 
 	def CallMap(self):
 		Jconf = dict()
 		RunnerList = list(self.Runner)
+		cmd = "ipfs id -f='<id>'"
+		JobOwner = subprocess.check_output(cmd, shell=True)
+		JobID = str(int(time.time()))
 		for x in self.Runner:
 			Jconf = dict()
 			Jconf["RunnerList"] = RunnerList
 			Jconf["RunnerID"] = x[2]
+			Jconf["JobOwner"] = JobOwner
+			Jconf["JobID"] = JobID
+			self.JobID = JobID
 			self.Publish(x[0],"DoMap",json.dumps(Jconf))
-			###self.Publish(x[0],"DoMap",str(x[2])+"###"+str(len(self.Runner)))
+
+	def CheckResult(self):
+		from os import listdir
+		while True:
+			Check = listdir("/tmp")
+			if self.JobID not in Check:continue
+			F = listdir("/tmp/"+self.JobID)
+			if len(F) == len(self.Runner):
+				print "Done"
+				break
+			time.sleep(1)

@@ -2,8 +2,9 @@ import os
 import json
 import paho.mqtt.client as mqtt
 class Map:
-        def __init__(self, Rid, RunnerList):
-		self.Rid = Rid
+        def __init__(self, JobID, RunnerID, RunnerList):
+		self.JobID = JobID
+		self.RunnerID = RunnerID
                 self.RunnerList = RunnerList
 		self.NumberOfRunner = len(RunnerList)
 		self.InputPath = 'data.dat'
@@ -24,6 +25,7 @@ class Map:
 
 	def ThrowKeyValue(self,key,value):
 		Jconf = dict()
+		Jconf["JobID"] = self.JobID
 		Jconf["key"] = key
 		Jconf["value"] = value
 		if key in self.KeyToRunner:
@@ -42,15 +44,16 @@ class Map:
 			line = f.readline()
 			if not line:
 				Jconf = dict()
+				Jconf["JobID"] = self.JobID
 				Jconf["key"] = "DoneDone"
-				Jconf["value"] = self.Rid
+				Jconf["value"] = self.RunnerID
 				for x in self.RunnerList:
 					self.Publish(x[0],"Buffer",json.dumps(Jconf))
 				break
 			line = line.replace("\n","")
 			Runner = Lcnt % self.NumberOfRunner
 			Lcnt += 1
-			if Runner != self.Rid : continue
+			if Runner != self.RunnerID : continue
 			
 			# Function Defined by user
 			tmp = line.split(" ")
