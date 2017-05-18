@@ -1,4 +1,5 @@
 import os
+import time
 import json
 import paho.mqtt.client as mqtt
 class Map:
@@ -21,7 +22,16 @@ class Map:
                 client = mqtt.Client()
                 #client.on_publish = self.on_publish
                 client.connect(target, 1883)
-                client.publish(channel, message, qos=0)
+		client.loop_start()
+                msg_info = client.publish(channel, message, qos=1)
+		if msg_info.is_published() == False:
+			msg_info.wait_for_publish()
+		client.disconnect()
+		time.sleep(0.01)
+		print "MAP MQTT IS PUBLISH : "+str(msg_info.is_published())
+		print "MAP MQTT IP : "+target
+		print "MAP MQTT MESSAGE : "+message
+		print ""
 
 	def ThrowKeyValue(self,key,value):
 		Jconf = dict()

@@ -6,11 +6,11 @@ import time
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
-	client.subscribe("Download")
-	client.subscribe("DoMap")
-	client.subscribe("Buffer")
-	client.subscribe("GetResult")
-	client.subscribe("CleanUp")
+	client.subscribe("Download", qos=1)
+	client.subscribe("DoMap", qos=1)
+	client.subscribe("Buffer", qos=1)
+	client.subscribe("GetResult", qos=1)
+	client.subscribe("CleanUp", qos=1)
 
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
@@ -19,7 +19,9 @@ def Publish(target,channel,message):
 	client = mqtt.Client()
 	#client.on_publish = on_publish
 	client.connect(target, 1883)
-	(rc, mid) = client.publish(channel, message, qos=0)
+	(rc, mid) = client.publish(channel, message, qos=1)
+	time.sleep(0.01)
+	print "DMQTT RESULT : "+str(rc)
 
 def Download(message):
 	# format : Fhash###Fname
@@ -45,14 +47,13 @@ def DoMap(message):
 		
 BufferDict = dict()
 def Buffer(message):
-	print "Start Buffer !!!!!!!!!!!"
+	print "BUFFER MESSAGE : "+message
 	global BufferDict
 	global JobDict
 	Jmessage = json.loads(message)
 	JobID = Jmessage["JobID"]
 	key = Jmessage["key"]
 	value = Jmessage["value"]
-	print Jmessage
 	if JobID not in JobDict:
 		time.sleep(1)
 		print "You are so lucky"
@@ -102,9 +103,11 @@ def on_message(client, userdata, msg):
 	elif msg.topic=="CleanUp":
 		print "KEVIN"
 		os.system("rm Map.py* Reduce.py* output.txt data.dat")
+	time.sleep(0.01)
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect("localhost", 1883, 60)
+#client.connect("localhost", 1883, 60)
+client.connect_async("localhost", 1883, 60)
 client.loop_forever()

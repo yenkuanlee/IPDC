@@ -18,7 +18,11 @@ class Control:
                 client = mqtt.Client()
                 #client.on_publish = self.on_publish
                 client.connect(target, 1883)
-                client.publish(channel, message, qos=0)
+                msg_info = client.publish(channel, message, qos=1)
+		#if msg_info.is_published() == False:
+                #        msg_info.wait_for_publish()
+                #client.disconnect()
+                time.sleep(0.01)
 
 	def DataUpload(self):
 		# Data Upload
@@ -102,6 +106,8 @@ class Control:
 			Jconf["JobID"] = JobID
 			self.JobID = JobID
 			self.Publish(x[0],"DoMap",json.dumps(Jconf))
+			print "KEVIN CALL MAP"
+			print json.dumps(Jconf)
 
 	def CheckResult(self):
 		from os import listdir
