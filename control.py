@@ -14,6 +14,7 @@ class Control:
 	def on_publish(self, client, userdata, mid):
                 print("mid: "+str(mid))
 
+	'''
         def Publish(self, target, channel, message):
                 client = mqtt.Client()
                 #client.on_publish = self.on_publish
@@ -22,6 +23,17 @@ class Control:
 		#if msg_info.is_published() == False:
                 #        msg_info.wait_for_publish()
                 #client.disconnect()
+                time.sleep(0.01)
+	'''
+	def Publish(self, target, channel, message):
+                client = mqtt.Client()
+                #client.on_publish = self.on_publish
+                client.connect(target, 1883)
+                client.loop_start()
+                msg_info = client.publish(channel, message, qos=1)
+                if msg_info.is_published() == False:
+                        msg_info.wait_for_publish()
+                client.disconnect()
                 time.sleep(0.01)
 
 	def DataUpload(self):
@@ -118,4 +130,4 @@ class Control:
 			if len(F) == len(self.Runner):
 				print "Done"
 				break
-			time.sleep(1)
+			time.sleep(0.1)

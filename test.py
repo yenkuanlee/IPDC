@@ -6,4 +6,4 @@ a.SetKRunner(3)
 a.CallDownload()
 a.CallMap()
 
-#a.CheckResult()
+a.CheckResult()

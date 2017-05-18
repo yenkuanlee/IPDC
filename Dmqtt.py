@@ -34,6 +34,7 @@ def Download(message):
 #RunnerList = list()
 JobDict = dict()
 def DoMap(message):
+	print "DO MAP MESSAGE : "+message
 	import Map
 	global JobDict
 	Jconf = json.loads(message)
@@ -43,7 +44,6 @@ def DoMap(message):
 	JobDict[JobID] = Jconf
 	Mclass = Map.Map(JobID, RunnerID, RunnerList)
 	Mclass.RunMap()
-	print "Do Map !!!!!!!!!!!!!!"
 		
 BufferDict = dict()
 def Buffer(message):
@@ -57,7 +57,7 @@ def Buffer(message):
 	if JobID not in JobDict:
 		time.sleep(1)
 		print "You are so lucky"
-		#Publish("localhost","Buffer",message)
+		Publish("localhost","Buffer",message)
 		return
 	RunnerList = JobDict[JobID]["RunnerList"]
 	if JobID not in BufferDict:
