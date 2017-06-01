@@ -1,0 +1,33 @@
+Edge-centric Computing: Vision and Challenges
+	- http://dl.acm.org/citation.cfm?doid=2831347.2831354
+	- We advocate for Edge-centric Computing as a novel paradigm that will push the frontier of computing applications, data, and services away from centralized nodes to the periphery of the network
+	- 介於中心化與去中心化之間, 稱為 Edge-centric Computing
+	- 有一個中心 node (centric) 和一堆非中心 node (edge), edge node 先算一些東西, 再把中間結果傳給 centric 繼續算
+	- RELATED FIELDS
+		- Content Delivery Networks
+		- P2P
+		- Decentralized Cloud Architectures 
+			- 與我們較相關
+			- there have been many efforts in recent years to combine P2P and Cloud computing architectures
+				- 但他的 reference 其實跟 cloud computing 較無關
+					- [5] 在講 P2P 架構下的備份
+					- [10] 在講 nano data center 的架構 (有一堆 center, 然後有一堆 edge)
+					- [9] 好像稍有相關正在看
+		- Fog Computing
+			- 直覺的 edge computing 應用
+	- 挑戰
+		- Human-driven distributed systems
+			- 每個人提供自己的電腦當 edge node, 自己的電腦算自己的東西, 中間結果傳給 centric node 做分析
+		- Edge Architectures and Middleware
+			- 所謂中間結果的架構設計
+		- Security and Privacy
+		- Scalability
+			- 與我們探討 IPDC 的較相關
+	- 情境
+		- Personal Spaces in the Edge
+			- 例如個人的臉書, dropbox 資料等等, 必較像前面說的, 在自己的 edge node 上先算在給 centric node
+		- Social Spaces in the Edge
+			- 是對於 facebook, linkedin 這種社群相關的公司, 他們存資料的 node 為 edge node, 另外有一套 centric node
+		- Public Spaces in the Edge
+			- 像是 IOT 的情境, sensor 為 edge node, 他們先算一算再把中間結果丟給 centric node
+
