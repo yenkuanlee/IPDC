@@ -1,3 +1,5 @@
+https://gateway.ipfs.io/ipfs/QmUqA924PEt2Fc4d3DxwyEcSjaXoLnH92wPcyHsVLiLQH3
+
 Edge-centric Computing: Vision and Challenges
 	- http://dl.acm.org/citation.cfm?doid=2831347.2831354
 	- We advocate for Edge-centric Computing as a novel paradigm that will push the frontier of computing applications, data, and services away from centralized nodes to the periphery of the network
