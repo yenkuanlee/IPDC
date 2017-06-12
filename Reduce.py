@@ -16,10 +16,11 @@ class Reduce:
         def Publish(self, target, channel, message):
                 client = mqtt.Client()
                 #client.on_publish = self.on_publish
+		client.max_inflight_messages_set(200000)
                 client.connect(target, 1883)
-                msg_info = client.publish(channel, message, qos=1)
-		#msg_info.wait_for_publish()
-		time.sleep(0.01)
+                msg_info = client.publish(channel, message, qos=0)
+		###msg_info.wait_for_publish()
+		time.sleep(0.1)
 
 	def GetOwnerIP(self):
 		cmd = "ipfs swarm peers"
@@ -34,7 +35,9 @@ class Reduce:
 		
 	def ThrowKeyValue(self, key, value):
                 self.ResultDict[key] = value
-                if self.ResultDict.keys() == self.BufferDict.keys():
+		if len(self.ResultDict) != len(self.BufferDict):
+			return
+                if set(self.ResultDict.keys()) == set(self.BufferDict.keys()):
                         f = open("output.txt","w")
                         for x in self.ResultDict:
                                 f.write(x+"\t"+self.ResultDict[x]+"\n")
@@ -46,8 +49,11 @@ class Reduce:
 			Jconf = dict()
 			Jconf["Ohash"] = Ohash
 			Jconf["JobID"] = self.JobID
+			print "KEVIN THROW RESULT : "+OwnerIP+"\t"+Jconf["Ohash"]
                         self.Publish(OwnerIP,"GetResult",json.dumps(Jconf))
+			time.sleep(0.01)
 			self.Publish("localhost","CleanUp","")
+		return
 
 	def reduce(self,key,ValueList):
 		# Defined by user
