@@ -1,8 +1,13 @@
 # IPDC
-IPDC is the Distributed Computation service, A peer-to-peer hypermedia protocol to make the computation faster, open, and more scalable
+IPDC(InterPlanetary Distributed Computing) is the Distributed Computation service, A peer-to-peer hypermedia protocol to make the computation faster, open, and more scalable.
 
 ## 簡介
 
+這是一個建構在 IPFS 上的分散式運算系統 (或服務).
+
+傳統的 [![IPFS](https://ipfs.io/) 是一個星際式分散式檔案系統
+
+## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
 
 - [星際分散式運算](#IPDC)
