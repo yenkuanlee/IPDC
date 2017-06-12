@@ -18,9 +18,9 @@ class Reduce:
                 #client.on_publish = self.on_publish
 		client.max_inflight_messages_set(200000)
                 client.connect(target, 1883)
-                msg_info = client.publish(channel, message, qos=1)
-		#msg_info.wait_for_publish()
-		#time.sleep(0.01)
+                msg_info = client.publish(channel, message, qos=0)
+		###msg_info.wait_for_publish()
+		time.sleep(0.1)
 
 	def GetOwnerIP(self):
 		cmd = "ipfs swarm peers"
