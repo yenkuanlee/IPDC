@@ -18,9 +18,10 @@ def on_publish(client, userdata, mid):
 def Publish(target,channel,message):
 	client = mqtt.Client()
 	#client.on_publish = on_publish
+	client.max_inflight_messages_set(200000)
 	client.connect(target, 1883)
 	(rc, mid) = client.publish(channel, message, qos=1)
-	time.sleep(0.01)
+	#time.sleep(0.01)
 	print "DMQTT RESULT : "+str(rc)
 
 def Download(message):
@@ -103,11 +104,11 @@ def on_message(client, userdata, msg):
 	elif msg.topic=="CleanUp":
 		print "KEVIN"
 		os.system("rm Map.py* Reduce.py* output.txt data.dat")
-	time.sleep(0.01)
+	#time.sleep(0.01)
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-#client.connect("localhost", 1883, 60)
-client.connect_async("localhost", 1883, 60)
+#client.connect("localhost", 1883, 0)
+client.connect_async("localhost", 1883, 0)
 client.loop_forever()

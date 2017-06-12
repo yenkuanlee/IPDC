@@ -16,10 +16,11 @@ class Reduce:
         def Publish(self, target, channel, message):
                 client = mqtt.Client()
                 #client.on_publish = self.on_publish
+		client.max_inflight_messages_set(200000)
                 client.connect(target, 1883)
                 msg_info = client.publish(channel, message, qos=1)
 		#msg_info.wait_for_publish()
-		time.sleep(0.01)
+		#time.sleep(0.01)
 
 	def GetOwnerIP(self):
 		cmd = "ipfs swarm peers"
