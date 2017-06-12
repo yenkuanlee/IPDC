@@ -46,10 +46,10 @@ def DoMap(message):
 	Mclass = Map.Map(JobID, RunnerID, RunnerList)
 	Mclass.RunMap()
 		
-BufferDict = dict()
+###BufferDict = dict()
 def Buffer(message):
 	print "BUFFER MESSAGE : "+message
-	global BufferDict
+	#global BufferDict
 	#global JobDict
 	Jmessage = json.loads(message)
 	JobID = Jmessage["JobID"]
@@ -61,22 +61,22 @@ def Buffer(message):
 		Publish("localhost","Buffer",message)
 		return
 	RunnerList = client.JobDict[JobID]["RunnerList"]
-	if JobID not in BufferDict:
-		BufferDict[JobID] = dict()
-	if key not in BufferDict[JobID]:
-		BufferDict[JobID][key] = list()
-	BufferDict[JobID][key].append(value)
+	if JobID not in client.BufferDict:
+		client.BufferDict[JobID] = dict()
+	if key not in client.BufferDict[JobID]:
+		client.BufferDict[JobID][key] = list()
+	client.BufferDict[JobID][key].append(value)
 
-	if "DoneDone" in BufferDict[JobID]:
-		if len(BufferDict[JobID]["DoneDone"]) == len(RunnerList): # every runner is done
+	if "DoneDone" in client.BufferDict[JobID]:
+		if len(client.BufferDict[JobID]["DoneDone"]) == len(RunnerList): # every runner is done
 			# Throw to reduce
-			BufferDict[JobID].pop("DoneDone", None)
+			client.BufferDict[JobID].pop("DoneDone", None)
 			import Reduce
 			print "Start Reduce"
 			JobOwner = client.JobDict[JobID]["JobOwner"]
-			Rclass = Reduce.Reduce(JobID, JobOwner, BufferDict[JobID])
+			Rclass = Reduce.Reduce(JobID, JobOwner, client.BufferDict[JobID])
 			Rclass.RunReduce()
-			BufferDict.pop(JobID, None)
+			client.BufferDict.pop(JobID, None)
 			client.JobDict.pop(JobID, None)
 
 def GetResult(message):
@@ -109,6 +109,7 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client()
 client.JobDict = dict()
+client.BufferDict = dict()
 client.on_connect = on_connect
 client.on_message = on_message
 #client.connect("localhost", 1883, 0)
