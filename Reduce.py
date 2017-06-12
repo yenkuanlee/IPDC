@@ -35,7 +35,9 @@ class Reduce:
 		
 	def ThrowKeyValue(self, key, value):
                 self.ResultDict[key] = value
-                if self.ResultDict.keys() == self.BufferDict.keys():
+		if len(self.ResultDict) != len(self.BufferDict):
+			return
+                if set(self.ResultDict.keys()) == set(self.BufferDict.keys()):
                         f = open("output.txt","w")
                         for x in self.ResultDict:
                                 f.write(x+"\t"+self.ResultDict[x]+"\n")
@@ -47,8 +49,11 @@ class Reduce:
 			Jconf = dict()
 			Jconf["Ohash"] = Ohash
 			Jconf["JobID"] = self.JobID
+			print "KEVIN THROW RESULT : "+OwnerIP+"\t"+Jconf["Ohash"]
                         self.Publish(OwnerIP,"GetResult",json.dumps(Jconf))
+			time.sleep(0.01)
 			self.Publish("localhost","CleanUp","")
+		return
 
 	def reduce(self,key,ValueList):
 		# Defined by user

@@ -6,11 +6,11 @@ import time
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
-	client.subscribe("Download", qos=1)
-	client.subscribe("DoMap", qos=1)
-	client.subscribe("Buffer", qos=1)
-	client.subscribe("GetResult", qos=1)
-	client.subscribe("CleanUp", qos=1)
+	client.subscribe("Download")
+	client.subscribe("DoMap")
+	client.subscribe("Buffer")
+	client.subscribe("GetResult")
+	client.subscribe("CleanUp")
 
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
@@ -76,6 +76,7 @@ def Buffer(message):
 			JobOwner = client.JobDict[JobID]["JobOwner"]
 			Rclass = Reduce.Reduce(JobID, JobOwner, client.BufferDict[JobID])
 			Rclass.RunReduce()
+			print "End Reduce"
 			client.BufferDict.pop(JobID, None)
 			client.JobDict.pop(JobID, None)
 
@@ -83,6 +84,7 @@ def GetResult(message):
 	Jmessage = json.loads(message)
 	JobID = Jmessage["JobID"]
 	Ohash = Jmessage["Ohash"]
+	print "KEVIN RESULT : "+Ohash
 	from os import listdir
 	if JobID not in listdir("."):
 		os.system("mkdir "+JobID)
@@ -93,6 +95,7 @@ def on_message(client, userdata, msg):
 	if msg.topic=='test':
 		print str(msg.payload)
 		print client.JobDict
+		print client.BufferDict
 	elif msg.topic=="Download":
 		Download(str(msg.payload))
 	elif msg.topic=="DoMap":
@@ -112,6 +115,6 @@ client.JobDict = dict()
 client.BufferDict = dict()
 client.on_connect = on_connect
 client.on_message = on_message
-#client.connect("localhost", 1883, 0)
-client.connect_async("localhost", 1883, 0)
+client.connect("localhost", 1883, 0)
+#client.connect_async("localhost", 1883, 0)
 client.loop_forever()
