@@ -1,4 +1,8 @@
 # IPDC
+IPDC is the Distributed Computation service, A peer-to-peer hypermedia protocol to make the computation faster, open, and more scalable
+
+## 簡介
+
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
 
 - [星際分散式運算](#IPDC)
@@ -16,7 +20,7 @@ data.dat 為運算資料
 便會在 /tmp 中產生運算結果
 
 
-# 原理
+## 原理
 Controller 會將 data.dat, Map.py, Reduce.py 上傳至 IPFS
 
 並選擇 K 台 Workers
@@ -27,5 +31,5 @@ Controller 會將 data.dat, Map.py, Reduce.py 上傳至 IPFS
 
 最後所有結果匯集到觸發 Controller 的那台
 
-# 系統優點
+## 系統優點
 還在想
