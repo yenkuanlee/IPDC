@@ -33,16 +33,16 @@ def Download(message):
 	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
 
 #RunnerList = list()
-JobDict = dict()
+###JobDict = dict()
 def DoMap(message):
 	print "DO MAP MESSAGE : "+message
 	import Map
-	global JobDict
+	###global JobDict
 	Jconf = json.loads(message)
 	RunnerID = Jconf["RunnerID"]
 	RunnerList = Jconf["RunnerList"]
 	JobID = Jconf["JobID"]
-	JobDict[JobID] = Jconf
+	client.JobDict[JobID] = Jconf
 	Mclass = Map.Map(JobID, RunnerID, RunnerList)
 	Mclass.RunMap()
 		
@@ -50,17 +50,17 @@ BufferDict = dict()
 def Buffer(message):
 	print "BUFFER MESSAGE : "+message
 	global BufferDict
-	global JobDict
+	#global JobDict
 	Jmessage = json.loads(message)
 	JobID = Jmessage["JobID"]
 	key = Jmessage["key"]
 	value = Jmessage["value"]
-	if JobID not in JobDict:
+	if JobID not in client.JobDict:
 		time.sleep(1)
 		print "You are so lucky"
 		Publish("localhost","Buffer",message)
 		return
-	RunnerList = JobDict[JobID]["RunnerList"]
+	RunnerList = client.JobDict[JobID]["RunnerList"]
 	if JobID not in BufferDict:
 		BufferDict[JobID] = dict()
 	if key not in BufferDict[JobID]:
@@ -73,11 +73,11 @@ def Buffer(message):
 			BufferDict[JobID].pop("DoneDone", None)
 			import Reduce
 			print "Start Reduce"
-			JobOwner = JobDict[JobID]["JobOwner"]
+			JobOwner = client.JobDict[JobID]["JobOwner"]
 			Rclass = Reduce.Reduce(JobID, JobOwner, BufferDict[JobID])
 			Rclass.RunReduce()
 			BufferDict.pop(JobID, None)
-			JobDict.pop(JobID, None)
+			client.JobDict.pop(JobID, None)
 
 def GetResult(message):
 	Jmessage = json.loads(message)
@@ -92,6 +92,7 @@ def GetResult(message):
 def on_message(client, userdata, msg):
 	if msg.topic=='test':
 		print str(msg.payload)
+		print client.JobDict
 	elif msg.topic=="Download":
 		Download(str(msg.payload))
 	elif msg.topic=="DoMap":
@@ -107,6 +108,7 @@ def on_message(client, userdata, msg):
 	#time.sleep(0.01)
 
 client = mqtt.Client()
+client.JobDict = dict()
 client.on_connect = on_connect
 client.on_message = on_message
 #client.connect("localhost", 1883, 0)
