@@ -1,7 +1,7 @@
 # IPDC
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
 
-[星際分散式運算](#IPDC)
+- [星際分散式運算](#IPDC)
 
 這是一個 Map-Reduce 分散式運算架構
 
