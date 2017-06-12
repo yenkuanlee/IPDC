@@ -1,5 +1,6 @@
 # IPDC
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
+[![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
+
 這是一個 Map-Reduce 分散式運算架構
 
 請先架好 IPFS 和 python paho
