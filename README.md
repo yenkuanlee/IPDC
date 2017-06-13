@@ -32,23 +32,28 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ### 安裝封閉式 IPFS
 下載封閉式 IPFS 執行檔
 
-  ```
+```
   $ wget https://gateway.ipfs.io/ipfs/QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD
+  
   $ mv QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD ipfs
+  
   $ sudo chmod 777 ipfs
+  
   $ sudo mv ipfs /usr/local/bin
+  
   $ ipfs
-  ```
+  
+```
   
 產生設定檔
   - 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
   
-  ```
+```
   $ sudo mkdir -p /opt/iservstor/conf
   $ sudo vi /opt/iservstor/conf/iservstor.conf
     DOMAIN_NAME = kevin
     # 加入以上 Domain Name 資訊, 相同 Domain Name 的 peer 才能相連 ！
-  ```
+```
   
 初始化
 
