@@ -117,7 +117,7 @@ IPDC MR 執行分散式運算
 <img src="http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR" width="50%" height="50%">
 
 ## Nothing
-<img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="50%" height="50%">
+<img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
 
 - [星際分散式運算](#IPDC)
 
