@@ -91,7 +91,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 設定 IPDC
 
-- [IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑]
+- IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑
 
 ## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
