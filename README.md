@@ -1,7 +1,7 @@
 # IPDC
 IPDC(InterPlanetary Distributed Computing) is the Distributed Computation service, A peer-to-peer hypermedia protocol to make the computation faster, open, and more scalable.
 
-## 簡介
+## Abstract
 
 IPDC 一個建構在 IPFS 上的分散式運算系統 (或服務)。
 
@@ -79,7 +79,14 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ pip install paho-mqtt
 ```
 
-請先架好 IPFS 和 python paho
+## Getting Started
+
+加入 IPDC
+```
+  $ git clone https://github.com/yenkuanlee/IPDC
+  $ cp Dmqyy.py /tmp
+  $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
+```
 
 
 ## Nothing
