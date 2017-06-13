@@ -17,7 +17,7 @@ IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Ma
 - 大數據分析
 - 邊緣運算
 - Deep Learning
-- AI
+- Big Crawler
 
 ## Install Dependencies
 ### 可對外固定 IP
@@ -82,12 +82,16 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ## Getting Started
 
 加入 IPDC
+
 ```
   $ git clone https://github.com/yenkuanlee/IPDC
   $ cp Dmqyy.py /tmp
   $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
 ```
 
+設定 IPDC
+
+- [IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑]()
 
 ## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
