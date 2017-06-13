@@ -100,7 +100,7 @@ IPDC Map-Reduce 邏輯撰寫
 - Reduce.py 中的 reduce 中可以寫入 reduce 邏輯
 - 本專案的 Map-Reduce 演算法為 WordCount
 
-IPDC 執行分散式運算
+IPDC MR 執行分散式運算
 
 ```
   $ python test.py
@@ -115,7 +115,7 @@ IPDC 執行分散式運算
   $ cat /tmp/JobID/*
 ```
 
-[![](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)]
+[!](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)
 
 ## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
