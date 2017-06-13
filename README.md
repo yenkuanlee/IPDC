@@ -153,12 +153,23 @@ IPDC MR 執行分散式運算
   * IPDC 框架僅 400 行程式，安裝簡單 
   * IPFS 與 MQTT 亦可在各種設備上安裝 
   * 即使是記憶體容量只有128MB大小的 Raspberry Pi 單板電腦也能用 
+* 極具彈性
+  * 前段已討論過
+  * 不受限於特定分散式架構
 * Scalable 
   * IPFS 可跨網域增長
   * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster
 * 開放且快速 
   * IPDC 承襲 IPFS 的優點，讓資料與程式存在 IPFS 中 
-    * Hash 透過 MQTT 傳遞, 讓資料與城市更開放
+    * Hash 透過 MQTT 傳遞, 讓資料與程式更開放
+    * IPFS 的 Merkle Dag 結構讓資料 Deduplicate, 節省儲存空間
+    * IPFS 下載資料與程式時, 會再 Merkle Dag 走訪並平行去各台 peer 抓取需要的檔案碎片, 提升取得檔案之速度
+    * 可透過 IPFS 強化資料的備份
+  * IPDC 也有 MQTT 的優點
+    * 快速傳遞訊息的 protocal
+    * M2M 符合 IPFS 去中心化的優點, 增加運算效率
+    * 將 IPFS 從儲存提升到運算的境界
+  * 
 
 
 ## IPDC 發展方向
