@@ -147,6 +147,18 @@ IPDC MR 執行分散式運算
   * CleanUp : 各台 worker 刪除不必要的檔案
 
 
+## IPDC 優勢
+
+* 極度輕便 
+  * IPDC 框架僅 400 行程式，安裝簡單 
+  * IPFS 與 MQTT 亦可在各種設備上安裝 
+  * 即使是記憶體容量只有128MB大小的 Raspberry Pi 單板電腦也能用 
+* Scalable 
+  * IPFS 可跨網域增長
+  * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster
+* 開放且快速
+
+
 ## IPDC 發展方向
 
 如前述所言，IPDC 是一個極具彈性的框架，透過制定 Dmqtt.py 的 channel 並修改 control.py 的邏輯以及增加必要程式，便可實現各種分散式架構。 以下是目前想到 IPDC 的應用情境與發展方向，使用者的 node 可以成為 :
@@ -156,13 +168,4 @@ IPDC MR 執行分散式運算
 * 邊緣運算的 edge
 * Big Crawler 的種子
 
-## IPDC 優勢
 
-* 極度輕便 
-  * IPDC 框架僅 400 行程式，安裝簡單 
-  * IPFS 與 MQTT 亦可在各種設備上安裝 
-  * 即使是記憶體容量只有128MB大小的 Raspberry Pi 單板電腦也能用 
-* Scalable 
-  * IPFS 可跨網域增長
-  * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster
-* 開放且快速
