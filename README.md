@@ -38,12 +38,11 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ sudo chmod 777 ipfs
   $ sudo mv ipfs /usr/local/bin
   $ ipfs
-  
 ```
   
 產生設定檔
 
-  * 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
+- 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
   
 ```
   $ sudo mkdir -p /opt/iservstor/conf
@@ -92,6 +91,29 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 設定 IPDC
 
 - IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑
+- test.py 中可以設定分散數
+- Map.py 中可以設定 input 檔路徑
+
+IPDC Map-Reduce 邏輯撰寫
+
+- Map.py 中的 RunMap 的最下方可以寫入 Map 邏輯
+- Reduce.py 中的 reduce 中可以寫入 reduce 邏輯
+- 本專案的 Map-Reduce 演算法為 WordCount
+
+IPDC 執行分散式運算
+
+```
+  $ python test.py
+```
+
+- JobID 為執行當下的 timestamp
+- 執行結果寫入 /tmp/JobID
+- 分散數為 K 則會有 K 份結果
+- 印出結果
+  ```
+    $ cat /tmp/JobID/*
+  ```
+ 
 
 ## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
