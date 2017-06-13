@@ -135,31 +135,17 @@ IPDC MR 執行分散式運算
 
 <img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
 
-- [星際分散式運算](#IPDC)
+## IPDC MR 之 MQTT channel
 
-這是一個 Map-Reduce 分散式運算架構
+- IPDC 是一個極具彈性的框架，而 IPDC MR 是在此框架下實作出一個分散式運算的 Map-Reduce 架構
+- Dmqtt.py 是 IPDC 的核心，透過 channel 的制定可以實現各種分散式運算架構
+- IPDC MR 的 Dmqtt.py channel 包含 
+  - Download : 通知 worker 下載檔案
+  - DoMap : 通知 worker 進行 Map
+  - Buffer : 將 Map 產生的 Key-Value 傳給對應的 worker
+  - GetResult : 各台 worker Reduce 結果傳給 Master
+  - CleanUp : 個台 worker 刪除不必要的檔案
 
-請先架好 IPFS 和 python paho
-
-並在 Map.py 與 Reduce.py 中加入運算邏輯 (目前為 WordCount 範例)
-
-data.dat 為運算資料
-
-執行 python test.py (裡面可以選擇分散數)
-
-便會在 /tmp 中產生運算結果
-
-
-## 原理
-Controller 會將 data.dat, Map.py, Reduce.py 上傳至 IPFS
-
-並選擇 K 台 Workers
-
-被選中的 Worker 會使用 IPFS 下載程式與資料
-
-用 Map-Reduce 運算變將 Key-Value 傳到對應的 Worker
-
-最後所有結果匯集到觸發 Controller 的那台
 
 ## 系統優點
 還在想
