@@ -181,4 +181,9 @@ IPDC MR 執行分散式運算
 
 ## Reference
 
-- [新聞](http://www.ithome.com.tw/news/114626)
+- 新聞
+  - [邊緣運算關鍵技術AI，讓瑞典工具機大廠異常預警速度加快20倍](http://www.ithome.com.tw/news/114626)
+- 論文
+  - [Edge-centric Computing: Vision and Challenges](http://dl.acm.org/citation.cfm?doid=2831347.2831354)
+  - [Nebula: Distributed Edge Cloud for Data Intensive Computing](http://www-users.cselabs.umn.edu/classes/Spring-2017/csci8980/papers/GeoEdge/nebula.pdf)
+  - [Cost-Effective Content Delivery Networks Using Clouds and Nano Data Centers](https://link.springer.com/chapter/10.1007/978-3-642-41671-2_53)
