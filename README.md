@@ -110,9 +110,11 @@ IPDC 執行分散式運算
 - 執行結果寫入 /tmp/JobID
 - 分散數為 K 則會有 K 份結果
 - 印出結果
+
   ```
     $ cat /tmp/JobID/*
   ```
+
  
 
 ## Nothing
