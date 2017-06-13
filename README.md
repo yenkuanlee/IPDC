@@ -34,13 +34,9 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ```
   $ wget https://gateway.ipfs.io/ipfs/QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD
-  
   $ mv QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD ipfs
-  
   $ sudo chmod 777 ipfs
-  
   $ sudo mv ipfs /usr/local/bin
-  
   $ ipfs
   
 ```
@@ -66,6 +62,21 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ```
   $ ipfs daemon
+```
+
+
+### 安裝設定 MQTT
+
+安裝 mosquitto
+
+```
+  $ sudo apt-get install mosquitto mosquitto-clients
+  $ sudo service mosquitto start
+```
+
+安裝 paho
+```
+  $ pip install paho-mqtt
 ```
 
 請先架好 IPFS 和 python paho
