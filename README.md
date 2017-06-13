@@ -155,8 +155,10 @@ IPDC MR 執行分散式運算
   * 即使是記憶體容量只有128MB大小的 Raspberry Pi 單板電腦也能用 
 * Scalable 
   * IPFS 可跨網域增長
-  * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster
+  * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster
 * 開放且快速
+  * IPDC 承襲 IPFS 的優點，讓資料與程式存在 IPFS 中
+    * Hash 透過 MQTT 傳遞, 讓資料與城市更開放
 
 
 ## IPDC 發展方向
