@@ -46,7 +46,8 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
   
 產生設定檔
-  - 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
+
+  * 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
   
 ```
   $ sudo mkdir -p /opt/iservstor/conf
