@@ -144,8 +144,17 @@ IPDC MR 執行分散式運算
   * DoMap : 通知 worker 進行 Map
   * Buffer : 將 Map 產生的 Key-Value 傳給對應的 worker
   * GetResult : 各台 worker Reduce 結果傳給 Master
-  * CleanUp : 個台 worker 刪除不必要的檔案
+  * CleanUp : 各台 worker 刪除不必要的檔案
 
+
+## IPDC 發展方向
+
+如前述所言，IPDC 是一個極具彈性的框架，透過制定 Dmqtt.py 的 channel 並修改 control.py 的邏輯以及增加必要程式，便可實現各種分散式架構。 以下是目前想到 IPDC 的應用情境與發展方向，使用者的 node 可以成為 :
+
+* Mapper / Reducer 
+* Deep Learning 的神經元
+* 邊緣運算的 edge
+* Big Crawler 的種子
 
 ## 系統優點
 還在想
