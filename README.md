@@ -116,7 +116,12 @@ IPDC MR 執行分散式運算
 ```
 <img src="http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR" width="50%" height="50%">
 
-## Nothing
+## 原理
+
+* Controller 透過 IPDC 中各個 node 的 peerID hash 來判斷並選擇 K(分散數) 個 worker
+* Controller 會將 input 檔, Map.py, Reduce.py 上傳至 IPFS
+
+
 <img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
 
 - [星際分散式運算](#IPDC)
