@@ -47,7 +47,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
   $ sudo mkdir -p /opt/iservstor/conf
   $ sudo vi /opt/iservstor/conf/iservstor.conf
-    DOMAIN_NAME = kevin
+    DOMAIN_NAME = IPDC
     # 加入以上 Domain Name 資訊, 相同 Domain Name 的 peer 才能相連 ！
 ```
   
@@ -115,7 +115,7 @@ IPDC 執行分散式運算
   $ cat /tmp/JobID/*
 ```
 
- 
+[![](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)]
 
 ## Nothing
 [![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
