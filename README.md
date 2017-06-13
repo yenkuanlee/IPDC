@@ -114,7 +114,7 @@ IPDC MR 執行分散式運算
 ```
   $ cat /tmp/JobID/*
 ```
-
+<img src="http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR" width="50%" height="50%">
 [![](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)
 
 ## Nothing
