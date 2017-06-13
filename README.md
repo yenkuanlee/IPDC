@@ -137,14 +137,14 @@ IPDC MR 執行分散式運算
 
 ## IPDC MR 之 MQTT channel
 
-- IPDC 是一個極具彈性的框架，而 IPDC MR 是在此框架下實作出一個分散式運算的 Map-Reduce 架構
-- Dmqtt.py 是 IPDC 的核心，透過 channel 的制定可以實現各種分散式運算架構
-- IPDC MR 的 Dmqtt.py channel 包含 
-  -- Download : 通知 worker 下載檔案
-  -- DoMap : 通知 worker 進行 Map
-  -- Buffer : 將 Map 產生的 Key-Value 傳給對應的 worker
-  -- GetResult : 各台 worker Reduce 結果傳給 Master
-  -- CleanUp : 個台 worker 刪除不必要的檔案
+* IPDC 是一個極具彈性的框架，而 IPDC MR 是在此框架下實作出一個分散式運算的 Map-Reduce 架構
+* Dmqtt.py 是 IPDC 的核心，透過 channel 的制定可以實現各種分散式運算架構
+* IPDC MR 的 Dmqtt.py channel 包含 
+  * Download : 通知 worker 下載檔案
+  * DoMap : 通知 worker 進行 Map
+  * Buffer : 將 Map 產生的 Key-Value 傳給對應的 worker
+  * GetResult : 各台 worker Reduce 結果傳給 Master
+  * CleanUp : 個台 worker 刪除不必要的檔案
 
 
 ## 系統優點
