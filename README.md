@@ -115,10 +115,10 @@ IPDC MR 執行分散式運算
   $ cat /tmp/JobID/*
 ```
 
-[!](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)
+[![](http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR)]()
 
 ## Nothing
-[![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)](http://ipn.io)
+[![](http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM)]()
 
 - [星際分散式運算](#IPDC)
 
