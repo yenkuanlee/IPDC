@@ -119,19 +119,12 @@ IPDC MR 執行分散式運算
 ## IPDC MR 原理
 
 1. Controller 透過 IPDC 中各個 node 的 peerID hash 來判斷並選擇 K(分散數) 個 workers
-
 2. Controller 會將 input 檔, Map.py, Reduce.py 上傳至 IPFS, 並透過 MQTT 通知 K 個 workers 將檔案下載
-
 3. Controller 透過 MQTT 呼叫各個 worker 開始 Map 的工作, 透過 worker peerID 加上 input 檔行數為 key, 可以分配個台 worker 該負責哪些 key
-
 4. 如同 Hadoop 一般, Map 最後會將結果以 Key-Value 形式丟給對應的 Buffer
-
 5. 各台 worker 的 Buffer 蒐集完 Key-Value 後開始進行 Reduce
-
 6. 各台結束 Reduce 後, 將結果寫入 Local 便上傳至 IPFS, 再透過 MQTT 將 output hash 傳給觸發 MR 的 master
-
 7. Master 蒐集完所有 worker 的 output hash, 將這些 hash 下載, 結束整個 MR job
-
 
 <img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
 
@@ -160,7 +153,6 @@ IPDC MR 執行分散式運算
 * Scalable 
   * IPFS 可跨網域增長 
   * 願意加入 IPDC 的使用者, 可簡單快速的納入這個巨大的 cluster 
-  
 * 開放且快速 
   * IPDC 承襲 IPFS 的優點，讓資料與程式存在 IPFS 中 
     * Hash 透過 MQTT 傳遞, 讓資料與程式更開放 
@@ -169,9 +161,13 @@ IPDC MR 執行分散式運算
     * 可透過 IPFS 強化資料的備份
   * IPDC 也有 MQTT 的優點 
     * 快速傳遞訊息的 protocal 
-    * M2M 符合 IPFS 去中心化的優點, 增加運算效率 
-    * 將 IPFS 從儲存提升到運算的境界 
-
+    * M2M 符合 IPFS 去中心化的優點, 增加運算效率 
+    * 將 IPFS 從儲存提升到運算的境界 
+* Multi-Master 架構
+  * IPDC 的任一個 node 皆可以是 master, 也能成為別人的 worker
+  * 解決 Master-Slaves 負載不平衡, 資源不對等的問題
+  * 優於現有的邊緣運算架構, 所有的 node 都有控制機制, 更能提升運算效率
+  * 完全去中心化, 將不必要的傳輸降到最低
 
 
 ## IPDC 發展方向
