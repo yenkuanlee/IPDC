@@ -177,6 +177,7 @@ IPDC MR 執行分散式運算
 * MR 的 Mapper / Reducer 
 * Deep Learning 的神經元
 * 邊緣運算的 edge
+<img src="http://gateway.ipfs.io/ipfs/QmXHq9kkU54HEfBmRWP2FMBoDT81whRVGNJwdE3hyjqJYY" width="50%" height="50%">
 * Big Crawler 的種子
 
 ## Reference
