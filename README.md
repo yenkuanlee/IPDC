@@ -38,6 +38,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ sudo mv ipfs /usr/local/bin
   $ ipfs
   ```
+  
 產生設定檔
   - 封閉式 IPFS 是之前為了 iServStor 產品設計的, 所以設定檔是 iservstor.conf, 就先姑且用吧...
   ```
@@ -46,14 +47,17 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
     DOMAIN_NAME = kevin
     # 加入以上 Domain Name 資訊, 相同 Domain Name 的 peer 才能相連 ！
   ```
+  
 初始化
 ```
   $ ipfs init
 ```
+
 啟動 IPFS daemon
 ```
   $ ipfs daemon
 ```
+
 請先架好 IPFS 和 python paho
 
 
