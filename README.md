@@ -116,7 +116,7 @@ IPDC MR 執行分散式運算
 ```
 <img src="http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR" width="50%" height="50%">
 
-## 原理
+## IPDC MR 原理
 
 1. Controller 透過 IPDC 中各個 node 的 peerID hash 來判斷並選擇 K(分散數) 個 workers
 
@@ -124,7 +124,13 @@ IPDC MR 執行分散式運算
 
 3. Controller 透過 MQTT 呼叫各個 worker 開始 Map 的工作, 透過 worker peerID 加上 input 檔行數為 key, 可以分配個台 worker 該負責哪些 key
 
-4. 如同 Hadoop 一般, Map 
+4. 如同 Hadoop 一般, Map 最後會將結果以 Key-Value 形式丟給對應的 Buffer
+
+5. 各台 worker 的 Buffer 蒐集完 Key-Value 後開始進行 Reduce
+
+6. 各台結束 Reduce 後, 將結果寫入 Local 便上傳至 IPFS, 再透過 MQTT 將 output hash 傳給觸發 MR 的 master
+
+7. Master 蒐集完所有 worker 的 output hash, 將這些 hash 下載, 結束整個 MR job
 
 
 <img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
