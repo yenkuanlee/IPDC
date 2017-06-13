@@ -118,8 +118,13 @@ IPDC MR 執行分散式運算
 
 ## 原理
 
-* Controller 透過 IPDC 中各個 node 的 peerID hash 來判斷並選擇 K(分散數) 個 worker
-* Controller 會將 input 檔, Map.py, Reduce.py 上傳至 IPFS
+1. Controller 透過 IPDC 中各個 node 的 peerID hash 來判斷並選擇 K(分散數) 個 workers
+
+2. Controller 會將 input 檔, Map.py, Reduce.py 上傳至 IPFS, 並透過 MQTT 通知 K 個 workers 將檔案下載
+
+3. Controller 透過 MQTT 呼叫各個 worker 開始 Map 的工作, 透過 worker peerID 加上 input 檔行數為 key, 可以分配個台 worker 該負責哪些 key
+
+4. 如同 Hadoop 一般, Map 
 
 
 <img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
