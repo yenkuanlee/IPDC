@@ -158,8 +158,12 @@ IPDC MR 執行分散式運算
 
 ## IPDC 優勢
 
-* 極度輕便
-  * IPDC 框架僅 400 行程式
-  * 即使是記憶體容量只有128MB大小的Raspberry Pi單板電腦也能用
-* Scalable
-  * IPFS 可跨網域增長
+* 極度輕便 
+
+  * IPDC 框架僅 400 行程式 
+  
+  * 即使是記憶體容量只有128MB大小的Raspberry Pi單板電腦也能用 
+  
+* Scalable 
+
+  * IPFS 可跨網域增長
