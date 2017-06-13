@@ -20,10 +20,20 @@ IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Ma
 - AI
 
 ## Install
-### IP
-需要可對外固定 IP
+### 可對外固定 IP
+IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNXM4uWnd7oLqqDFg4Jo26eSYWQvZz6QCmiqtzmFgJhDD)。
+
+原生的 IPFS 初始化會連接官方認可的 gateway, 所以就算 IP 不對外甚至內網(192.168.x.x), 都可以跟其他人的 IPFS 連接 (系統會透過 gateway 搜尋 ID 找到 peer 並串連)。
+
+然而 IPDC 使用的 IPFS 是我修改過原始碼的封閉型 IPFS, 主要目的是不讓陌生人連到我們的 cluster。 因此我們不會連到 IPFS 官方 gateway, 所以需要可對外的 IP 才能讓兩個 node 相連。
+
+除此之外, 我們使用的 MQTT 溝通機制目前亦使用可對外固定 IP。 讓 IP 更有彈性是 IPDC 未來可優化的議題之一。
+
 ### 安裝封閉式 IPFS
+  ```
   $ wget https://gateway.ipfs.io/ipfs/QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD
+  ```
+  
 請先架好 IPFS 和 python paho
 
 
