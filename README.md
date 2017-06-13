@@ -13,12 +13,17 @@ IPFS 目前積極與 Blockchain 整合, 目標是成為區塊鏈底層的儲存�
 
 IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Map-Reduce 的架構, 實作出一個 Multi-Master 的極輕便分散式運算系統。使用者加入 IPFS 後,在自己的設備上 clone 此專案, 便可以在專案底下的 Map.py 與 Reduce.py 中撰寫邏輯。簡單設定後(分散數與讀檔路徑等)便可觸發運算。 此時 IPFS 中的所有 peers 都是 IPDC 的 compute node, 運算結束後會將結果寫到觸發的設備上。
 
-關鍵字
-  - 大數據分析
-  - 邊緣運算
-  - AI
+關鍵字 :
+- 大數據分析
+- 邊緣運算
+- Deep Learning
+- AI
 
-## 使用方法
+## Install
+### IP
+需要可對外固定 IP
+### 安裝封閉式 IPFS
+  $ wget https://gateway.ipfs.io/ipfs/QmeNGsAMcnnkydGpze5x5K5cwf451T6BdJmr1QzPFqkwtD
 請先架好 IPFS 和 python paho
 
 
