@@ -84,7 +84,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ```
   $ git clone https://github.com/yenkuanlee/IPDC
-  $ cp Dmqyy.py /tmp
+  $ cp Dmqtt.py /tmp
   $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
 ```
 
@@ -179,4 +179,6 @@ IPDC MR 執行分散式運算
 * 邊緣運算的 edge
 * Big Crawler 的種子
 
+## Reference
 
+- [新聞](http://www.ithome.com.tw/news/114626)
