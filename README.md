@@ -80,7 +80,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ## Getting Started
 
-加入 IPDC
+加入 IPDC 
 
 ```
   $ git clone https://github.com/yenkuanlee/IPDC
