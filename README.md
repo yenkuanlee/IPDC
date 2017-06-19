@@ -195,6 +195,8 @@ IPDC MR 執行分散式運算
 
 - 新聞
   - [邊緣運算關鍵技術AI，讓瑞典工具機大廠異常預警速度加快20倍](http://www.ithome.com.tw/news/114626)
+  - [The next multibillion-dollar tech market was quietly born this year, says A-list VC Peter Levine](http://www.businessinsider.com/edge-computing-is-the-next-multi-billion-tech-market-2016-12)
+  - [Edge Analytics Market worth 7.96 Billion USD by 2021](http://www.marketsandmarkets.com/PressReleases/edge-analytics.asp)
 - 論文 
   - [Edge-centric Computing: Vision and Challenges](http://dl.acm.org/citation.cfm?doid=2831347.2831354)
   - [Nebula: Distributed Edge Cloud for Data Intensive Computing](http://www-users.cselabs.umn.edu/classes/Spring-2017/csci8980/papers/GeoEdge/nebula.pdf)
