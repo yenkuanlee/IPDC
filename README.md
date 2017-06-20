@@ -181,7 +181,7 @@ IPDC MR 執行分散式運算
 
 * Deep Learning 的神經元 
 <div style="text-align: center">
-<img src="http://gateway.ipfs.io/ipfs/QmZEAtjRgJRwknoMWo9jYSQpt3WjgdPza3nFNz9TfdaPXU" width="30%" height="30%"> 
+<img src="http://ppt.cc/iG0UW" width="30%" height="30%"> 
 </div>
 
 * 邊緣運算的 edge
