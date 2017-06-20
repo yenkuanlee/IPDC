@@ -176,7 +176,7 @@ IPDC MR 執行分散式運算
 
 * MR 的 Mapper / Reducer 
 <div style="text-align: center">
-<img src="http://ppt.cc/iG0UW" width="30%" height="30%"> 
+<img src="http://ppt.cc/iG0UW@.jpg" width="30%" height="30%"> 
 </div>
 
 * Deep Learning 的神經元 
