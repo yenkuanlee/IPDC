@@ -160,7 +160,7 @@ IPDC MR 執行分散式運算
     * IPFS 下載資料與程式時, 會再 Merkle Dag 走訪並平行去各台 peer 抓取需要的檔案碎片, 提升取得檔案之速度 
     * 可透過 IPFS 強化資料的備份
   * IPDC 也有 MQTT 的優點 
-    * 快速傳遞訊息的 protocal 
+    * 快速傳遞訊息的 protocal 
     * M2M 符合 IPFS 去中心化的優點, 增加運算效率 
     * 將 IPFS 從儲存提升到運算的境界 
 * Multi-Master 架構
