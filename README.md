@@ -139,6 +139,35 @@ IPDC MR 執行分散式運算
   * CleanUp : 各台 worker 刪除不必要的檔案
 
 
+## IPDC TF
+
+1. set ClusterSpec
+	- json 虛擬規格
+		- task name
+		- task ip/port list 不需要給 !!!! ( IPDC 自動依照 worker 數配置 )
+		- task index
+	- ex : {"local": [1, 2]}
+		- task name : local
+		- task index 分別是 1, 2
+		- worker 數是 2
+2. 產生 create_worker.py
+	- IPDC 配置 worker, 生成真正的 ClusterSpec json
+		- cluster = tf.train.ClusterSpec({"local": ["192.168.122.39:2222", "192.168.122.40:2222"]})
+			- IP 從 ipfs swarm peers 算最短距離 n 個 hash 取得
+			- port 暫定 2222
+	- 專案底下生成 ClusterSpec.json
+		- {"local": ["192.168.122.39:2222:1", "192.168.122.40:2222:2"]} 	＃( 加入 task index 資訊 )
+3. 執行 deploy.py
+	- 上傳 create_worker.py 與 ClusterSpec.json to IPFS
+	- message queue to workers
+	- worker 的 Dmqtt 接收到 message
+		- 下載 create_worker.py 與 ClusterSpec.json
+		- 配置 task index 並啟動 create_worker.py
+4. User coding
+	- 參考 ClusterSpec.json 資訊撰寫程式
+	- 執行分散式 tensorflow
+
+
 ## IPDC 優勢
 
 * 極度輕便
