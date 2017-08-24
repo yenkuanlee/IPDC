@@ -203,9 +203,11 @@ IPDC MR 執行分散式運算
 如前述所言，IPDC 是一個極具彈性的框架，透過制定 Dmqtt.py 的 channel 並修改 control.py 的邏輯以及增加必要程式，便可實現各種分散式架構。 以下是目前想到 IPDC 的應用情境與發展方向，使用者的 node 可以成為 :
 
 * MR 的 Mapper / Reducer 
+  - IPDC MR
 
 
 * Deep Learning 的神經元 
+  - IPDC TF
 
 
 * 邊緣運算的 edge
