@@ -114,7 +114,7 @@ IPDC MR 執行分散式運算
 ```
   $ cat /tmp/JobID/*
 ```
-<img src="http://gateway.ipfs.io/ipfs/QmTHFog4jGPhdjwXxpV22NTgiyHxKEavBXZJ8wkYVcnYTR" width="50%" height="50%">
+
 
 ## IPDC MR 原理
 
@@ -126,7 +126,6 @@ IPDC MR 執行分散式運算
 6. 各台結束 Reduce 後, 將結果寫入 Local 便上傳至 IPFS, 再透過 MQTT 將 output hash 傳給觸發 MR 的 master
 7. Master 蒐集完所有 worker 的 output hash, 將這些 hash 下載, 結束整個 MR job
 
-<img src="http://gateway.ipfs.io/ipfs/QmfQJez3vA7mPWRioangGM4cwsQtEvGhuZrYxq57dLJhxM" width="100%" height="100%">
 
 ## IPDC MR 之 MQTT channel
 
@@ -175,23 +174,13 @@ IPDC MR 執行分散式運算
 如前述所言，IPDC 是一個極具彈性的框架，透過制定 Dmqtt.py 的 channel 並修改 control.py 的邏輯以及增加必要程式，便可實現各種分散式架構。 以下是目前想到 IPDC 的應用情境與發展方向，使用者的 node 可以成為 :
 
 * MR 的 Mapper / Reducer 
-<!-- 
-<div style="text-align: center">
-<img src="http://ppt.cc/iG0UW" width="30%" height="30%"> 
-</div>
--->
+
 
 * Deep Learning 的神經元 
-<!-- 
-<div style="text-align: center">
-<img src="http://ppt.cc/iG0UW" width="30%" height="30%"> 
-</div>
--->
+
 
 * 邊緣運算的 edge
-<div style="text-align: center">
-<img src="http://gateway.ipfs.io/ipfs/QmXHq9kkU54HEfBmRWP2FMBoDT81whRVGNJwdE3hyjqJYY" width="30%" height="30%"> 
-</div>
+
 
 * Big Crawler 的種子 
 
