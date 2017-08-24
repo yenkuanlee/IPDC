@@ -141,6 +141,9 @@ IPDC MR 執行分散式運算
 
 ## IPDC TF
 
+- IPDC 的 node 可以建立 tensorflow 的 cluster
+  - https://learningtensorflow.com/lesson11/
+
 1. set ClusterSpec
 	- json 虛擬規格
 		- task name
