@@ -1,9 +1,14 @@
 import control
+import os
+import sys
 a = control.Control()
 
-a.DataUpload()
-a.SetKRunner(3)
-a.CallDownload()
-a.CallMap()
+# first step
+if sys.argv[1] == "SetClusterSpec" or sys.argv[1]=="0":
+	a.SetClusterSpec()
 
-a.CheckResult()
+# second step
+elif sys.argv[1] == "ClusterTrigger" or sys.argv[1]=="1":
+	a.DataUpload()
+	a.CallDownload()
+	os.system("rm ClusterSpec.json create_worker.py")
