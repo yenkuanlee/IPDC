@@ -141,6 +141,8 @@ IPDC MR 執行分散式運算
 
 ## IPDC TF
 
+- IPDC TF 需要先安裝 tensorflow (python 2.7 / CPU 版本)
+
 - IPDC 的 node 可以建立 tensorflow 的 cluster
     - https://learningtensorflow.com/lesson11/ 
 
@@ -150,18 +152,20 @@ IPDC MR 執行分散式運算
 		- task name
 		- task ip/port list 不需要給 !!!! ( IPDC 自動依照 worker 數配置 )
 		- task index
-	- ex : {"local": [1, 2]}
+	- ex : {"local": [0, 1]}
 		- task name : local
-		- task index 分別是 1, 2
+		- task index 分別是 0, 1
 		- worker 數是 2
 2. 產生 create_worker.py
 	- IPDC 配置 worker, 生成真正的 ClusterSpec json
-		- cluster = tf.train.ClusterSpec({"local": ["192.168.122.39:2222", "192.168.122.40:2222"]})
+		- cluster = tf.train.ClusterSpec({"local": ["192.168.122.171:2222", "192.168.122.40:2222"]})
 			- IP 從 ipfs swarm peers 算最短距離 n 個 hash 取得
 			- port 暫定 2222
 	- 專案底下生成 ClusterSpec.json
-		- {"local": ["192.168.122.39:2222:1", "192.168.122.40:2222:2"]} 	＃( 加入 task index 資訊 )
-3. 執行 deploy.py
+		- {"TaskIndex": {"192.168.122.171:2222": 0, "192.168.122.40:2222": 1}, "ClusterSpec": {"local": ["192.168.122.171:2222", "192.168.122.40:2222"]}} 	＃( 加入 task index 資訊 )
+	- User 可以針對產生的 create_worker.py 進行修改
+
+3. Cluster deploy
 	- 上傳 create_worker.py 與 ClusterSpec.json to IPFS
 	- message queue to workers
 	- worker 的 Dmqtt 接收到 message
@@ -169,8 +173,16 @@ IPDC MR 執行分散式運算
 		- 配置 task index 並啟動 create_worker.py
 4. User coding
 	- 參考 ClusterSpec.json 資訊撰寫程式
+		- train.py 為範例程式
 	- 執行分散式 tensorflow
 
+5. 實際執行方式
+	- python test.py 0
+		- 產生 create_worker.py 與 ClusterSpec.json
+	- python test.py 1
+		- 設定並啟動 IPDC tensorflow cluster
+	- python train.py
+		- 執行分散式 TF
 
 ## IPDC 優勢
 
