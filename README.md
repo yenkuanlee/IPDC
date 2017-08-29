@@ -173,7 +173,7 @@ IPDC MR 執行分散式運算
 		- 配置 task index 並啟動 create_worker.py
 4. User coding
 	- 參考 ClusterSpec.json 資訊撰寫程式
-		- train.py 為範例程式
+		- example.py 為範例程式
 	- 執行分散式 tensorflow
 
 5. 實際執行方式
@@ -181,7 +181,7 @@ IPDC MR 執行分散式運算
 		- 產生 create_worker.py 與 ClusterSpec.json
 	- python test.py 1
 		- 設定並啟動 IPDC tensorflow cluster
-	- python train.py
+	- python example.py
 		- 執行分散式 TF
 
 ## IPDC 優勢
