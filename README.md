@@ -11,7 +11,11 @@ IPFS 目前積極與 Blockchain 整合, 目標是成為區塊鏈底層的儲存�
 
 即使 IPFS 目前看來具有高度前瞻性, 似乎大部分的人的觀點還是單純在[儲存](#storage)的面相(儲存速度, 備份, 資料安全等)。 然而, 當大量使用者加入 IPFS 貢獻出儲存空間時, 這些設備的運算資源也是非常珍貴的！ IPDC 希望可以充分利用這些運算資源。
 
-IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Map-Reduce 的架構, 實作出一個 Multi-Master 的極輕便分散式運算系統。使用者加入 IPFS 後,在自己的設備上 clone 此專案, 便可以在專案底下的 Map.py 與 Reduce.py 中撰寫邏輯。簡單設定後(分散數與讀檔路徑等)便可觸發運算。 此時 IPFS 中的所有 peers 都是 IPDC 的 compute node, 運算結束後會將結果寫到觸發的設備上。
+IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前分成 MR 與 TF 兩種架構。
+
+IPDC MR 是建立在 Map-Reduce 的架構, 實作出一個 Multi-Master 的極輕便分散式運算系統。使用者加入 IPFS 後,在自己的設備上 clone 此專案, 便可以在專案底下的 Map.py 與 Reduce.py 中撰寫邏輯。簡單設定後(分散數與讀檔路徑等)便可觸發分散式運算。 此時 IPFS 中的所有 peers 都是 IPDC 的 compute node, 運算結束後會將結果寫到觸發的設備上。
+
+IPDC TF 為 distributed tensorflow 的架構，使用者加入 IPFS 後,在自己的設備上 clone 此專案, 並填寫虛擬的 cluster 規格設定(ClusterSpec.conf), 則 IPDC 會從 peers 中挑選 compute nodes, 並產生真正的 cluster 規格(ClusterSpec.json) 上傳到 IPFS, 透過 MQTT 通知所有 compute node 完成建立 distributed tensorflow cluster。使用者可以參考 cluster 規格撰寫並執行分散式 tensorflow 程式。
 
 關鍵字 :
 - 大數據分析
