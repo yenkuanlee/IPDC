@@ -187,6 +187,8 @@ IPDC MR 執行分散式運算
 		- 設定並啟動 IPDC tensorflow cluster
 	- python example.py
 		- 執行分散式 TF
+	- python test.py 2
+		- 關閉所有 worker, 並刪除 create_worker.py 與 ClusterSpec.json
 
 ## IPDC 優勢
 
