@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 import os
 import json
 import time
+import threading
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
@@ -29,16 +30,14 @@ def Download(message):
 	Fname = tmp[1]
 	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
 
-def RunCluster(message):
-	print "RunCluster : "+message
-	PID = "NOPID"
+def RunCluster(message,client):
+        print "RunCluster : "+message
         cmd = "python /tmp/create_worker.py "+message
         try:
             p = Popen(cmd.split())
-            PID = str(p.pid)
+            client.WorkerPID = str(p.pid)
         except Exception as e:
             print "CREATE WORKER ERROR"
-        return PID
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -47,8 +46,9 @@ def on_message(client, userdata, msg):
 	elif msg.topic=="Download":
 		Download(str(msg.payload))
 	elif msg.topic=="RunCluster":
-		client.WorkerPID = RunCluster(str(msg.payload))
-		print "WORKER PID : "+client.WorkerPID
+		RCthread = threading.Thread(target=RunCluster, name="RunCluster", args=(str(msg.payload),client))
+		RCthread.setDaemon = True
+		RCthread.start()
 	elif msg.topic=="CloseCluster":
 		os.system("kill -9 "+client.WorkerPID)
 		print "KEVIN KILLED "+client.WorkerPID
