@@ -1,6 +1,8 @@
 import os
 import sys
+import subprocess
 from subprocess import Popen
+import time
 
 def KillProcess(process):
 	try:
@@ -54,9 +56,36 @@ while True:
 f.close()
 
 if sys.argv[1] == "stop":
+	cmd = "pgrep -f 'create_worker.py'"
+	output = subprocess.check_output(cmd, shell=True).split("\n")
+	print "Checking process...\n"
+	time.sleep(1)
+	output2 = subprocess.check_output(cmd, shell=True).split("\n")
+	Check = (set(output).intersection(output2))-{''}
+	if len(Check) > 0:
+		flag = True
+		cnt = 0
+		while(flag):
+			cnt += 1
+			YN = raw_input( "You are being someone's woker.\nAre you sure you want to leave? (yes|no)... \n")
+			if YN.lower() == "no":
+				print "\nIPDC still running.\n"
+				exit(0)
+			elif YN.lower() == 'yes':
+				print "\nClosing IPDC.\n"
+				flag = False
+			else:
+				if cnt == 3:
+					print "Don't try to play me...\nBye!"
+					exit(0)
+				print "Please input again (yes|no)."
+				time.sleep(1)
+
+	os.system("pkill -f 'create_worker.py'")
 	KillProcess("ipfs")
 	KillProcess("dmqtt")
-	os.system("rm .ipfs/*.pid")
+	os.system("rm -rf .ipfs/*.pid")
+	print "done."
 
 elif sys.argv[1] == "start":
 	# set ipfs
