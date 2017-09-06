@@ -24,7 +24,7 @@ IPDC TF 為 distributed tensorflow 的架構，使用者加入 IPFS 後,在自�
 - Big Crawler
 
 ## Install Dependencies
-### 可對外固定 IP
+### 1. 可對外固定 IP
 IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNXM4uWnd7oLqqDFg4Jo26eSYWQvZz6QCmiqtzmFgJhDD)。
 
 原生的 IPFS 初始化會連接官方認可的 gateway, 所以就算 IP 不對外甚至內網(192.168.x.x), 都可以跟其他人的 IPFS 連接 (系統會透過 gateway 搜尋 ID 找到 peer 並串連)。
@@ -33,7 +33,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 除此之外, 我們使用的 MQTT 溝通機制目前亦使用可對外固定 IP。 讓 IP 更有彈性是 IPDC 未來可優化的議題之一。
 
-### 安裝封閉式 IPFS (現在有 deploy.py，不用這步驟啦嘿嘿)
+### 2. 安裝封閉式 IPFS (現在有 deploy.py，不用這步驟啦嘿嘿)
 下載封閉式 IPFS 執行檔
 
 ```
@@ -68,7 +68,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
 
 
-### 安裝設定 MQTT (現在包含在 deploy.py init 中，不用這步驟啦嘿嘿)
+### 3. 安裝設定 MQTT (現在包含在 deploy.py init 中，不用這步驟啦嘿嘿)
 
 安裝 mosquitto
 
