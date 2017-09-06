@@ -20,8 +20,13 @@ def KillProcess(process):
 def IpfsDaemon():
 	cmd = "ipfs daemon"
         try:
-            p = Popen(cmd.split())
+            p = Popen(cmd.split(),stdout=subprocess.PIPE)
             os.system("echo "+str(p.pid)+" > .ipfs/ipfs.pid")
+	    while True:
+		line = p.stdout.readline().replace("\n","")
+		if "Daemon is ready" == line:
+			print "IPFS is ready.\n"
+			break
         except Exception as e:
             print "CREATE WORKER ERROR"
 
