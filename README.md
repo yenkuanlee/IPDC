@@ -68,7 +68,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
 
 
-### 安裝設定 MQTT
+### 安裝設定 MQTT (現在包含在 deploy.py init 中)
 
 安裝 mosquitto
 
@@ -90,7 +90,8 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ git clone https://github.com/yenkuanlee/IPDC
   $ cd IPDC
   * 更改設定檔 ipdc.conf
-  $ python deploy.py start    # start IPDC
+  $ python deploy.py init    # 初始化, 安裝 MQTT 與 tensorflow python 2.7 cpu version
+  $ python deploy.py start    # start IPDC
   * 開始使用 IPDC / 被使用 IPDC
   $ python deploy.py stop    # close IPDC
   
