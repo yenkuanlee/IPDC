@@ -68,7 +68,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
 
 
-### 安裝設定 MQTT (現在包含在 deploy.py init 中)
+### 安裝設定 MQTT (現在包含在 deploy.py init 中，不用這步驟啦嘿嘿)
 
 安裝 mosquitto
 
@@ -105,7 +105,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
 ```
 
-設定 IPDC (MR)
+設定 IPDC MR
 
 - IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑
 - test.py 中可以設定分散數
@@ -159,6 +159,7 @@ IPDC MR 執行分散式運算
 ## IPDC TF
 
 - IPDC TF 需要先安裝 tensorflow (python 2.7 / CPU 版本)
+    - 執行 python deploy.py init 即可安裝完成
 
 - IPDC 的 node 可以建立 tensorflow 的 cluster
     - https://learningtensorflow.com/lesson11/ 
