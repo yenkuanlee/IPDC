@@ -60,7 +60,18 @@ while True:
 		pass
 f.close()
 
+if sys.argv[1] == "init":
+	# install mqtt and paho
+	print "Installing MQTT..."
+	os.system("sudo apt-get install python-pip python-dev -y")
+	os.system("sudo apt-get install mosquitto mosquitto-clients -y")
+	os.system("sudo service mosquitto restart")
+	os.system("sudo pip install paho-mqtt")
+	print "Installing tensorflow CPU version..."
+	os.system("sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.3.0-cp27-none-linux_x86_64.whl")
+
 if sys.argv[1] == "stop":
+	# check if you are a worker
 	cmd = "pgrep -f 'create_worker.py'"
 	output = subprocess.check_output(cmd, shell=True).split("\n")
 	print "Checking process...\n"
