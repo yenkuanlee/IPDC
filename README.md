@@ -33,7 +33,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 除此之外, 我們使用的 MQTT 溝通機制目前亦使用可對外固定 IP。 讓 IP 更有彈性是 IPDC 未來可優化的議題之一。
 
-### 安裝封閉式 IPFS
+### 安裝封閉式 IPFS (現在不用這步驟啦嘿嘿)
 下載封閉式 IPFS 執行檔
 
 ```
@@ -84,7 +84,19 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ## Getting Started
 
-加入 IPDC 
+加入 IPDC (20170906)
+
+```
+  $ git clone https://github.com/yenkuanlee/IPDC
+  $ cd IPDC
+  * 更改設定檔 ipdc.conf
+  $ python deploy.py start    # start IPDC
+  * 開始使用 IPDC / 被使用 IPDC
+  $ python deploy.py stop    # close IPDC
+  
+```
+
+加入 IPDC (Old)
 
 ```
   $ git clone https://github.com/yenkuanlee/IPDC
@@ -92,7 +104,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
 ```
 
-設定 IPDC
+設定 IPDC (MR)
 
 - IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑
 - test.py 中可以設定分散數
