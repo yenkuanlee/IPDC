@@ -49,6 +49,7 @@ while True:
 	line = f.readline()
 	if not line:
 		break
+	line = line.split("#")[0] # so we can add commands in conf
 	tmp = line.split("=")
 	for i in range(len(tmp)):
 		tmp[i] = tmp[i].replace(" ","")
