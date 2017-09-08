@@ -71,6 +71,11 @@ while True:
 	except:
 		pass
 f.close()
+try:
+	Cdict["DOMAIN_NAME"] = Cdict["PROJECT"]+"-"+Cdict["DOMAIN_NAME"]
+except:
+	print "Somthing wrong in ipdc.conf !!!"
+	exit(0)
 
 if sys.argv[1] == "init":
 	# install mqtt and paho
