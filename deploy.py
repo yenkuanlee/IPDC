@@ -153,6 +153,20 @@ elif sys.argv[1] == "start":
 	for x in ConnectSet:
 		X += x+"###"
 	try:
-		Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
+		if Cdict["MANAGEMENT_IP"] in X:
+			print "Welcome to be a IPDC Domain Portal."
+		else:
+			Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
+			cnt = 1
+			while True:
+				cmd = "ipfs swarm peers"
+				output = subprocess.check_output(cmd, shell=True)
+				if "/ip4/" in output:
+					print "Success to connect with IPDC peers!"
+					break
+				else:
+					print "Connecting to IPDC peers...("+str(cnt)+")"
+					cnt += 1
+					time.sleep(1)
 	except:
 		print "Oops! There are some problems on your device so that you can't connect to Portal...\n"

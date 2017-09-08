@@ -63,9 +63,14 @@ def on_message(client, userdata, msg):
 				cmd = "ipfs id -f='<id>'"
 				peerID = subprocess.check_output(cmd, shell=True)
 				if peerID in x: # Can't connect to himself
+					print "\n\nWelcome to be a Domain Portal.\nPlease press Enter!"
 					continue
 				cmd = "ipfs swarm connect "+x
 				output = subprocess.check_output(cmd, shell=True)
+				if "success" in output:
+					RemoteIP = x.split("/")[2]
+					Publish(RemoteIP,"test","\n\nSuccess to connect with Portal.\nPlease press Enter!")
+					break
 			except:
 				pass
 	elif msg.topic=="CleanUp":
