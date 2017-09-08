@@ -73,6 +73,7 @@ while True:
 f.close()
 try:
 	Cdict["DOMAIN_NAME"] = Cdict["PROJECT"]+"-"+Cdict["DOMAIN_NAME"]
+	# add information of project name to domain name
 except:
 	print "Somthing wrong in ipdc.conf !!!"
 	exit(0)
