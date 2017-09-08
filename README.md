@@ -11,7 +11,11 @@ IPFS 目前積極與 Blockchain 整合, 目標是成為區塊鏈底層的儲存�
 
 即使 IPFS 目前看來具有高度前瞻性, 似乎大部分的人的觀點還是單純在[儲存](#storage)的面相(儲存速度, 備份, 資料安全等)。 然而, 當大量使用者加入 IPFS 貢獻出儲存空間時, 這些設備的運算資源也是非常珍貴的！ IPDC 希望可以充分利用這些運算資源。
 
-IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Map-Reduce 的架構, 實作出一個 Multi-Master 的極輕便分散式運算系統。使用者加入 IPFS 後,在自己的設備上 clone 此專案, 便可以在專案底下的 Map.py 與 Reduce.py 中撰寫邏輯。簡單設定後(分散數與讀檔路徑等)便可觸發運算。 此時 IPFS 中的所有 peers 都是 IPDC 的 compute node, 運算結束後會將結果寫到觸發的設備上。
+IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前分成 MR 與 TF 兩種架構。
+
+IPDC MR 是建立在 Map-Reduce 的架構, 實作出一個 Multi-Master 的極輕便分散式運算系統。使用者加入 IPFS 後,在自己的設備上 clone 此專案, 便可以在專案底下的 Map.py 與 Reduce.py 中撰寫邏輯。簡單設定後(分散數與讀檔路徑等)便可觸發分散式運算。 此時 IPFS 中的所有 peers 都是 IPDC 的 compute node, 運算結束後會將結果寫到觸發的設備上。
+
+IPDC TF 為 distributed tensorflow 的架構，使用者加入 IPFS 後,在自己的設備上 clone 此專案, 並填寫虛擬的 cluster 規格設定(ClusterSpec.conf), 則 IPDC 會從 peers 中挑選 compute nodes, 並產生真正的 cluster 規格(ClusterSpec.json) 上傳到 IPFS, 透過 MQTT 通知所有 compute node 完成建立 distributed tensorflow cluster。使用者可以參考 cluster 規格撰寫並執行分散式 tensorflow 程式。
 
 關鍵字 :
 - 大數據分析
@@ -20,7 +24,7 @@ IPDC 建構在 IPFS 上, 透過 MQTT 技術實現 M2M 的溝通, 目前使用 Ma
 - Big Crawler
 
 ## Install Dependencies
-### 可對外固定 IP
+### 1. 可對外固定 IP
 IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNXM4uWnd7oLqqDFg4Jo26eSYWQvZz6QCmiqtzmFgJhDD)。
 
 原生的 IPFS 初始化會連接官方認可的 gateway, 所以就算 IP 不對外甚至內網(192.168.x.x), 都可以跟其他人的 IPFS 連接 (系統會透過 gateway 搜尋 ID 找到 peer 並串連)。
@@ -29,7 +33,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 除此之外, 我們使用的 MQTT 溝通機制目前亦使用可對外固定 IP。 讓 IP 更有彈性是 IPDC 未來可優化的議題之一。
 
-### 安裝封閉式 IPFS
+### 2. 安裝封閉式 IPFS (現在有 deploy.py，不用這步驟啦嘿嘿)
 下載封閉式 IPFS 執行檔
 
 ```
@@ -64,7 +68,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 ```
 
 
-### 安裝設定 MQTT
+### 3. 安裝設定 MQTT (現在包含在 deploy.py init 中，不用這步驟啦嘿嘿)
 
 安裝 mosquitto
 
@@ -80,7 +84,20 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
 
 ## Getting Started
 
-加入 IPDC 
+加入 IPDC (20170906)
+
+```
+  $ git clone https://github.com/yenkuanlee/IPDC
+  $ cd IPDC
+  * 更改設定檔 ipdc.conf
+  $ python deploy.py init    # 初始化, 安裝 MQTT 與 tensorflow python 2.7 cpu version
+  $ python deploy.py start    # start IPDC
+  * 開始使用 IPDC / 被使用 IPDC
+  $ python deploy.py stop    # close IPDC
+  
+```
+
+加入 IPDC (Old)
 
 ```
   $ git clone https://github.com/yenkuanlee/IPDC
@@ -88,7 +105,7 @@ IPDC 建構在 IPFS 之上, IPFS 在安裝時會產生一組ID (格式如 : QmNX
   $ python /tmp/Dmqtt.py &      # 背景執行 Dmqtt, 成為 IPDC Data Node 一員
 ```
 
-設定 IPDC
+設定 IPDC MR
 
 - IPDC 現有架構為 Map-Reduce 架構, 可以設定分散數與 input 檔路徑
 - test.py 中可以設定分散數
@@ -142,6 +159,7 @@ IPDC MR 執行分散式運算
 ## IPDC TF
 
 - IPDC TF 需要先安裝 tensorflow (python 2.7 / CPU 版本)
+    - 執行 python deploy.py init 即可安裝完成
 
 - IPDC 的 node 可以建立 tensorflow 的 cluster
     - https://learningtensorflow.com/lesson11/ 
@@ -173,7 +191,7 @@ IPDC MR 執行分散式運算
 		- 配置 task index 並啟動 create_worker.py
 4. User coding
 	- 參考 ClusterSpec.json 資訊撰寫程式
-		- train.py 為範例程式
+		- example.py 為範例程式
 	- 執行分散式 tensorflow
 
 5. 實際執行方式
@@ -181,8 +199,10 @@ IPDC MR 執行分散式運算
 		- 產生 create_worker.py 與 ClusterSpec.json
 	- python test.py 1
 		- 設定並啟動 IPDC tensorflow cluster
-	- python train.py
+	- python example.py
 		- 執行分散式 TF
+	- python test.py 2
+		- 關閉所有 worker, 並刪除 create_worker.py 與 ClusterSpec.json
 
 ## IPDC 優勢
 
