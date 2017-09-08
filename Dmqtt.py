@@ -11,6 +11,7 @@ def on_connect(client, userdata, rc):
 	client.subscribe("Buffer")
 	client.subscribe("GetResult")
 	client.subscribe("CleanUp")
+	client.subscribe("PortalConnect")
 
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
@@ -105,6 +106,25 @@ def on_message(client, userdata, msg):
 	elif msg.topic=="GetResult":
 		print str(msg.payload)
 		GetResult(str(msg.payload))
+	elif msg.topic=="PortalConnect":
+                ConnectIpList = str(msg.payload).split("###")
+                for x in ConnectIpList:
+                        if x == "":continue
+                        cmd = "ipfs swarm connect "+x
+                        try:
+                                cmd = "ipfs id -f='<id>'"
+                                peerID = subprocess.check_output(cmd, shell=True)
+                                if peerID in x: # Can't connect to himself
+                                        print "\n\nWelcome to be a Domain Portal.\nPlease press Enter!"
+                                        continue
+                                cmd = "ipfs swarm connect "+x
+                                output = subprocess.check_output(cmd, shell=True)
+                                if "success" in output:
+                                        RemoteIP = x.split("/")[2]
+                                        Publish(RemoteIP,"test","\n\nSuccess to connect with Portal.\nPlease press Enter!")
+                                        break
+                        except:
+                                pass
 	elif msg.topic=="CleanUp":
 		print "KEVIN"
 		os.system("rm Map.py* Reduce.py* output.txt data.dat")
