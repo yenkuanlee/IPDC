@@ -168,5 +168,9 @@ elif sys.argv[1] == "start":
 					print "Connecting to IPDC peers...("+str(cnt)+")"
 					cnt += 1
 					time.sleep(1)
+					if cnt > 10:
+						print "Please check if Portal IP is correct in ipdc.conf, thanks!\n"
+						print "Starting IPDC failed, please stop it first."
+						break
 	except:
 		print "Oops! There are some problems on your device so that you can't connect to Portal...\n"
