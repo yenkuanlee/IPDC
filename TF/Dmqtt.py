@@ -13,6 +13,7 @@ def on_connect(client, userdata, rc):
 	client.subscribe("RunCluster")
 	client.subscribe("CloseCluster")
 	client.subscribe("CleanUp")
+	client.subscribe("PortalConnect")
 
 def Publish(target,channel,message):
 	client = mqtt.Client()
@@ -53,6 +54,20 @@ def on_message(client, userdata, msg):
 		os.system("kill -9 "+client.WorkerPID)
 		print "KEVIN KILLED "+client.WorkerPID
 		client.WorkerPID = ""
+	elif msg.topic=="PortalConnect":
+		ConnectIpList = str(msg.payload).split("###")
+		for x in ConnectIpList:
+			if x == "":continue
+			cmd = "ipfs swarm connect "+x
+			try:
+				cmd = "ipfs id -f='<id>'"
+				peerID = subprocess.check_output(cmd, shell=True)
+				if peerID in x: # Can't connect to himself
+					continue
+				cmd = "ipfs swarm connect "+x
+				output = subprocess.check_output(cmd, shell=True)
+			except:
+				pass
 	elif msg.topic=="CleanUp":
 		os.system("rm Map.py* Reduce.py* output.txt data.dat")
 	#time.sleep(0.01)

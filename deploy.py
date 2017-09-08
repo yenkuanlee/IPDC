@@ -152,4 +152,7 @@ elif sys.argv[1] == "start":
 	X = ""
 	for x in ConnectSet:
 		X += x+"###"
-	Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
+	try:
+		Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
+	except:
+		print "Oops! There are some problems on your device so that you can't connect to Portal...\n"
