@@ -25,7 +25,7 @@ def IpfsDaemon():
 	    while True:
 		line = p.stdout.readline().replace("\n","")
 		if "Daemon is ready" == line:
-			print "IPFS is ready.\n"
+			print "IPDC is ready!\n"
 			break
         except Exception as e:
             print "CREATE WORKER ERROR"
