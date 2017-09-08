@@ -144,52 +144,22 @@ class Control:
 					print "No Good ClusterSpec.json"
 					exit(0)
 
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	'''
-	def CallMap(self):
-		Jconf = dict()
-		RunnerList = list(self.Runner)
-		cmd = "ipfs id -f='<id>'"
-		JobOwner = subprocess.check_output(cmd, shell=True)
-		JobID = str(int(time.time()))
-		for x in self.Runner:
-			Jconf = dict()
-			Jconf["RunnerList"] = RunnerList
-			Jconf["RunnerID"] = x[2]
-			Jconf["JobOwner"] = JobOwner
-			Jconf["JobID"] = JobID
-			self.JobID = JobID
-			self.Publish(x[0],"DoMap",json.dumps(Jconf))
-			print "KEVIN CALL MAP"
-			print json.dumps(Jconf)
-
-	def CheckResult(self):
-		from os import listdir
-		while True:
-			Check = listdir("/tmp")
-			if self.JobID not in Check:continue
-			F = listdir("/tmp/"+self.JobID)
-			if len(F) == len(self.Runner):
-				print "Done"
-				break
-			#time.sleep(0.1)
-	'''
+	def CloseCluster(self):
+		if len(self.Runner) != 0:
+                        for x in self.Runner:
+                                self.Publish(x[0],"CloseCluster","KEVIN")
+                else:
+                        f = open("ClusterSpec.json",'r')
+                        while True:
+                                line = f.readline()
+                                if not line:
+                                        break
+                                try:
+                                        Jline = json.loads(line)
+                                        Tkey = Jline["TaskIndex"].keys()
+                                        for x in Tkey:
+                                                RemoteIP = x.split(":")[0]
+                                                self.Publish(RemoteIP,"CloseCluster","KEVIN")
+                                except:
+                                        print "No Good ClusterSpec.json"
+                                        exit(0)
