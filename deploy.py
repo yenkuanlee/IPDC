@@ -1,8 +1,19 @@
 import os
-import sys
+import paho.mqtt.client as mqtt
 import subprocess
 from subprocess import Popen
+import sys
 import time
+
+def Publish(target, channel, message):
+	Pclient = mqtt.Client()
+        Pclient.max_inflight_messages_set(200000)
+        Pclient.connect(target, 1883)
+        Pclient.loop_start()
+        msg_info = Pclient.publish(channel, message, qos=1)
+        if msg_info.is_published() == False:
+                msg_info.wait_for_publish()
+        Pclient.disconnect()
 
 def KillProcess(process):
 	try:
@@ -127,3 +138,18 @@ elif sys.argv[1] == "start":
 	# start dmqtt
 	KillProcess("dmqtt")
 	DmqttDaemon(Cdict["PROJECT"])
+	
+	# ask portal to connect
+	cmd = "ipfs id -f='<addrs>'"
+	output = subprocess.check_output(cmd, shell=True).split("\n")
+	ConnectSet = set()
+	for x in output:
+		if "/ip4/" not in x: # portal only connect with ip4
+			continue
+		elif "/127.0.0.1/" in x: # localhost no use and need not to publish
+			continue
+		ConnectSet.add(x)
+	X = ""
+	for x in ConnectSet:
+		X += x+"###"
+	Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
