@@ -251,6 +251,9 @@ IPDC MR 執行分散式運算
 
 * Big Crawler 的種子 
 
+
+* 區塊鏈的礦工
+
 ## Reference
 
 - 新聞
