@@ -1,11 +1,11 @@
 import os
-import paho.mqtt.client as mqtt
 import subprocess
+from subprocess import Popen
 import sys
 import time
 
 def Publish(target, channel, message):
-	from subprocess import Popen
+	import paho.mqtt.client as mqtt
 	Pclient = mqtt.Client()
         Pclient.max_inflight_messages_set(200000)
         Pclient.connect(target, 1883)
