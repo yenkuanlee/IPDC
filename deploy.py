@@ -2,6 +2,7 @@ import os
 import subprocess
 from subprocess import Popen
 import sys
+import threading
 import time
 
 def Publish(target, channel, message):
@@ -11,8 +12,8 @@ def Publish(target, channel, message):
         Pclient.connect(target, 1883)
         Pclient.loop_start()
         msg_info = Pclient.publish(channel, message, qos=1)
-        if msg_info.is_published() == False:
-                msg_info.wait_for_publish()
+        #if msg_info.is_published() == False:
+        #        msg_info.wait_for_publish()
         Pclient.disconnect()
 
 def KillProcess(process):
@@ -139,15 +140,35 @@ elif sys.argv[1] == "start":
 	os.system("ipfs init")
 	os.system("ipfs config Addresses.Gateway /ip4/127.0.0.1/tcp/8082")
 	KillProcess("ipfs")
-	IpfsDaemon()
+	###IpfsDaemon()
+	Ithread = threading.Thread(target=IpfsDaemon, name='T1')
+        Ithread.start()
 
 	# start dmqtt
 	KillProcess("dmqtt")
 	DmqttDaemon(Cdict["PROJECT"])
 	
 	# ask portal to connect
-	cmd = "ipfs id -f='<addrs>'"
-	output = subprocess.check_output(cmd, shell=True).split("\n")
+	###cmd = "ipfs id -f='<addrs>'"
+	###output = subprocess.check_output(cmd, shell=True).split("\n")
+	output = list()
+        cnt = 0
+        while True:
+                cmd = "ipfs id -f='<addrs>'"
+                output = subprocess.check_output(cmd, shell=True).split("\n")
+                flag = False
+                for x in output:
+                        if "/ip4/" in x:
+                                flag = True
+                                break
+                if flag:
+                        break
+                time.sleep(1)
+                cnt += 1
+                if cnt > 5:
+                        print "IPFS ERROR!"
+                        exit(0)
+	
 	ConnectSet = set()
 	for x in output:
 		if "/ip4/" not in x: # portal only connect with ip4
