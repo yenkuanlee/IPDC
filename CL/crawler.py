@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 # Kevin Yen-Kuan Lee
 import urllib2
+import subprocess
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -18,6 +19,30 @@ class Crawler:
                 for x in self.RunnerList:
                         self.RunnerDict[x[2]] = x[0] # IP
                 self.KeyToRunner = dict()
+
+	def GetOwnerIP(self):
+                cmd = "ipfs swarm peers"
+                output = subprocess.check_output(cmd, shell=True)
+                tmp = output.split("\n")
+                for x in tmp:
+                        if x == "":continue
+                        tmpp = x.split("/")
+                        if tmpp[len(tmpp)-1] == self.JobOwner:
+                                return tmpp[2]
+                return "ERROR"
+
+	def ResultUpload(self):
+                cmd = "ipfs add output.txt"
+                output = subprocess.check_output(cmd, shell=True)
+                Ohash = output.split(" ")[1]
+                OwnerIP = self.GetOwnerIP()
+                Jconf = dict()
+                Jconf["Ohash"] = Ohash
+                Jconf["JobID"] = self.JobID
+                self.Publish(OwnerIP,"GetResult",json.dumps(Jconf))
+                time.sleep(0.01)
+                #self.Publish("localhost","CleanUp","")
+                return
 
 	def crawler(self,info):
 		url = ""
