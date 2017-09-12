@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Kevin Yen-Kuan Lee
+import json
 import urllib2
 import subprocess
 import sys
