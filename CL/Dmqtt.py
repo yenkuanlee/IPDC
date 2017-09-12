@@ -112,7 +112,7 @@ def on_message(client, userdata, msg):
 	elif msg.topic=="DoMap":
 		DoMap(str(msg.payload))
 	elif msg.topic=="DoCrawler":
-                DoMap(str(msg.payload))
+                DoCrawler(str(msg.payload))
 	elif msg.topic=="Buffer":
 		Buffer(str(msg.payload))
 	elif msg.topic=="GetResult":
