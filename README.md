@@ -21,6 +21,7 @@ IPDC TF 為 distributed tensorflow 的架構，使用者加入 IPFS 後,在自�
 - 大數據分析
 - 邊緣運算
 - Deep Learning
+- Blockchain
 - Big Crawler
 
 ## Install Dependencies
@@ -246,13 +247,23 @@ IPDC MR 執行分散式運算
   - IPDC TF
 
 
-* 邊緣運算的 edge
-
-
-* Big Crawler 的種子 
-
-
 * 區塊鏈的礦工
+  - 暫定 Ethereum
+  - IPDC ER (尚未實作)
+  - 可能與 IPDC 核心價值較無關, 會再思考如何善用 IPDC 架構
+
+
+* Big Crawler 的種子
+  - IPDC CL (尚未實作)
+  - 應該算是 IPDC 最簡單的架構, 每個 node 的運算獨立且不受影響
+  - 想法來自於以前發表在 TAAI 2015 的 paper
+    - https://drive.google.com/file/d/0B_NX2TXJp4ItVlV0Z1ZfZkVoYzA/view?usp=sharing
+    - 透過 Apache Pig 的 UDF, 讓 Cluster 中的每個 node 獨立運算, 在彙整結果
+
+
+* 邊緣運算的 edge
+  - IPDC EM (尚未實作)
+  - 目前覺得非常抽象...
 
 ## Reference
 
@@ -264,5 +275,5 @@ IPDC MR 執行分散式運算
   - [Edge-centric Computing: Vision and Challenges](http://dl.acm.org/citation.cfm?doid=2831347.2831354)
   - [Nebula: Distributed Edge Cloud for Data Intensive Computing](http://www-users.cselabs.umn.edu/classes/Spring-2017/csci8980/papers/GeoEdge/nebula.pdf)
   - [Cost-Effective Content Delivery Networks Using Clouds and Nano Data Centers](https://link.springer.com/chapter/10.1007/978-3-642-41671-2_53)
-- 其他 (了解中)
+- 其他
   - [Dapp](https://medium.com/@FEhrsam/the-dapp-developer-stack-the-blockchain-industry-barometer-8d55ec1c7d4)
