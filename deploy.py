@@ -160,9 +160,13 @@ elif sys.argv[1] == "start":
 	output = list()
         cnt = 0
         while True:
-                cmd = "ipfs id -f='<addrs>'"
-                output = subprocess.check_output(cmd, shell=True).split("\n")
-                flag = False
+		flag = False
+		try:
+                	cmd = "ipfs id -f='<addrs>'"
+                	output = subprocess.check_output(cmd, shell=True).split("\n")
+		except:
+			time.sleep(1)
+			continue
                 for x in output:
                         if "/ip4/" in x:
                                 flag = True
