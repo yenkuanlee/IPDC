@@ -33,6 +33,7 @@ def IpfsDaemon():
 	cmd = "ipfs daemon"
         try:
             p = Popen(cmd.split(),stdout=subprocess.PIPE)
+	    time.sleep(2)
             #os.system("echo "+str(p.pid)+" > .ipfs/ipfs.pid")
 	    fw = open('.ipfs/ipfs.pid','w')
             fw.write(str(p.pid))
