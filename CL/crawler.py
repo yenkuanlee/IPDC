@@ -91,4 +91,4 @@ class Crawler:
 			except:
 				continue
 		self.fw.write("]\n")
-
+		self.ResultUpload()
