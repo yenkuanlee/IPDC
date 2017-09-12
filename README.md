@@ -247,21 +247,22 @@ IPDC MR 執行分散式運算
   - IPDC TF
 
 
-* Big Crawler 的種子 
-  - IPDC CL (尚未實作)
-  - 應該算是 IPDC 最簡單的架構, 每個 node 的運算獨立且不受影響
-  - 想法來自於 TAAI 2015 的 paper
+
+* Big Crawler 的種子
+  - IPDC CL (尚未實作)
+  - 應該算是 IPDC 最簡單的架構, 每個 node 的運算獨立且不受影響
+  - 想法來自於 TAAI 2015 的 paper
 
 
-* 區塊鏈的礦工
-  - 暫定 Ethereum
-  - IPDC ER (尚未實作)
-  - 可能與 IPDC 核心價值較無關, 會再思考如何善用 IPDC 架構
+* Blockchain 的礦工 
+  - 暫定 Ethereum
+  - IPDC ER (尚未實作)
+  - 可能與 IPDC 核心價值較無關, 會再思考如何善用 IPDC 架構
 
 
-* 邊緣運算的 edge
-  - IPDC EM (尚未實作)
-  - 目前覺得非常抽象...
+* Edge-Computing 的邊緣人
+  - IPDC EM (尚未實作)
+  - 目前覺得非常抽象...
 
 ## Reference
 
