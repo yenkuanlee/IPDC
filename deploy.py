@@ -33,7 +33,10 @@ def IpfsDaemon():
 	cmd = "ipfs daemon"
         try:
             p = Popen(cmd.split(),stdout=subprocess.PIPE)
-            os.system("echo "+str(p.pid)+" > .ipfs/ipfs.pid")
+            #os.system("echo "+str(p.pid)+" > .ipfs/ipfs.pid")
+	    fw = open('.ipfs/ipfs.pid','w')
+            fw.write(str(p.pid))
+            fw.close()
 	    while True:
 		line = p.stdout.readline().replace("\n","")
 		if "Daemon is ready" == line:
@@ -50,7 +53,10 @@ def DmqttDaemon(project):
         try:
             p = Popen(cmd.split())
 	    os.chdir(Npath)
-            os.system("echo "+str(p.pid)+" > .ipfs/dmqtt.pid")
+            #os.system("echo "+str(p.pid)+" > .ipfs/dmqtt.pid")
+	    fw = open('.ipfs/dmqtt.pid','w')
+            fw.write(str(p.pid))
+            fw.close()
         except Exception as e:
             print "CREATE WORKER ERROR"
 
