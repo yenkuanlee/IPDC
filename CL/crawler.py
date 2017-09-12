@@ -21,6 +21,17 @@ class Crawler:
                         self.RunnerDict[x[2]] = x[0] # IP
                 self.KeyToRunner = dict()
 
+	def Publish(self, target, channel, message):
+                client = mqtt.Client()
+                #client.on_publish = self.on_publish
+                client.max_inflight_messages_set(200000)
+                client.connect(target, 1883)
+                client.loop_start()
+                msg_info = client.publish(channel, message, qos=1)
+                if msg_info.is_published() == False:
+                        msg_info.wait_for_publish()
+                client.disconnect()
+
 	def GetOwnerIP(self):
                 cmd = "ipfs swarm peers"
                 output = subprocess.check_output(cmd, shell=True)
