@@ -6,8 +6,6 @@ class Control:
 	def __init__(self):
 		self.Fname = "fname"
 		self.Fhash = "fhash"
-		self.Mhash = "mhash"
-		self.Rhash = "rhash"
 		self.Chash = "chash"
 		self.Runner = set()
 		self.JobID = "JobID"
@@ -75,24 +73,6 @@ class Control:
                         self.Publish(x[0],"DoCrawler",json.dumps(Jconf))
                         print "KEVIN CALL CRAWLER"
                         print json.dumps(Jconf)
-		
-
-	def CallMap(self):
-		Jconf = dict()
-		RunnerList = list(self.Runner)
-		cmd = "ipfs id -f='<id>'"
-		JobOwner = subprocess.check_output(cmd, shell=True)
-		JobID = str(int(time.time()))
-		for x in self.Runner:
-			Jconf = dict()
-			Jconf["RunnerList"] = RunnerList
-			Jconf["RunnerID"] = x[2]
-			Jconf["JobOwner"] = JobOwner
-			Jconf["JobID"] = JobID
-			self.JobID = JobID
-			self.Publish(x[0],"DoMap",json.dumps(Jconf))
-			print "KEVIN CALL MAP"
-			print json.dumps(Jconf)
 
 	def CheckResult(self):
 		from os import listdir
