@@ -249,9 +249,11 @@ IPDC MR 執行分散式運算
 
 
 * Big Crawler 的種子
-  - IPDC CL (尚未實作)
+  - IPDC CL (尚未實作)
   - 應該算是 IPDC 最簡單的架構, 每個 node 的運算獨立且不受影響
   - 想法來自於 TAAI 2015 的 paper
+    - https://drive.google.com/file/d/0B_NX2TXJp4ItVlV0Z1ZfZkVoYzA/view?usp=sharing
+    - 透過 Apache Pig 的 UDF, 讓 Cluster 中的每個 node 獨立運算, 在彙整結果
 
 
 * Blockchain 的礦工 
