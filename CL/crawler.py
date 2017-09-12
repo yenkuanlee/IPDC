@@ -7,10 +7,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class Crawler:
-	def __init__(self, JobID, RunnerID, RunnerList):
+	def __init__(self, JobID, RunnerID, RunnerList, JobOwner):
 		self.fw = open('output.txt','w')
                 self.JobID = JobID
                 self.RunnerID = RunnerID
+		self.JobOwner = JobOwner
                 self.RunnerList = RunnerList
                 self.NumberOfRunner = len(RunnerList)
                 self.InputPath = 'data.dat'

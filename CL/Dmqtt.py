@@ -41,8 +41,9 @@ def DoCrawler(message):
         RunnerID = Jconf["RunnerID"]
         RunnerList = Jconf["RunnerList"]
         JobID = Jconf["JobID"]
+	JobOwner = Jconf["JobOwner"]
         client.JobDict[JobID] = Jconf
-        Cclass = crawler.Crawler(JobID, RunnerID, RunnerList)
+        Cclass = crawler.Crawler(JobID, RunnerID, RunnerList, JobOwner)
         Cclass.Run()
 
 def DoMap(message):
