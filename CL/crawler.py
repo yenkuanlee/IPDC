@@ -91,7 +91,7 @@ class Crawler:
 		self.fw.write("}\n")
 
 	def Run(self):
-		self.fw.write("[\n")
+		#self.fw.write("[\n")
 		f = open(self.InputPath,'r')
 		Lcnt = 0
 		while True:
@@ -105,6 +105,6 @@ class Crawler:
 				self.crawler(line)
 			except:
 				continue
-		self.fw.write("]\n")
+		#self.fw.write("]\n")
 		self.fw.close()
 		self.ResultUpload()
