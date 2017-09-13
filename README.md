@@ -256,8 +256,7 @@ IPDC MR 執行分散式運算
      - 透過 Apache Pig 的 UDF, 讓 Cluster 中的每個 node 獨立運算, 在彙整結果
 
 
-* Blockchain 的礦工 
-  - 暫定 Ethereum
+* Ethereum 的礦工 
   - IPDC ER (尚未實作)
   - 可能與 IPDC 核心價值較無關, 會再思考如何善用 IPDC 架構
 
