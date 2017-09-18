@@ -264,7 +264,8 @@ IPDC MR 執行分散式運算
 * Edge-Computing 的邊緣人
   - IPDC EM (尚未實作)
   - 目前覺得非常抽象...
-  - http://ieeexplore.ieee.org/document/7818455/
+  - [Cresco: A distributed agent-based edge computing framework](http://ieeexplore.ieee.org/document/7818455/)
+  - [An Object Store Service for a Fog/Edge Computing Infrastructure Based on IPFS and a Scale-Out NAS](http://ieeexplore.ieee.org/document/8014358/)
 
 ## Reference
 
