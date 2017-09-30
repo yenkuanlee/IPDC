@@ -29,7 +29,7 @@ def JconfGenerate(networkID,chainName):
         fw.write(json.dumps(J))
         fw.close()
 
-os.system("mkdir -p ./createChain/kevin")
+os.system("mkdir -p ./createChain/"+chainName)
 JconfGenerate(networkID,chainName)
 os.system("killall geth")
 os.system("geth --networkid \""+str(networkID)+"\" --datadir \"createChain/"+chainName+"\" init ./createChain/"+chainName+"/CustomGensis.json")
