@@ -97,6 +97,7 @@ if sys.argv[1] == "init":
 	os.system("sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.3.0-cp27-none-linux_x86_64.whl")
 	print "Setting ethereum..."
 	os.system("sudo cp .ipfs/geth /usr/local/bin")
+	print "done."
 
 if sys.argv[1] == "stop":
 	# check if you are a worker
