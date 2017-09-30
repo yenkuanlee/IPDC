@@ -259,7 +259,7 @@ IPDC MR 執行分散式運算
 * Ethereum 的結點 
   - IPDC ER (尚未實作)
   - https://medium.com/taipei-ethereum-meetup/%E4%BD%BF%E7%94%A8-go-ethereum-1-6-clique-poa-consensus-%E5%BB%BA%E7%AB%8B-private-chain-1-4d359f28feff
-  - 可能與 IPDC 核心價值較無關, 會再思考如何善用 IPDC 架構
+  - https://web3py.readthedocs.io/en/latest/
 
 
 * Edge-Computing 的邊緣人
