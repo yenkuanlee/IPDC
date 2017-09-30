@@ -3,7 +3,7 @@ import os
 chainName = "kevin"
 networkID = 9527
 extraData = ""
-rpcport = 9528
+rpcport = 8545
 
 def JconfGenerate(networkID,chainName):
         import json
@@ -35,4 +35,4 @@ os.system("killall geth")
 os.system("geth --networkid \""+str(networkID)+"\" --datadir \"createChain/"+chainName+"\" init ./createChain/"+chainName+"/CustomGensis.json")
 os.system("echo \"123\n123\"|geth --datadir \"createChain/"+chainName+"\" account new")
 
-os.system("/usr/bin/geth --mine --minerthreads=4 --datadir \"./createChain/"+chainName+"\" --rpc --rpcport "+str(rpcport)+" --rpcapi \"db,admin,eth,web3,net,personal,miner\" --rpccorsdomain \"*\" --rpcaddr \"0.0.0.0\" --networkid \""+str(networkID)+"\"")
+os.system("/usr/local/bin/geth --mine --minerthreads=4 --datadir \"./createChain/"+chainName+"\" --rpc --rpcport "+str(rpcport)+" --rpcapi \"db,admin,eth,web3,net,personal,miner\" --rpccorsdomain \"*\" --rpcaddr \"0.0.0.0\" --networkid \""+str(networkID)+"\"")
