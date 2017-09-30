@@ -151,6 +151,9 @@ elif sys.argv[1] == "start":
 	Ithread = threading.Thread(target=IpfsDaemon, name='T1')
         Ithread.start()
 
+	# set geth
+	os.system("sudo cp .ipfs/geth /usr/local/bin")
+
 	# start dmqtt
 	KillProcess("dmqtt")
 	DmqttDaemon(Cdict["PROJECT"])
