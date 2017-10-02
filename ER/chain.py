@@ -1,5 +1,6 @@
 import control
 import ObjectNode
+import os
 import subprocess
 import sys
 
@@ -48,5 +49,8 @@ elif sys.argv[1] == "stop":
 		for x in Enode:
 			cmd = "ipfs object get "+x['Hash']
 			Jnode = json.loads(subprocess.check_output(cmd, shell=True))
-			EnodeIP = PeerIpDict[Jnode['Data']]
-			a.Publish(EnodeIP,"CloseEnode","KeepGoing!!!")
+			if Jnode['Data'] in PeerIpDict:
+				EnodeIP = PeerIpDict[Jnode['Data']]
+				a.Publish(EnodeIP,"CloseEnode","KeepGoing!!!")
+	f.close()
+	os.system("rm Ohash")
