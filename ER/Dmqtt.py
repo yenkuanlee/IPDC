@@ -23,16 +23,16 @@ def Publish(target,channel,message):
 	#time.sleep(0.01)
 	print "DMQTT RESULT : "+str(rc)
 
-def SetEnode(client):
+def SetEnode(Eclient):
 	print "Setting Enode"
 	cmd = "python /tmp/enode_setting.py"
 	try:
 		p = Popen(cmd.split())
-		client.WorkerPID = str(p.pid)
+		Eclient.WorkerPID = str(p.pid)
 	except Exception as e:
 		print "ENODE SETTING ERROR"
 		
-def DownloadAndSetEnode(message,client):
+def DownloadAndSetEnode(message,Eclient):
 	# format : Fhash###Fname
 	print "CallDownload : "+message
 	tmp = message.split("###")
@@ -40,7 +40,7 @@ def DownloadAndSetEnode(message,client):
 	Fname = tmp[1]
 	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
 	time.sleep(1)	
-	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=client)
+	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=Eclient)
 	SEthread.setDaemon = True
 	SEthread.start()
             
