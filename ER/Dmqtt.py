@@ -40,7 +40,7 @@ def DownloadAndSetEnode(message,Eclient):
 	Fname = tmp[1]
 	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
 	time.sleep(1)	
-	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=Eclient)
+	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=(Eclient,))
 	SEthread.setDaemon = True
 	SEthread.start()
             
