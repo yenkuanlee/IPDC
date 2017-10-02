@@ -35,6 +35,7 @@ class Control:
 		output = subprocess.check_output(cmd, shell=True)
 		self.Chash = output.split(" ")[1]
 
+	'''
 	def GetSwarm(self):
 		Rset = set()
 		cmd = "ipfs swarm peers"
@@ -44,6 +45,7 @@ class Control:
 			if x=="":continue
 			Rset.add(x.split("/")[2])
 		return Rset
+		'''
 
 	def SetKRunner(self,K):
 		# How to choose K good machine...
@@ -58,6 +60,7 @@ class Control:
                         self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],i)) # format : tuple(IP, NodeID, RunnerID)
                 print self.Runner
 
+	'''
 	def SetClusterSpec(self):
 		f = open('ClusterSpec.conf','r')
 		Jspec = ""
@@ -118,16 +121,17 @@ class Control:
 		fw.write("server.start()\n")
 		fw.write("server.join()\n")
 		fw.close()
+	'''
 		
 
 	def CallDownload(self):
-		if self.Fhash == "fhash" or self.Chash == "chash":
+		if self.Ehash == "ehash":
 			print "PLEASE UPLOAD FIRST"
 			return
 		if len(self.Runner) != 0:
 			for x in self.Runner:
-				self.Publish(x[0],"Download",self.Fhash+"###"+self.Fname)
-				self.Publish(x[0],"Download",self.Chash+"###ClusterSpec.json")
+				self.Publish(x[0],"Download",self.Ehash+"###enode_setting.py")
+		'''
 		else:
 			f = open("ClusterSpec.json",'r')
 			while True:
@@ -146,6 +150,7 @@ class Control:
 				except:
 					print "No Good ClusterSpec.json"
 					exit(0)
+		'''
 
 	def CloseCluster(self):
 		if len(self.Runner) != 0:
