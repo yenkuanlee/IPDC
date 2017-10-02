@@ -10,8 +10,8 @@ import threading
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
 	client.subscribe("Download")
-	client.subscribe("RunCluster")
-	client.subscribe("CloseCluster")
+	client.subscribe("SetEnode")
+	client.subscribe("CloseEnode")
 	client.subscribe("CleanUp")
 	client.subscribe("PortalConnect")
 
