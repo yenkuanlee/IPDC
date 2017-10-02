@@ -59,6 +59,7 @@ def on_message(client, userdata, msg):
 		os.system("kill -9 "+client.WorkerPID)
 		print "KEVIN KILLED "+client.WorkerPID
 		client.WorkerPID = ""
+		os.system("killall -9 geth")
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:

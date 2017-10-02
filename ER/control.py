@@ -24,7 +24,6 @@ class Control:
 		output = subprocess.check_output(cmd, shell=True)
 		self.Ehash = output.split(" ")[1]
 
-	'''
 	def GetSwarm(self):
 		Rset = set()
 		cmd = "ipfs swarm peers"
@@ -34,7 +33,6 @@ class Control:
 			if x=="":continue
 			Rset.add(x.split("/")[2])
 		return Rset
-	'''
 
 	def SetKRunner(self,K):
 		# How to choose K good machine...
