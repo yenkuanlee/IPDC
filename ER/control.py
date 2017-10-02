@@ -7,7 +7,7 @@ class Control:
 		##self.Fname = "fname"
 		##self.Fhash = "fhash"
 		##self.Chash = "chash"
-		self.ehash = "ehash"
+		self.Ehash = "ehash"
 		self.Runner = set()
 		self.JobID = "JobID"
 
@@ -33,7 +33,7 @@ class Control:
 		# Enode_Setting Upload
 		cmd = "timeout 10 ipfs add enode_setting.py"
 		output = subprocess.check_output(cmd, shell=True)
-		self.Chash = output.split(" ")[1]
+		self.Ehash = output.split(" ")[1]
 
 	'''
 	def GetSwarm(self):

@@ -32,7 +32,7 @@ def SetEnode(client):
 	except Exception as e:
 		print "ENODE SETTING ERROR"
 		
-def DownloadAndSetEnode(message):
+def DownloadAndSetEnode(message,client):
 	# format : Fhash###Fname
 	print "CallDownload : "+message
 	tmp = message.split("###")
@@ -50,7 +50,7 @@ def on_message(client, userdata, msg):
 	if msg.topic=='test':
 		print str(msg.payload)
 	elif msg.topic=="DownloadAndSetEnode":
-		DownloadAndSetEnode(str(msg.payload))
+		DownloadAndSetEnode(str(msg.payload),client)
 	elif msg.topic=="SetEnode":
 		SEthread = threading.Thread(target=SetEnode, name="SetEnode", args=(client))
 		SEthread.setDaemon = True
