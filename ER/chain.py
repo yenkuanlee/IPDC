@@ -11,20 +11,19 @@ if sys.argv[1] == "start":
 	peerID = subprocess.check_output(cmd, shell=True)
 
 	a.SetKRunner(int(sys.argv[2]))
-	a.DataUpload()
-	a.CallDownload()
-
 
 	b = ObjectNode.ObjectNode(peerID)
 	for x in a.Runner:
 		node = b.ObjectPeer(x[1])
 		b.AddHash(node,"node-"+str(x[2]))
-	print b.ObjectHash
-
+	#print b.ObjectHash
 
 	fw = open('Ohash','w')
 	fw.write(b.ObjectHash)
 	fw.close()
+
+	a.DataUpload()
+        a.CallDownload()
 
 elif sys.argv[1] == "stop":
 	cmd = "ipfs swarm peers"
