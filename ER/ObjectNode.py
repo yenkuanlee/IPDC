@@ -32,6 +32,12 @@ class ObjectNode:
 			Rset.add(x.split("/")[2])
 		return Rset
 
+	def ObjectPeer(self,PeerID):
+		cmd = "echo '{ \"Data\": \""+PeerID+"\" }' | ipfs object put"
+		output = subprocess.check_output(cmd, shell=True)
+		PeerHash = output.split(" ")[1].split("\n")[0]
+		return PeerHash	
+
 	def AddHash(self,Fhash,ObjectName):
 		if Fhash == "NotYet":
 			return
