@@ -130,7 +130,7 @@ class Control:
 			return
 		if len(self.Runner) != 0:
 			for x in self.Runner:
-				self.Publish(x[0],"Download",self.Ehash+"###enode_setting.py")
+				self.Publish(x[0],"DownloadAndSetEnode",self.Ehash+"###enode_setting.py")
 		'''
 		else:
 			f = open("ClusterSpec.json",'r')

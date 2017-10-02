@@ -9,7 +9,7 @@ import threading
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
-	client.subscribe("Download")
+	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
 	client.subscribe("CloseEnode")
 	client.subscribe("CleanUp")
@@ -23,15 +23,7 @@ def Publish(target,channel,message):
 	#time.sleep(0.01)
 	print "DMQTT RESULT : "+str(rc)
 
-def Download(message):
-	# format : Fhash###Fname
-	print "CallDownload : "+message
-	tmp = message.split("###")
-	Fhash = tmp[0]
-	Fname = tmp[1]
-	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
-            
-def SetEnode(message,client):
+def SetEnode(client):
 	print "Setting Enode"
 	cmd = "python /tmp/enode_setting.py"
 	try:
@@ -39,15 +31,28 @@ def SetEnode(message,client):
 		client.WorkerPID = str(p.pid)
 	except Exception as e:
 		print "ENODE SETTING ERROR"
+		
+def DownloadAndSetEnode(message):
+	# format : Fhash###Fname
+	print "CallDownload : "+message
+	tmp = message.split("###")
+	Fhash = tmp[0]
+	Fname = tmp[1]
+	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
+	time.sleep(1)	
+	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=(client))
+	SEthread.setDaemon = True
+	SEthread.start()
+            
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	if msg.topic=='test':
 		print str(msg.payload)
-	elif msg.topic=="Download":
-		Download(str(msg.payload))
+	elif msg.topic=="DownloadAndSetEnode":
+		DownloadAndSetEnode(str(msg.payload))
 	elif msg.topic=="SetEnode":
-		SEthread = threading.Thread(target=SetEnode, name="SetEnode", args=(str(msg.payload),client))
+		SEthread = threading.Thread(target=SetEnode, name="SetEnode", args=(client))
 		SEthread.setDaemon = True
 		SEthread.start()
 	elif msg.topic=="CloseEnode":
