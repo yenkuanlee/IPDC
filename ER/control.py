@@ -4,9 +4,10 @@ import json
 import time
 class Control:
 	def __init__(self):
-		self.Fname = "fname"
-		self.Fhash = "fhash"
-		self.Chash = "chash"
+		##self.Fname = "fname"
+		##self.Fhash = "fhash"
+		##self.Chash = "chash"
+		self.ehash = "ehash"
 		self.Runner = set()
 		self.JobID = "JobID"
 
@@ -21,14 +22,16 @@ class Control:
                 client.disconnect()
 
 	def DataUpload(self):
+		'''
 		# ClusterSpec Upload
 		cmd = "timeout 10 ipfs add ClusterSpec.json"
 		output = subprocess.check_output(cmd, shell=True)
 		tmp = output.split(" ")
 		self.Fhash = tmp[1]
 		self.Fname = tmp[2].replace("\n","")
-		# Create_Worker Upload
-		cmd = "timeout 10 ipfs add create_worker.py"
+		'''
+		# Enode_Setting Upload
+		cmd = "timeout 10 ipfs add enode_setting.py"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Chash = output.split(" ")[1]
 
