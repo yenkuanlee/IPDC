@@ -5,6 +5,7 @@ import time
 class Control:
 	def __init__(self):
 		self.Ehash = "ehash"
+		self.Ohash = "ohash"
 		self.Runner = set()
 		self.JobID = "JobID"
 
@@ -23,6 +24,9 @@ class Control:
 		cmd = "timeout 10 ipfs add enode_setting.py"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Ehash = output.split(" ")[1]
+		cmd = "timeout 10 ipfs add Ohash"
+		output = subprocess.check_output(cmd, shell=True)
+		self.Ohash = output.split(" ")[1]
 
 	def GetSwarm(self):
 		Rset = set()
@@ -47,12 +51,13 @@ class Control:
                         self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],i)) # format : tuple(IP, NodeID, RunnerID)
 
 	def CallDownload(self):
-		if self.Ehash == "ehash":
+		if self.Ehash == "ehash" or self.Ohash == "ohash":
 			print "PLEASE UPLOAD FIRST"
 			return
 		if len(self.Runner) != 0:
 			for x in self.Runner:
-				self.Publish(x[0],"DownloadAndSetEnode",self.Ehash+"###enode_setting.py")
+				self.Publish(x[0],"DownloadAndSetEnode",self.Ehash+"###"+self.Ohash)
+				
 
 	def CloseCluster(self):
 		if len(self.Runner) != 0:

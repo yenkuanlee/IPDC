@@ -36,10 +36,12 @@ def DownloadAndSetEnode(message,Eclient):
 	# format : Fhash###Fname
 	print "CallDownload : "+message
 	tmp = message.split("###")
-	Fhash = tmp[0]
-	Fname = tmp[1]
-	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
-	time.sleep(1)	
+	Ehash = tmp[0]
+	Ohash = tmp[1]
+	os.system("timeout 10 ipfs get "+Ehash+" -o /tmp/enode_setting.py")
+	time.sleep(1)
+	os.system("timeout 10 ipfs get "+Ohash+" -o /tmp/Ohash")
+	time.sleep(1)
 	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=(Eclient,))
 	SEthread.setDaemon = True
 	SEthread.start()
