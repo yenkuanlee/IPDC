@@ -5,11 +5,6 @@ import subprocess
 import threading
 from web3 import Web3, HTTPProvider
 
-chainName = "kevin"
-networkID = 9527
-extraData = ""
-rpcport = 8545
-
 # Load Ohash
 Jobject = "INIT"
 f = open("Ohash","r")
@@ -23,7 +18,7 @@ while True:
 
 # Download description.conf
 Dhash = "INIT"
-for x in Jobject:
+for x in Jobject['Links']:
 	if x['Name'] == "description":
 		Dhash = x['Hash']
 		break
@@ -38,16 +33,17 @@ while True:
 	tmp = line.split("=")
 	for i in range(len(tmp)):
 		tmp[i] = tmp[i].replace(" ","")
+		tmp[i] = tmp[i].replace("\n","")
 		tmp[i] = tmp[i].replace("\t","")
 	tmp[0] = tmp[0].lower()
-	if tmp[0]=="chainName":
+	if tmp[0]=="chainname":
 		chainName = tmp[1]
 	elif tmp[0]=="networkid":
-		networkID = tmp[1]
+		networkID = int(tmp[1])
 	elif tmp[0]=="extradata":
 		extraData = tmp[1]
 	elif tmp[0]=="rpcport":
-		rpcport = tmp[1]
+		rpcport = int(tmp[1])
 
 def JconfGenerate(networkID,chainName):
         conf = dict()
