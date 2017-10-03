@@ -15,7 +15,7 @@ if sys.argv[1] == "start":
 	b = ObjectNode.ObjectNode(peerID)
 	for x in a.Runner:
 		node = b.ObjectPeer(x[1])
-		b.AddHash(node,"node-"+str(x[2]))
+		b.AddHash(node,"node-"+str(x[2])+"###"+str(x[0]))
 	#print b.ObjectHash
 
 	fw = open('Ohash','w')

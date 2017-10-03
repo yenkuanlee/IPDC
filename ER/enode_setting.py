@@ -1,5 +1,8 @@
+import json
 import os
+import subprocess
 import threading
+from web3 import Web3, HTTPProvider
 
 chainName = "kevin"
 networkID = 9527
@@ -7,7 +10,6 @@ extraData = ""
 rpcport = 8545
 
 def JconfGenerate(networkID,chainName):
-        import json
         conf = dict()
         conf['chainId'] = networkID
         conf['homesteadBlock'] = 0
@@ -39,6 +41,49 @@ os.system("echo \"123\n123\"|geth --datadir \"createChain/"+chainName+"\" accoun
 def Estart():
 	os.system("/usr/local/bin/geth --mine --minerthreads=4 --datadir \"./createChain/"+chainName+"\" --rpc --rpcport "+str(rpcport)+" --rpcapi \"db,admin,eth,web3,net,personal,miner\" --rpccorsdomain \"*\" --rpcaddr \"0.0.0.0\" --networkid \""+str(networkID)+"\"")
 
+
+# Start Ethereum
 Ethread = threading.Thread(target=Estart, name="Ethread")
 Ethread.setDaemon = True
 Ethread.start()
+
+
+# Set Peer
+cmd = "timeout 10 ipfs id -f='<id>'"
+peerID = subprocess.check_output(cmd, shell=True)
+ThisIP = "INIT"
+Jobject = "INIT"
+f = open("Ohash","r")
+while True:
+	line = f.readline()
+	if not line:
+		break
+	cmd = "timeout 10 ipfs object get "+line
+	Jobject = json.loads(subprocess.check_output(cmd, shell=True))
+	break
+
+PeerSet = set()
+for x in Jobject['Links']:
+	NodeHash = x['Hash']
+	cmd = "timeout 10 ipfs object get "+NodeHash
+	NodePeer = json.loads(subprocess.check_output(cmd, shell=True))['Data']
+	if NodePeer == peerID:
+		ThisIP = x['Name'].split("###")[1]
+	elif "node-" in x['Name'] and "###" and x['Name']:
+		PeerSet.add(x['Name'].split("###")[1])
+
+
+# Add Peer to other nodes
+web3 = Web3(HTTPProvider('http://localhost:'+str(rpcport)))
+enode = "INIT"
+while True:
+	try:
+		str1 = web3.admin.nodeInfo.enode
+		str2 = str1.split("@")
+		str3 = str2[1].split(":")
+		enode = str2[0]+"@"+ThisIP+":"+str3[len(str3)-1]
+		break
+	except:
+		continue
+print PeerSet
+print enode
