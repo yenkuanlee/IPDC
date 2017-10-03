@@ -1,5 +1,6 @@
 import json
 import os
+import paho.mqtt.client as paho
 import subprocess
 import threading
 from web3 import Web3, HTTPProvider
@@ -85,5 +86,9 @@ while True:
 		break
 	except:
 		continue
-print PeerSet
-print enode
+
+client = paho.Client()
+for x in PeerSet:
+	client.connect(x, 1883)
+	client.publish("AddPeer", enode, qos=1)
+

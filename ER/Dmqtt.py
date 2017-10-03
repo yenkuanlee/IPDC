@@ -11,6 +11,7 @@ def on_connect(client, userdata, rc):
 	client.subscribe("test")
 	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
+	client.subscribe("AddPeer")
 	client.subscribe("CloseEnode")
 	client.subscribe("CleanUp")
 	client.subscribe("PortalConnect")
@@ -45,7 +46,15 @@ def DownloadAndSetEnode(message,Eclient):
 	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=(Eclient,))
 	SEthread.setDaemon = True
 	SEthread.start()
-            
+
+def AddPeer(message):
+	print "AddPeer : "+message
+	from web3 import Web3, HTTPProvider
+	web3 = Web3(HTTPProvider('http://localhost:8545'))
+	try:
+		web3.admin.addPeer(message)
+	except:
+		print "Add Peer Fail!!!"
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -57,6 +66,8 @@ def on_message(client, userdata, msg):
 		SEthread = threading.Thread(target=SetEnode, name="SetEnode", args=(client))
 		SEthread.setDaemon = True
 		SEthread.start()
+	elif msg.topic=="AddPeer":
+		AddPeer(str(msg.payload))
 	elif msg.topic=="CloseEnode":
 		os.system("kill -9 "+client.WorkerPID)
 		print "KEVIN KILLED "+client.WorkerPID
