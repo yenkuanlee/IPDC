@@ -7,7 +7,7 @@ import sys
 a = control.Control()
 
 if sys.argv[1] == "start":
-	cmd = "ipfs id -f='<id>'"
+	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
 
 	a.SetKRunner(int(sys.argv[2]))
@@ -17,6 +17,10 @@ if sys.argv[1] == "start":
 		node = b.ObjectPeer(x[1])
 		b.AddHash(node,"node-"+str(x[2])+"###"+str(x[0]))
 	#print b.ObjectHash
+
+	cmd = "timeout 10 ipfs add description.conf"
+	description = subprocess.check_output(cmd, shell=True).split(" ")[1]
+	b.AddHash(description,"description")
 
 	fw = open('Ohash','w')
 	fw.write(b.ObjectHash)

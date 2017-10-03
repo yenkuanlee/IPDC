@@ -10,6 +10,45 @@ networkID = 9527
 extraData = ""
 rpcport = 8545
 
+# Load Ohash
+Jobject = "INIT"
+f = open("Ohash","r")
+while True:
+        line = f.readline()
+        if not line:
+                break
+        cmd = "timeout 10 ipfs object get "+line
+        Jobject = json.loads(subprocess.check_output(cmd, shell=True))
+        break
+
+# Download description.conf
+Dhash = "INIT"
+for x in Jobject:
+	if x['Name'] == "description":
+		Dhash = x['Hash']
+		break
+if Dhash != "INIT":
+	os.system("timeout 10 ipfs get "+Dhash+" -o /tmp/description.conf")
+
+f = open("description.conf","r")
+while True:
+	line = f.readline()
+	if not line:
+		break
+	tmp = line.split("=")
+	for i in range(len(tmp)):
+		tmp[i] = tmp[i].replace(" ","")
+		tmp[i] = tmp[i].replace("\t","")
+	tmp[0] = tmp[0].lower()
+	if tmp[0]=="chainName":
+		chainName = tmp[1]
+	elif tmp[0]=="networkid":
+		networkID = tmp[1]
+	elif tmp[0]=="extradata":
+		extraData = tmp[1]
+	elif tmp[0]=="rpcport":
+		rpcport = tmp[1]
+
 def JconfGenerate(networkID,chainName):
         conf = dict()
         conf['chainId'] = networkID
@@ -53,16 +92,6 @@ Ethread.start()
 cmd = "timeout 10 ipfs id -f='<id>'"
 peerID = subprocess.check_output(cmd, shell=True)
 ThisIP = "INIT"
-Jobject = "INIT"
-f = open("Ohash","r")
-while True:
-	line = f.readline()
-	if not line:
-		break
-	cmd = "timeout 10 ipfs object get "+line
-	Jobject = json.loads(subprocess.check_output(cmd, shell=True))
-	break
-
 PeerSet = set()
 for x in Jobject['Links']:
 	NodeHash = x['Hash']
