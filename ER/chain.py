@@ -52,4 +52,4 @@ elif sys.argv[1] == "stop":
 				EnodeIP = PeerIpDict[Jnode['Data']]
 				a.Publish(EnodeIP,"CloseEnode","KeepGoing!!!")
 	f.close()
-	os.system("rm Ohash")
+	os.system("rm Ohash *.pyc")
