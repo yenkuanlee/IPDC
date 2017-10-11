@@ -10,7 +10,11 @@ if sys.argv[1] == "start":
 	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
 
-	a.SetKRunner(int(sys.argv[2]))
+	### In the future, we will publish a consent to IPFS in here.
+        ### Resource owner can agree to contribute and download the consent.
+        ### Then we can use "ipfs dht findprovs" to find K runners who had download the consenr.
+        ### The Runner information will record to ipfs object.
+        a.SetKRunner(int(sys.argv[2]))
 
 	b = ObjectNode.ObjectNode(peerID)
 	for x in a.Runner:
