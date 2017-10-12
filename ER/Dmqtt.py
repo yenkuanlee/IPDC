@@ -59,6 +59,8 @@ def LoadDescription():
                 break
         tmp = line.split("=")
         for i in range(len(tmp)):
+		if tmp[0] == "description":
+			continue
                 tmp[i] = tmp[i].replace(" ","")
                 tmp[i] = tmp[i].replace("\n","")
                 tmp[i] = tmp[i].replace("\t","")
