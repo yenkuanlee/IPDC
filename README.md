@@ -258,7 +258,7 @@ IPDC MR 執行分散式運算
 
 * Ethereum 的結點 
   - IPDC ER
-  - pip 版本要夠, 才能裝 web3 
+  - pip 版本要夠, 才能裝 web3 
   - https://medium.com/taipei-ethereum-meetup/%E4%BD%BF%E7%94%A8-go-ethereum-1-6-clique-poa-consensus-%E5%BB%BA%E7%AB%8B-private-chain-1-4d359f28feff
   - https://web3py.readthedocs.io/en/latest/
 
