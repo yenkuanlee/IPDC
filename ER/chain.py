@@ -31,10 +31,10 @@ if sys.argv[1] == "start":
         ### Then we can use "ipfs dht findprovs" to find K runners who had download the consenr.
         ### The Runner information will record to ipfs object.
         #a.SetKRunner(int(sys.argv[2]))
-        if 'numberofdict' in DescriptionDict:
-            a.SetKRunner(int(DescriptionDict['numberofdict']))
+        if 'numberofnode' in DescriptionDict:
+            a.SetKRunner(int(DescriptionDict['numberofnode']))
         else:
-            print "Bad Description.conf without 'NumberOfDict' !"
+            print "Bad Description.conf without 'NumberOfNode' !"
             exit(0)
 
 	b = ObjectNode.ObjectNode(peerID)
