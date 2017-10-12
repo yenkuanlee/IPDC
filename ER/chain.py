@@ -4,6 +4,8 @@ import os
 import subprocess
 import sys
 
+DbPath = "/tmp/.db"
+
 a = control.Control()
 def LoadDescription():
     Ddict = dict()
@@ -21,7 +23,23 @@ def LoadDescription():
         Ddict[tmp[0]] = tmp[1]
     return Ddict
 
-if sys.argv[1] == "start":
+if sys.argv[1] == "ask_resource": ### for iServChain
+	# Get description.conf hash
+	cmd = "timeout 10 ipfs add description.conf"
+	DescriptionHash = subprocess.check_output(cmd, shell=True)
+	# Get all peer ip
+	cmd = "ipfs swarm peers"
+        peers = subprocess.check_output(cmd, shell=True).split("\n")
+        PeerIpSet = set()
+        for x in peers:
+                if x=="":
+                        continue
+                tmp = x.split("/")
+		PeerIpSet.add(tmp[2])
+	for x in PeerIpSet:
+		a.Publish(x,"AskResource",DescriptionHash)
+	
+elif sys.argv[1] == "start":
 	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
         DescriptionDict = LoadDescription()

@@ -6,9 +6,12 @@ import json
 import time
 import threading
 
+DbPath = "/tmp/.db"
+
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
+	client.subscribe("AskResource")
 	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
 	client.subscribe("AddPeer")
@@ -47,6 +50,17 @@ def DownloadAndSetEnode(message,Eclient):
 	SEthread.setDaemon = True
 	SEthread.start()
 
+def AskResource(message):
+	print "AskResource : "+message
+	os.system("mkdir -p "+DbPath)
+	import sqlite3
+	conn = sqlite3.connect(DbPath+"/chain.db")
+	c = conn.cursor()
+	c.execute("create table if not exists description(DescriptionHash text, PRIMARY KEY(DescriptionHash))")
+	conn.commit()
+	c.execute("insert into description values('"+message+"')")
+	conn.commit()
+
 def AddPeer(message):
 	print "AddPeer : "+message
 	from web3 import Web3, HTTPProvider
@@ -66,6 +80,8 @@ def on_message(client, userdata, msg):
 		SEthread = threading.Thread(target=SetEnode, name="SetEnode", args=(client))
 		SEthread.setDaemon = True
 		SEthread.start()
+	elif msg.topic=="AskResource":
+		AskResource(str(msg.payload))
 	elif msg.topic=="AddPeer":
 		AddPeer(str(msg.payload))
 	elif msg.topic=="CloseEnode":
