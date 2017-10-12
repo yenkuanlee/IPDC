@@ -5,16 +5,37 @@ import subprocess
 import sys
 
 a = control.Control()
+def LoadDescription():
+    Ddict = dict()
+    f = open('description.conf','r')
+    while True:
+        line = f.readline()
+        if not line:
+                break
+        tmp = line.split("=")
+        for i in range(len(tmp)):
+                tmp[i] = tmp[i].replace(" ","")
+                tmp[i] = tmp[i].replace("\n","")
+                tmp[i] = tmp[i].replace("\t","")
+        tmp[0] = tmp[0].lower()
+        Ddict[tmp[0]] = tmp[1]
+    return Ddict
 
 if sys.argv[1] == "start":
 	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
+        DescriptionDict = LoadDescription()
 
 	### In the future, we will publish a consent to IPFS in here.
         ### Resource owner can agree to contribute and download the consent.
         ### Then we can use "ipfs dht findprovs" to find K runners who had download the consenr.
         ### The Runner information will record to ipfs object.
-        a.SetKRunner(int(sys.argv[2]))
+        #a.SetKRunner(int(sys.argv[2]))
+        if 'numberofdict' in DescriptionDict:
+            a.SetKRunner(int(DescriptionDict['numberofdict']))
+        else:
+            print "Bad Description.conf without 'NumberOfDict' !"
+            exit(0)
 
 	b = ObjectNode.ObjectNode(peerID)
 	for x in a.Runner:
