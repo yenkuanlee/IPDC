@@ -50,15 +50,36 @@ def DownloadAndSetEnode(message,Eclient):
 	SEthread.setDaemon = True
 	SEthread.start()
 
+def LoadDescription():
+    Ddict = dict()
+    f = open('description.conf','r')
+    while True:
+        line = f.readline()
+        if not line:
+                break
+        tmp = line.split("=")
+        for i in range(len(tmp)):
+                tmp[i] = tmp[i].replace(" ","")
+                tmp[i] = tmp[i].replace("\n","")
+                tmp[i] = tmp[i].replace("\t","")
+        tmp[0] = tmp[0].lower()
+        Ddict[tmp[0]] = tmp[1]
+    return Ddict
+
 def AskResource(message):
 	print "AskResource : "+message
+	# Get description.conf
+	os.system("timeout 10 ipfs get "+message+" -o /tmp/description.conf")
+	# Load description.conf
+	Ddict = LoadDescription()
+	# Setup database
 	os.system("mkdir -p "+DbPath)
 	import sqlite3
 	conn = sqlite3.connect(DbPath+"/chain.db")
 	c = conn.cursor()
-	c.execute("create table if not exists description(DescriptionHash text, PRIMARY KEY(DescriptionHash))")
+	c.execute("create table if not exists description(DescriptionHash text, chainName text,NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
 	conn.commit()
-	c.execute("insert into description values('"+message+"')")
+	c.execute("insert into description values('"+message+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
 	conn.commit()
 
 def AddPeer(message):

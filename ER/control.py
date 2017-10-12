@@ -50,6 +50,24 @@ class Control:
                         tmpp = tmp[i].split("/")
                         self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],i)) # format : tuple(IP, NodeID, RunnerID)
 
+	def SetKAgreementRunner(self,Dhash,K):
+		# Geet Agreement Peer
+		cmd = "timeout 300 ipfs dht findprovs "+Dhash
+		AgreePeerList = subprocess.check_output(cmd, shell=True).split("\n")
+
+                Rset = set()
+                cmd = "ipfs swarm peers"
+                output = subprocess.check_output(cmd, shell=True)
+                tmp = output.split("\n")
+		Pcnt = 0
+		for x in tmp:
+                        if Pcnt >= K or x=="": break
+                        tmpp = x.split("/")
+			if tmpp[len(tmpp)-1] in AgreePeerList:
+                        	self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],Pcnt)) # format : tuple(IP, NodeID, RunnerID)
+				Pcnt += 1
+		print self.Runner
+
 	def CallDownload(self):
 		if self.Ehash == "ehash" or self.Ohash == "ohash":
 			print "PLEASE UPLOAD FIRST"

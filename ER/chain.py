@@ -45,18 +45,27 @@ if sys.argv[1] == "ask_resource": ### for iServChain
 		a.Publish(x,"AskResource",DescriptionHash)
 	
 elif sys.argv[1] == "start":
+	# Get PeerID
 	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
+	# Get description.conf Hash
+	cmd = "timeout 10 ipfs add description.conf"
+	description = subprocess.check_output(cmd, shell=True).split(" ")[1]
+	# Get information of description.conf
         DescriptionDict = LoadDescription()
 
 	### In the future, we will publish a consent to IPFS in here.
         ### Resource owner can agree to contribute and download the consent.
         ### Then we can use "ipfs dht findprovs" to find K runners who had download the consenr.
         ### The Runner information will record to ipfs object.
-        #a.SetKRunner(int(sys.argv[2]))
-        if 'numberofnode' in DescriptionDict:
-            a.SetKRunner(int(DescriptionDict['numberofnode']))
-        else:
+
+	try:
+            #a.SetKRunner(int(DescriptionDict['numberofnode']))
+	    a.SetKAgreementRunner(description,int(DescriptionDict['numberofnode']))
+	    if len(a.Runner) < int(DescriptionDict['numberofnode']):
+		print "Not enough resource to build chain. Please wait..."
+		exit(0)
+        except:
             print "Bad Description.conf without 'NumberOfNode' !"
             exit(0)
 
@@ -64,10 +73,7 @@ elif sys.argv[1] == "start":
 	for x in a.Runner:
 		node = b.ObjectPeer(x[1])
 		b.AddHash(node,"node-"+str(x[2])+"###"+str(x[0]))
-	#print b.ObjectHash
 
-	cmd = "timeout 10 ipfs add description.conf"
-	description = subprocess.check_output(cmd, shell=True).split(" ")[1]
 	b.AddHash(description,"description")
 
 	fw = open('Ohash','w')
