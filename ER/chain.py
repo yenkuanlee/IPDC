@@ -26,7 +26,12 @@ def LoadDescription():
 if sys.argv[1] == "ask_resource": ### for iServChain
 	# Get description.conf hash
 	cmd = "timeout 10 ipfs add description.conf"
-	DescriptionHash = subprocess.check_output(cmd, shell=True)
+	DescriptionHash = "INIT"
+	try:
+		DescriptionHash = subprocess.check_output(cmd, shell=True).split(" ")[1]
+	except:
+		print "Bad description.conf.\nAsk for resource failed."
+		exit(0)
 	# Get all peer ip
 	cmd = "ipfs swarm peers"
         peers = subprocess.check_output(cmd, shell=True).split("\n")
