@@ -16,6 +16,8 @@ def LoadDescription():
                 break
         tmp = line.split("=")
         for i in range(len(tmp)):
+		if tmp[0] == "description":
+                        continue
                 tmp[i] = tmp[i].replace(" ","")
                 tmp[i] = tmp[i].replace("\n","")
                 tmp[i] = tmp[i].replace("\t","")
@@ -24,6 +26,7 @@ def LoadDescription():
     return Ddict
 
 if sys.argv[1] == "ask_resource": ### for iServChain
+	import json
 	# Get description.conf hash
 	cmd = "timeout 10 ipfs add description.conf"
 	DescriptionHash = "INIT"
@@ -32,6 +35,9 @@ if sys.argv[1] == "ask_resource": ### for iServChain
 	except:
 		print "Bad description.conf.\nAsk for resource failed."
 		exit(0)
+	# Get Description dictionary
+	Ddict = LoadDescription()
+	Ddict['descriptionhash'] = DescriptionHash
 	# Get all peer ip
 	cmd = "ipfs swarm peers"
         peers = subprocess.check_output(cmd, shell=True).split("\n")
@@ -42,7 +48,7 @@ if sys.argv[1] == "ask_resource": ### for iServChain
                 tmp = x.split("/")
 		PeerIpSet.add(tmp[2])
 	for x in PeerIpSet:
-		a.Publish(x,"AskResource",DescriptionHash)
+		a.Publish(x,"AskResource",json.dumps(Ddict))
 	
 elif sys.argv[1] == "start":
 	# Get PeerID

@@ -70,10 +70,7 @@ def LoadDescription():
 
 def AskResource(message):
 	print "AskResource : "+message
-	# Get description.conf
-	os.system("timeout 10 ipfs get "+message+" -o /tmp/description.conf")
-	# Load description.conf
-	Ddict = LoadDescription()
+	Ddict = json.loads(message)
 	# Setup database
 	os.system("mkdir -p "+DbPath)
 	import sqlite3
@@ -81,7 +78,7 @@ def AskResource(message):
 	c = conn.cursor()
 	c.execute("create table if not exists description(DescriptionHash text, chainName text,NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
 	conn.commit()
-	c.execute("insert into description values('"+message+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
+	c.execute("insert into description values('"+Ddict['descriptionhash']+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
 	conn.commit()
 
 def AddPeer(message):
