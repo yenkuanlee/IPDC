@@ -5,6 +5,7 @@ import os
 import json
 import time
 import threading
+import sqlite3
 
 DbPath = "/tmp/.db"
 
@@ -12,6 +13,7 @@ DbPath = "/tmp/.db"
 def on_connect(client, userdata, rc):
 	client.subscribe("test")
 	client.subscribe("AskResource")
+	client.subscribe("RunningChain")
 	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
 	client.subscribe("AddPeer")
@@ -73,12 +75,20 @@ def AskResource(message):
 	Ddict = json.loads(message)
 	# Setup database
 	os.system("mkdir -p "+DbPath)
-	import sqlite3
 	conn = sqlite3.connect(DbPath+"/chain.db")
 	c = conn.cursor()
-	c.execute("create table if not exists description(DescriptionHash text, chainName text,NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
+	c.execute("create table if not exists AskResource(DescriptionHash text, chainName text,NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
 	conn.commit()
-	c.execute("insert into description values('"+Ddict['descriptionhash']+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
+	c.execute("insert into AskResource values('"+Ddict['descriptionhash']+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
+	conn.commit()
+
+def RunningChain(message):
+	print "RunningChain : "+message
+	conn = sqlite3.connect(DbPath+"/chain.db")
+	c = conn.cursor()
+	c.execute("create table if not exists RunningChain(Ohash text)")
+	conn.commit()
+	c.execute("insert into RunningChain values('"+message+"')")
 	conn.commit()
 
 def AddPeer(message):
@@ -102,6 +112,8 @@ def on_message(client, userdata, msg):
 		SEthread.start()
 	elif msg.topic=="AskResource":
 		AskResource(str(msg.payload))
+	elif msg.topic=="RunningChain":
+		RunningChain(str(msg.payload))
 	elif msg.topic=="AddPeer":
 		AddPeer(str(msg.payload))
 	elif msg.topic=="CloseEnode":

@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 
+AskResource = True
 DbPath = "/tmp/.db"
 
 a = control.Control()
@@ -66,11 +67,13 @@ elif sys.argv[1] == "start":
         ### The Runner information will record to ipfs object.
 
 	try:
-            #a.SetKRunner(int(DescriptionDict['numberofnode']))
-	    a.SetKAgreementRunner(description,int(DescriptionDict['numberofnode']))
-	    if len(a.Runner) < int(DescriptionDict['numberofnode']):
-		print "Not enough resource to build chain. Please wait..."
-		exit(0)
+	    if not AskResource:
+            	a.SetKRunner(int(DescriptionDict['numberofnode']))
+	    else:
+	    	a.SetKAgreementRunner(description,int(DescriptionDict['numberofnode']))
+	    	if len(a.Runner) < int(DescriptionDict['numberofnode']):
+			print "Not enough resource to build chain. Please wait..."
+			exit(0)
         except:
             print "Bad Description.conf without 'NumberOfNode' !"
             exit(0)
