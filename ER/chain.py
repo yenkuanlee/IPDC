@@ -60,12 +60,10 @@ elif sys.argv[1] == "start":
 	description = subprocess.check_output(cmd, shell=True).split(" ")[1]
 	# Get information of description.conf
         DescriptionDict = LoadDescription()
-
 	### In the future, we will publish a consent to IPFS in here.
         ### Resource owner can agree to contribute and download the consent.
         ### Then we can use "ipfs dht findprovs" to find K runners who had download the consenr.
         ### The Runner information will record to ipfs object.
-
 	try:
 	    if not AskResource:
             	a.SetKRunner(int(DescriptionDict['numberofnode']))
@@ -77,20 +75,29 @@ elif sys.argv[1] == "start":
         except:
             print "Bad Description.conf without 'NumberOfNode' !"
             exit(0)
-
+	# Generate Object Node
 	b = ObjectNode.ObjectNode(peerID)
 	for x in a.Runner:
 		node = b.ObjectPeer(x[1])
 		b.AddHash(node,"node-"+str(x[2])+"###"+str(x[0]))
-
 	b.AddHash(description,"description")
-
+	# write Ohash to Local
 	fw = open('Ohash','w')
 	fw.write(b.ObjectHash)
 	fw.close()
-
+	# Upload code and call download
 	a.DataUpload()
         a.CallDownload()
+	# Publish Ohash to db
+	peers = subprocess.check_output(cmd, shell=True).split("\n")
+        PeerIpSet = set()
+        for x in peers:
+                if x=="":
+                        continue
+                tmp = x.split("/")
+                PeerIpSet.add(tmp[2])
+	for x in PeerIpSet:
+		a.Publish(x,"RunningChain",b.ObjectHash)
 
 elif sys.argv[1] == "stop":
 	cmd = "ipfs swarm peers"
