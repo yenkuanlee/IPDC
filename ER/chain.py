@@ -89,13 +89,17 @@ elif sys.argv[1] == "start":
 	a.DataUpload()
         a.CallDownload()
 	# Publish Ohash to db
+	cmd = "ipfs swarm peers"
 	peers = subprocess.check_output(cmd, shell=True).split("\n")
         PeerIpSet = set()
         for x in peers:
                 if x=="":
                         continue
                 tmp = x.split("/")
-                PeerIpSet.add(tmp[2])
+		try:
+                	PeerIpSet.add(tmp[2])
+		except:
+			pass
 	for x in PeerIpSet:
 		a.Publish(x,"RunningChain",b.ObjectHash)
 
