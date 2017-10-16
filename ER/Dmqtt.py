@@ -88,7 +88,18 @@ def RunningChain(message):
 	c = conn.cursor()
 	c.execute("create table if not exists RunningChain(Ohash text)")
 	conn.commit()
+	# insert into RunningChain table
 	c.execute("insert into RunningChain values('"+message+"')")
+	conn.commit()
+	# delete from AskResource table
+	cmd = "ipfs object get "+message
+	Object = subprocess.check_output(cmd, shell=True)
+	JsonObject = json.loads(Object)
+	Dhash = "TaiwanNumberOne"
+	for x in JsonObject['Links']:
+		if x['Name'] == 'description':
+			Dhash = x['Hash']
+	c.execute("delete from AskResource where DescriptionHash = '"+Dhash+"'")
 	conn.commit()
 
 def AddPeer(message):
