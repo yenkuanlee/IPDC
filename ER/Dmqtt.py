@@ -14,6 +14,7 @@ def on_connect(client, userdata, rc):
 	client.subscribe("test")
 	client.subscribe("AskResource")
 	client.subscribe("RunningChain")
+	client.subscribe("StopChain")
 	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
 	client.subscribe("AddPeer")
@@ -100,6 +101,13 @@ def RunningChain(message):
 		if x['Name'] == 'description':
 			Dhash = x['Hash']
 	c.execute("delete from AskResource where DescriptionHash = '"+Dhash+"'")
+	conn.commit()
+
+def StopChain(message):
+	print "StopChain : "+message
+	conn = sqlite3.connect(DbPath+"/chain.db")
+	c = conn.cursor()
+	c.execute("delete from RunningChain where Ohash = '"+message+"'")
 	conn.commit()
 
 def AddPeer(message):

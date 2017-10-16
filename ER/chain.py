@@ -114,12 +114,14 @@ elif sys.argv[1] == "stop":
 		PeerIpDict[tmp[len(tmp)-1]] = tmp[2]
 
 	import json
+	StopOhash = "TaiwanNumberOne"
 	f = open("Ohash","r")
 	while True:
 		line = f.readline()
 		if not line:
 			break
-		cmd = "ipfs object get "+line
+		StopOhash = line
+		cmd = "ipfs object get "+StopOhash
 		Jobject = json.loads(subprocess.check_output(cmd, shell=True))
 		print Jobject
 		Enode = Jobject['Links']
@@ -130,4 +132,7 @@ elif sys.argv[1] == "stop":
 				EnodeIP = PeerIpDict[Jnode['Data']]
 				a.Publish(EnodeIP,"CloseEnode","KeepGoing!!!")
 	f.close()
+	# sent message to delete Ohash from db
+	for x in PeerIpDict:
+		a.Publish(PeerIpDict[x],"StopChain",StopOhash)
 	os.system("rm Ohash *.pyc")
