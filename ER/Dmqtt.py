@@ -133,6 +133,8 @@ def on_message(client, userdata, msg):
 		AskResource(str(msg.payload))
 	elif msg.topic=="RunningChain":
 		RunningChain(str(msg.payload))
+	elif msg.topic=="StopChain":
+		StopChain(str(msg.payload))
 	elif msg.topic=="AddPeer":
 		AddPeer(str(msg.payload))
 	elif msg.topic=="CloseEnode":
