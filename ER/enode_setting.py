@@ -70,7 +70,7 @@ def JconfGenerate(networkID,chainName):
 
 os.system("mkdir -p ./createChain/"+chainName)
 JconfGenerate(networkID,chainName)
-os.system("killall geth")
+#os.system("killall geth")
 os.system("geth --networkid \""+str(networkID)+"\" --datadir \"createChain/"+chainName+"\" init ./createChain/"+chainName+"/CustomGensis.json")
 os.system("echo \"123\n123\"|geth --datadir \"createChain/"+chainName+"\" account new")
 
