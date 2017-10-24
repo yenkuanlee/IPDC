@@ -78,9 +78,9 @@ def AskResource(message):
 	os.system("mkdir -p "+DbPath)
 	conn = sqlite3.connect(DbPath+"/chain.db")
 	c = conn.cursor()
-	c.execute("create table if not exists AskResource(DescriptionHash text, chainName text,NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
+	c.execute("create table if not exists AskResource(DescriptionHash text, chainName text, chainType text, NumberOfNode text, networkID text, extraData text, rpcport text, description text, PRIMARY KEY(DescriptionHash))")
 	conn.commit()
-	c.execute("insert into AskResource values('"+Ddict['descriptionhash']+"','"+Ddict['chainname']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
+	c.execute("insert into AskResource values('"+Ddict['descriptionhash']+"','"+Ddict['chainname']+"','"+Ddict['chaintype']+"','"+Ddict['numberofnode']+"','"+Ddict['networkid']+"','"+Ddict['extradata']+"','"+Ddict['rpcport']+"','"+Ddict['description']+"')")
 	conn.commit()
 
 def RunningChain(message):
