@@ -17,6 +17,8 @@ class Control:
                 self.conn.commit()
 		self.c.execute("create table if not exists SendLog(account text, Thash text)")
 		self.conn.commit()
+		self.c.execute("create table if not exists SignFhash(SignHash text, Fhash text, PRIMARY KEY(SignFhash))")
+		self.conn.commit()
 		try:
 			self.c.execute("insert into AccountEhash values ('admin','"+str(self.web3.eth.coinbase)+"')")
 			self.conn.commit()
@@ -68,6 +70,8 @@ class Control:
 		Fhash = self.FileUpload(Fname)
 		self.AccountUnlock(account,passwd)
 		SignHash = self.web3.eth.sign(Ehash, text = Fhash)
+		self.c.execute("insert into SignFhash values('"+SignHash+"','"+Fhash+"')")
+		self.conn.commit()
 		return SignHash
 	def SendFile(self, account, passwd, Fname, ToAccount):
 		FromEhash = self.GetEhash(account)
