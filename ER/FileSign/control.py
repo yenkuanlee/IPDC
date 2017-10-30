@@ -82,6 +82,11 @@ class Control:
 		self.c.execute("insert into SendLog values('"+ToAccount+"','"+Thash+"')")
 		self.conn.commit()
 		return Thash
+	def GetThash(self,account):
+		Thash = self.c.execute("select Thash from SendLog where account = '"+account+"'")
+		for x in Thash:
+			return x[0]
+		return "ERROR"
 	def GetSignHash(self,Thash):
 		Tdict = self.web3.eth.getTransaction(Thash)
 		return (Tdict['from'],Tdict['to'],Tdict['input'])
@@ -99,3 +104,10 @@ class Control:
 		if Fsign in SignHashSet:
 			return True
 		return False
+	def GetFhash(self,account):
+		Thash = self.GetThash(account)
+		SignHash = self.GetSignHash(Thash)
+		Fhash = self.c.execute("select Fhash from SignFhash where SignHash = '"+SignHash+"'")
+		for x in Fhash:
+			return x[0]
+		return "ERROR"
