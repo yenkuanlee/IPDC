@@ -133,7 +133,7 @@ if sys.argv[1] == "stop":
 	KillProcess("dmqtt")
 	os.system("rm -rf .ipfs/*.pid")
 	os.system("rm -rf /tmp/.db")
-	os.system("rm /tmp/Dmqtt.py /tmp/Ohash /tmp/createChain /tmp/description.conf /tmp/enode_setting.py")
+	os.system("rm -rf /tmp/Dmqtt.py /tmp/Ohash /tmp/createChain /tmp/description.conf /tmp/enode_setting.py")
 	print "done."
 
 elif sys.argv[1] == "start":
