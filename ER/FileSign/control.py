@@ -107,7 +107,7 @@ class Control:
 	def GetFhash(self,account):
 		Thash = self.GetThash(account)
 		SignHash = self.GetSignHash(Thash)
-		Fhash = self.c.execute("select Fhash from SignFhash where SignHash = '"+SignHash+"'")
+		Fhash = self.c.execute("select Fhash from SignFhash where SignHash = '"+SignHash+"'")[2]
 		for x in Fhash:
 			return x[0]
 		return "ERROR"
