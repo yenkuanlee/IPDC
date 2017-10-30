@@ -36,7 +36,7 @@ elif sys.argv[1] == "varify":
         reciver = raw_input("Enter reciver account : ")
         fname = raw_input("Enter file name : ")
 	result = a.Varify(sender,pwd,reciver,fname)
-	print "Result : "+result
+	print "Result : "+str(result)
 #a.AccountNew('kevin2','123')
 #print a.GetEhash('kevin2')
 #print a.FileUpload('test.txt')
