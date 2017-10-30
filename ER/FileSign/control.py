@@ -67,6 +67,11 @@ class Control:
 			print "FILE ERROR!"
 			exit(0)
 			#return "ERROR"
+	def FileDownload(self,account,OutputFile):
+		Fhash = self.GetFhash(account)
+		cmd = "ipfs get "+Fhash+" -o "+self.Fpath+"/"+OutputFile
+		message = subprocess.check_output(cmd, shell=True)
+		print message
 	def FileSign(self, account, passwd, Fname):
 		Ehash = self.GetEhash(account)
 		Fhash = self.FileUpload(Fname)

@@ -17,6 +17,9 @@ elif sys.argv[1] == "file":
 		fname = raw_input("Enter file name : ")
 		fhash = a.FileUpload(fname)
 		print "File Hash : "+fhash
+	elif sys.argv[2] == "download":
+		user = raw_input("Enter user account : ")
+		a.FileDownload(user,user+".txt")
 	elif sys.argv[2] == "sign":
 		user = raw_input("Enter user account : ")
                 pwd = getpass.getpass()
