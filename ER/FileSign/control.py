@@ -64,7 +64,9 @@ class Control:
 			Fhash = subprocess.check_output(cmd, shell=True).split(" ")[1]
 			return Fhash
 		except:
-			return "ERROR"
+			print "FILE ERROR!"
+			exit(0)
+			#return "ERROR"
 	def FileSign(self, account, passwd, Fname):
 		Ehash = self.GetEhash(account)
 		Fhash = self.FileUpload(Fname)
