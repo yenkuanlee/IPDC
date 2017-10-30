@@ -72,8 +72,11 @@ class Control:
 		Fhash = self.FileUpload(Fname)
 		self.AccountUnlock(account,passwd)
 		SignHash = self.web3.eth.sign(Ehash, text = Fhash)
-		self.c.execute("insert into SignFhash values('"+SignHash+"','"+Fhash+"')")
-		self.conn.commit()
+		try:
+			self.c.execute("insert into SignFhash values('"+SignHash+"','"+Fhash+"')")
+			self.conn.commit()
+		except:
+			pass
 		return SignHash
 	def SendFile(self, account, passwd, Fname, ToAccount):
 		FromEhash = self.GetEhash(account)
