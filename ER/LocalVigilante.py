@@ -22,7 +22,7 @@ def Publish(target, channel, message):
 
 def LoadDescription():
     Ddict = dict()
-    f = open('description.conf','r')
+    f = open('/tmp/description.conf','r')
     while True:
         line = f.readline()
         if not line:
@@ -67,16 +67,27 @@ def CheckKhash(peerID):
 		return x[0]
 	return "ERROR"
 
+# Check createChain
+while True:
+    Flist = os.listdir("/tmp")
+    if "createChain" in Flist:
+        break
+    else:
+        print "waiting for createChain"
+    time.sleep(1)
 
 peerID = GetPeerID()
 OldKhash = GetKhash()
-c.execute("insert into keystore values('"+peerID+"','"+OldKhash+"')")	
-conn.commit()
+try:
+    c.execute("insert into keystore values('"+peerID+"','"+OldKhash+"')")	
+    conn.commit()
+except:
+    pass
 while True:
 	# Update Khash
 	NewKhash = GetKhash()
 	if OldKhash != NewKhash:
-		c.execute("update keystore set Khash = '"+NewKhash+"' where PeerID = '"+PeerID+"'")
+		c.execute("update keystore set Khash = '"+NewKhash+"' where PeerID = '"+peerID+"'")
 		conn.commit()
 		OldKhash = NewKhash
 	time.sleep(1)
