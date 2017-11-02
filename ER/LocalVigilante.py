@@ -79,6 +79,8 @@ while True:
 peerID = GetPeerID()
 OldKhash = GetKhash()
 try:
+    c.execute("delete from keystore")
+    conn.commit()
     c.execute("insert into keystore values('"+peerID+"','"+OldKhash+"')")	
     conn.commit()
 except:

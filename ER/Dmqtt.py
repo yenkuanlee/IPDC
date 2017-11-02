@@ -182,7 +182,7 @@ def on_message(client, userdata, msg):
                 client.VigilantePID = ""
 		os.system("killall -9 geth")
                 os.system("rm -rf /tmp/createChain")
-                os.system("rm -rf "+DbPath)
+                #os.system("rm -rf "+DbPath)
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:
