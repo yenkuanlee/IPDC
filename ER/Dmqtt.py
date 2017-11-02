@@ -155,8 +155,10 @@ def on_message(client, userdata, msg):
 		AddPeer(str(msg.payload))
 	elif msg.topic=="CloseEnode":
 		os.system("kill -9 "+client.WorkerPID)
+                os.system("kill -9 "+client.VigilantePID)
 		print "KEVIN KILLED "+client.WorkerPID
 		client.WorkerPID = ""
+                client.VigilantePID = ""
 		os.system("killall -9 geth")
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
