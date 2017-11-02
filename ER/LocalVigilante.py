@@ -7,7 +7,7 @@ import time
 DbPath = "/tmp/.db"
 conn = sqlite3.connect(DbPath+"/chain.db")
 c = conn.cursor()
-c.execute("create table keystore(peerID text,Khash text, PRIMARY KEY(peerID))")
+c.execute("create table if not exists keystore(peerID text,Khash text, PRIMARY KEY(peerID))")
 conn.commit()
 
 def Publish(target, channel, message):
