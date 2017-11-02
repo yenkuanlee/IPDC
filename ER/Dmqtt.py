@@ -160,6 +160,7 @@ def on_message(client, userdata, msg):
 		client.WorkerPID = ""
                 client.VigilantePID = ""
 		os.system("killall -9 geth")
+                os.system("rm -rf /tmp/createChain")
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:
