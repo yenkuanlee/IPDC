@@ -148,8 +148,11 @@ def KeyStore(message):
     conn = sqlite3.connect(DbPath+"/chain.db")
     c = conn.cursor()
     if action == "insert":
-        c.execute("insert into keystore values('"+peerID+"','"+Khash+"')")
-        conn.commit()
+        try:
+            c.execute("insert into keystore values('"+peerID+"','"+Khash+"')")
+            conn.commit()
+        except:
+            print "INSERT KEYSTORE ERROR"
     elif action == "update":
         c.execute("update keystore set Khash = '"+Khash+"' where PeerID = '"+peerID+"'")
         conn.commit()
