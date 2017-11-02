@@ -1,3 +1,4 @@
+import json
 import os
 import sqlite3
 import subprocess
@@ -9,6 +10,23 @@ conn = sqlite3.connect(DbPath+"/chain.db")
 c = conn.cursor()
 c.execute("create table if not exists keystore(peerID text,Khash text, PRIMARY KEY(peerID))")
 conn.commit()
+
+# Load Node set of chain
+def GetChainNodeSet():
+    Jobject = ""
+    ChainNodeSet = set()
+    f = open("/tmp/Ohash","r")
+    while True:
+        line = f.readline()
+        if not line:
+            break
+        cmd = "timeout 10 ipfs object get "+line
+        Jobject = json.loads(subprocess.check_output(cmd, shell=True))
+        for x in Jobject['Links']:
+            if "node-" in x['Name']:
+                ChainNodeSet.add(x['Name'].split("###")[1])
+        return ChainNodeSet
+    return "ERROR"
 
 def Publish(target, channel, message):
 	client = mqtt.Client()
@@ -83,6 +101,9 @@ try:
     conn.commit()
     c.execute("insert into keystore values('"+peerID+"','"+OldKhash+"')")	
     conn.commit()
+    CNset = GetChainNodeSet()
+    for x in CNset:
+        Publish(x,"KeyStore","insert###"+peerID+"###"+OldKhash)
 except:
     pass
 while True:
@@ -91,5 +112,8 @@ while True:
 	if OldKhash != NewKhash:
 		c.execute("update keystore set Khash = '"+NewKhash+"' where PeerID = '"+peerID+"'")
 		conn.commit()
+                CNset = GetChainNodeSet()
+                for x in CNset:
+                    Publish(x,"KeyStore","update###"+peerID+"###"+NewKhash)
 		OldKhash = NewKhash
 	time.sleep(1)
