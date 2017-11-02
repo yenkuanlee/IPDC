@@ -6,6 +6,7 @@ class Control:
 	def __init__(self):
 		self.Ehash = "ehash"
 		self.Ohash = "ohash"
+                self.Vhash = "vhash"
 		self.Runner = set()
 		self.JobID = "JobID"
 
@@ -27,6 +28,9 @@ class Control:
 		cmd = "timeout 10 ipfs add Ohash"
 		output = subprocess.check_output(cmd, shell=True)
 		self.Ohash = output.split(" ")[1]
+                cmd = "timeout 10 ipfs add LocalVigilante.py"
+                output = subprocess.check_output(cmd, shell=True)
+                self.Vhash = output.split(" ")[1]
 
 	def GetSwarm(self):
 		Rset = set()
@@ -69,12 +73,12 @@ class Control:
 		print self.Runner
 
 	def CallDownload(self):
-		if self.Ehash == "ehash" or self.Ohash == "ohash":
+		if self.Ehash == "ehash" or self.Ohash == "ohash" or self.Vhash == "vhash":
 			print "PLEASE UPLOAD FIRST"
 			return
 		if len(self.Runner) != 0:
 			for x in self.Runner:
-				self.Publish(x[0],"DownloadAndSetEnode",self.Ehash+"###"+self.Ohash)
+				self.Publish(x[0],"DownloadAndSetEnode",self.Ehash+"###"+self.Ohash+"###"+self.Vhash)
 				
 
 	def CloseCluster(self):

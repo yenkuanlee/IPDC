@@ -38,6 +38,15 @@ def SetEnode(Eclient):
 		Eclient.WorkerPID = str(p.pid)
 	except Exception as e:
 		print "ENODE SETTING ERROR"
+
+def RunVigilante(Eclient):
+        print "Run Vigilante"
+        cmd = "python /tmp/LocalVigilante.py"
+        try:
+                p = Popen(cmd.split())
+                Eclient.VigilantePID = str(p.pid)
+        except Exception as e:
+                print "ENODE SETTING ERROR"
 		
 def DownloadAndSetEnode(message,Eclient):
 	# format : Fhash###Fname
@@ -49,9 +58,15 @@ def DownloadAndSetEnode(message,Eclient):
 	time.sleep(1)
 	os.system("timeout 10 ipfs get "+Ohash+" -o /tmp/Ohash")
 	time.sleep(1)
+        os.system("timeout 10 ipfs get "+Vhash+" -o /tmp/LocalVigilante.py")
+        time.sleep(1)
 	SEthread = threading.Thread(target=SetEnode, name="SetEnodeAfterDownload", args=(Eclient,))
 	SEthread.setDaemon = True
 	SEthread.start()
+        # Should run LocalVigilante here
+        Vthread = threading.Thread(target=RunVigilante, name="RunVigilanteAfterDownload", args=(Eclient,))
+        Vthread.setDaemon = True
+        Vthread.start()
 
 def LoadDescription():
     Ddict = dict()
@@ -167,6 +182,7 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client()
 client.WorkerPID = ""
+client.VigilantePID = ""
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect("localhost", 1883, 0)
