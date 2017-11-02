@@ -136,7 +136,7 @@ def AddPeer(message):
 	except:
 		print "Add Peer Fail!!!"
 
-def KeyStore(message)
+def KeyStore(message):
     print "KeyStore : "+message
     tmp = message.split("###")
     try:
