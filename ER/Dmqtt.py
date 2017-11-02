@@ -18,6 +18,7 @@ def on_connect(client, userdata, rc):
 	client.subscribe("DownloadAndSetEnode")
 	client.subscribe("SetEnode")
 	client.subscribe("AddPeer")
+        client.subscribe("KeyStore")
 	client.subscribe("CloseEnode")
 	client.subscribe("CleanUp")
 	client.subscribe("PortalConnect")
@@ -135,6 +136,24 @@ def AddPeer(message):
 	except:
 		print "Add Peer Fail!!!"
 
+def KeyStore(message)
+    print "KeyStore : "+message
+    tmp = message.split("###")
+    try:
+        action = tmp[0]
+        peerID = tmp[1]
+        Khash = tmp[2]
+    except:
+        print "ERROR!!!"
+    conn = sqlite3.connect(DbPath+"/chain.db")
+    c = conn.cursor()
+    if action == "insert":
+        c.execute("insert into keystore values('"+peerID+"','"+Khash+"')")
+        conn.commit()
+    elif action == "update":
+        c.execute("update keystore set Khash = '"+Khash+"' where PeerID = '"+peerID+"'")
+        conn.commit()
+
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	if msg.topic=='test':
@@ -153,6 +172,8 @@ def on_message(client, userdata, msg):
 		StopChain(str(msg.payload))
 	elif msg.topic=="AddPeer":
 		AddPeer(str(msg.payload))
+        elif msg.topic=="KeyStore":
+                KeyStore(str(msg.payload))
 	elif msg.topic=="CloseEnode":
 		os.system("kill -9 "+client.WorkerPID)
                 os.system("kill -9 "+client.VigilantePID)
