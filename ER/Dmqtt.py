@@ -153,6 +153,7 @@ def KeyStore(message):
 	conn.commit()
 	c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','"+Kname+"','"+Khash+"')")
 	conn.commit()
+        os.system("timeout 100 ipfs pin add "+Khash)
     except:
 	print "Keystore Upsert Error!!!"
 
