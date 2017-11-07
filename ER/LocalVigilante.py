@@ -81,7 +81,7 @@ def GetDbHash():
 	for x in Dblist:
 		try:
 			tmp = x.split(" ")
-			if tmp[2].split("/")[1] == "chain.db": # need not to backup
+			if tmp[2].split("/")[1][:8] == "chain.db": # need not to backup
 				continue
 			DbDict[tmp[2].split("/")[1]] = tmp[1]	# Dbname, Dbhash
 		except:
