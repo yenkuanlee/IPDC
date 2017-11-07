@@ -113,6 +113,9 @@ peerID = GetPeerID()
 OldKhash = "TaiwanNumberOne"
 OldDbDict = dict()
 
+c.execute("delete from keystore")
+conn.commit()
+
 while True:
 	# Update Keystore hash
 	NewKhash = GetKhash()
