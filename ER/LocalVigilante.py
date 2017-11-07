@@ -74,6 +74,20 @@ def GetKhash():
 			pass
 	return "ERROR"
 
+def GetDbHash():
+	cmd = "timeout 300 ipfs add -r "+DbPath
+	DbDict = dict()
+	Dblist = subprocess.check_output(cmd, shell=True).split("\n")
+	for x in Dblist:
+		try:
+			tmp = x.split(" ")
+			if tmp[2].split("/")[1] == "chain.db": # need not to backup
+				continue
+			DbDict[tmp[2].split("/")[1]] = tmp[1]	# Dbname, Dbhash
+		except:
+			pass
+	return DbDict
+
 def GetPeerID():
 	cmd = "timeout 10 ipfs id -f='<id>'"
 	peerID = subprocess.check_output(cmd, shell=True)
@@ -97,20 +111,10 @@ while True:
 
 peerID = GetPeerID()
 OldKhash = "TaiwanNumberOne"
-'''
-try:
-    c.execute("delete from keystore")
-    conn.commit()
-    c.execute("insert into keystore values('"+peerID+"','"+OldKhash+"')")	
-    conn.commit()
-    CNset = GetChainNodeSet()
-    for x in CNset:
-        Publish(x,"KeyStore","insert###"+peerID+"###"+OldKhash)
-except:
-    pass
-'''
+OldDbDict = dict()
+
 while True:
-	# Update Khash
+	# Update Keystore hash
 	NewKhash = GetKhash()
 	if OldKhash != NewKhash:
 		c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','keystore','"+NewKhash+"')")
@@ -119,4 +123,33 @@ while True:
                 for x in CNset:
                     Publish(x,"KeyStore",peerID+"###keystore###"+NewKhash)
 		OldKhash = NewKhash
+
+	# Update Db hash
+	NewDbDict = GetDbHash()
+	for x in NewDbDict:
+		if x not in OldDbDict:	# insert new db hash
+			c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','"+x+"','"+NewDbDict[x]+"')")
+			conn.commit()
+			CNset = GetChainNodeSet()
+			for y in CNset:
+				Publish(y,"KeyStore",peerID+"###"+x+"###"+NewDbDict[x])
+		elif NewDbDict[x] != OldDbDict[x]:	# update db hash
+			c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','"+x+"','"+NewDbDict[x]+"')")
+			conn.commit()
+			CNset = GetChainNodeSet()
+			for y in CNset:
+				Publish(y,"KeyStore",peerID+"###"+x+"###"+NewDbDict[x])
+	for x in OldDbDict: # delete old db hash
+		if x not in NewDbDict:
+			c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','"+x+"','NoUse')")
+			conn.commit()
+			CNset = GetChainNodeSet()
+			for y in CNset:
+				Publish(y,"KeyStore",peerID+"###"+x+"###NoUse")
+	OldDbDict = NewDbDict
+
+	# delete nouse db
+	c.execute("delete from keystore where khash = 'NoUse'")
+	conn.commit()
+
 	time.sleep(1)
