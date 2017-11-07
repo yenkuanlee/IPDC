@@ -152,7 +152,8 @@ while True:
 	OldDbDict = NewDbDict
 
 	# delete nouse db
-	#c.execute("delete from keystore where khash = 'NoUse'")
-	#conn.commit()
+        if int(time.time()) % 60 == 0:
+	    c.execute("delete from keystore where khash = 'NoUse'")
+	    conn.commit()
 
 	time.sleep(1)
