@@ -140,22 +140,22 @@ def KeyStore(message):
     print "KeyStore : "+message
     tmp = message.split("###")
     try:
-        action = tmp[0]
-        peerID = tmp[1]
-        Khash = tmp[2]
+        peerID = tmp[0]
+        Kname = tmp[1]
+	Khash = tmp[2]
     except:
         print "ERROR!!!"
+	return
     conn = sqlite3.connect(DbPath+"/chain.db")
     c = conn.cursor()
-    if action == "insert":
-        try:
-            c.execute("insert into keystore values('"+peerID+"','"+Khash+"')")
-            conn.commit()
-        except:
-            print "INSERT KEYSTORE ERROR"
-    elif action == "update":
-        c.execute("update keystore set Khash = '"+Khash+"' where PeerID = '"+peerID+"'")
-        conn.commit()
+    try:
+	c.execute("create table if not exists keystore(peerID text, Kname text,Khash text, PRIMARY KEY(peerID,Kname))")
+	conn.commit()
+	c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','"+Kname+"','"+Khash+"')")
+	conn.commit()
+    except:
+	print "Keystore Upsert Error!!!"
+
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):

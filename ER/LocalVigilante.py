@@ -9,7 +9,7 @@ import time
 DbPath = "/tmp/.db"
 conn = sqlite3.connect(DbPath+"/chain.db")
 c = conn.cursor()
-c.execute("create table if not exists keystore(peerID text,Khash text, PRIMARY KEY(peerID))")
+c.execute("create table if not exists keystore(peerID text, Kname text,Khash text, PRIMARY KEY(peerID,Kname))")
 conn.commit()
 
 # Load Node set of chain
@@ -81,7 +81,7 @@ def GetPeerID():
 
 def CheckKhash(peerID):
 	global c
-	Khash = c.execute("select Khash from keystore where peerID = '"+peerID+"'")
+	Khash = c.execute("select Khash from keystore where peerID = '"+peerID+"' and Kname = 'keystore'")
 	for x in Khash:
 		return x[0]
 	return "ERROR"
@@ -96,7 +96,8 @@ while True:
     time.sleep(1)
 
 peerID = GetPeerID()
-OldKhash = GetKhash()
+OldKhash = "TaiwanNumberOne"
+'''
 try:
     c.execute("delete from keystore")
     conn.commit()
@@ -107,14 +108,15 @@ try:
         Publish(x,"KeyStore","insert###"+peerID+"###"+OldKhash)
 except:
     pass
+'''
 while True:
 	# Update Khash
 	NewKhash = GetKhash()
 	if OldKhash != NewKhash:
-		c.execute("update keystore set Khash = '"+NewKhash+"' where PeerID = '"+peerID+"'")
+		c.execute("INSERT OR REPLACE INTO keystore values('"+peerID+"','keystore','"+NewKhash+"')")
 		conn.commit()
                 CNset = GetChainNodeSet()
                 for x in CNset:
-                    Publish(x,"KeyStore","update###"+peerID+"###"+NewKhash)
+                    Publish(x,"KeyStore",peerID+"###keystore###"+NewKhash)
 		OldKhash = NewKhash
 	time.sleep(1)
