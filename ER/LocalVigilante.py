@@ -149,7 +149,7 @@ while True:
 	OldDbDict = NewDbDict
 
 	# delete nouse db
-	c.execute("delete from keystore where khash = 'NoUse'")
-	conn.commit()
+	#c.execute("delete from keystore where khash = 'NoUse'")
+	#conn.commit()
 
 	time.sleep(1)
