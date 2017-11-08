@@ -194,7 +194,25 @@ $ python test.py 2
 
 
 ### IPDC CL
-- IPDC CL
+- IPDC CL is a simple distributed framework. Each compute node will do a indepentdant operation.
+- The idea comes from TAAI 2015's paper
+	- https://drive.google.com/file/d/0B_NX2TXJp4ItVlV0Z1ZfZkVoYzA/view?usp=sharing
+	- Through the Apache Pig's UDF, let each node in the Cluster operate independently, and then complete the results.
+- In this project, we use a crawler to be a CL example, which can be distributed by target url and crawl independently.
+- There are some core code in CL project :
+	- GetData.py : get some data to crawl
+	- data.dat : dataset from GetData.py
+	- crawler.py : crawler (suitable for any independently distributed job)
+	- test.py : Run the CL job
+
+#### Running IPDC CL project
+```
+$ python GetData.py > data.dat
+$ vi test.py
+	# we can set the distributed number in function "SetKRunner"
+$ python test.py 
+	# Run the CL job
+```
 
 
 ### IPDC ER
