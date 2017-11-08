@@ -85,17 +85,16 @@ $ python deploy start
 
 In this section, we will introduce how to use each of IPDC project.
 All IPDC project have two python codes :
-- control.py : project controler
+- control.py : project controller
 - Dmqtt.py : mqtt listener, receive messages and do the correspond things.
 
-Note that different IPDC projects have different logic of control.py and Dmqtt.py.
+Note that different IPDC projects have different logic of controll.py and Dmqtt.py.
 
 
 ### IPDC MR
 
 ```
-IPDC MR is based on Map-Reduce framework. 
-There are some core code in ER project :
+IPDC MR is based on Map-Reduce framework. There are some core code in ER project :
 	- data.dat : input dataset of Mapper
 	- Map.py : Mapper
 	- Reduce.py : Reducer
@@ -133,6 +132,15 @@ $ cat /tmp/JobID/*
 ```
 
 #### Theorem of IPDC MR
+- The controller determines and chooses K (distributed number) workers through the peerID hash of each node in IPDC.
+- The controller will upload the input file, Map.py, Reduce.py to IPFS and notify K workers through MQTT to download the file.
+- The controller call each workers by MQTTto start the Mapper. By using worker's peerID and line number of input file as key, we can assign a worker several keys to map.
+- As with Hadoop, mapper eventually throws the result as Key-Value pair into the corresponding buffer.
+- Each worker's Buffer finish to collect Key-Value pair and starting reduce job .
+- After the end of each reducer, the results will be written into local disk and upload to IPFS. Through the MQTT, output hash will be passed to master who triggered the MR job.
+- MR master collected and download all output hash of each workers,and finish the entire MR job.
+
+#### Dmqtt.py channel
 
 
 ### IPDC TF
