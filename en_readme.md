@@ -38,3 +38,37 @@ In addition, the MQTT communication mechanism that we use now also uses external
 
 
 ## Getting Started
+
+
+### 1. Clone the IPDC project
+
+```
+$ git clone https://github.com/yenkuanlee/IPDC
+```
+
+### 2. Set up ipdc.conf
+
+```
+$ cd IPDC
+$ vi ipdc.conf
+	# DOMAIN_NAME : You can only connect to peers with same domain_name
+	# MANAGEMENT_IP : portal IP
+	# PROJECT : MR / TF / CL / ER / EM
+```
+
+### 3. IPDC initialization
+
+```
+$ python deploy.py init
+```
+
+Install some tools :
+- MQTT (paho, mosquitto)
+- Tensorflow (CPU version)
+- Ethereum (geth, web3)
+
+### 4. IPDC start
+
+```
+$ python deploy start
+```
