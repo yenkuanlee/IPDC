@@ -63,12 +63,31 @@ $ python deploy.py init
 ```
 
 Install some tools :
+- IPFS
 - MQTT (paho, mosquitto)
 - Tensorflow (CPU version)
 - Ethereum (geth, web3)
+
 
 ### 4. IPDC start
 
 ```
 $ python deploy start
 ```
+
+Start IPFS daemon and MQTT listener to become a IPDC node.
+
+
+
+
+## Starting IPDC project
+
+### IPDC MR
+
+### IPDC TF
+
+### IPDC CL
+
+### IPDC ER
+
+### IPDC EM
