@@ -216,7 +216,7 @@ $ python test.py
 
 
 ### IPDC ER
-- IPDC ER combines IPFS node with ethereum node. There are several benefits :
+- IPDC ER combines IPFS node with private ethereum node. There are several benefits :
 	- Users can save files to IPFS, and put the file hash into ethereum.
 	- Users can provide their devices for building some private chain.
 	- Chain owner can ask resource to build a private chain through IPDC so that he can manage some blockchain application.
@@ -228,8 +228,26 @@ $ python test.py
 	- enode_setting.py : set node to become a ethereum node
 	- ObjectNode.py : some function of IPFS object (a merkle dag data structure)
 	- LocalVigilante.py : correct some bad things
-	- chain.py : init / start / stop one chain
+	- chain.py : ask_resource / start / stop / add_node for one chain
 	- CheckDB.py : check the situation of local database
 	- CheckPeer.py : check the situation of ethereum peers
+
+#### Running IPDC ER project
+- set description
+- ask resource
+- start a chain
+	- manage application
+	- add node
+- stop a chain
+- Execution
+```
+$ vi description.conf
+$ python chain.py ask_resource
+	# ipfs pin add description_hash
+$ python chain start
+	# manage filesign application in next section
+$ python chain stop
+```
+#### Dapps example : Filesign
 
 ### IPDC EM
