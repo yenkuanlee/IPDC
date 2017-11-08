@@ -159,9 +159,35 @@ $ cat /tmp/JobID/*
 		- task index is 0, 1 respectively
 		- number of workers is 2
 - Generate create_worker.py
+	- IPDC picks worker, and generate a real ClusterSpec in json.
+		- cluster = tf.train.ClusterSpec({"local": ["192.168.122.171:2222", "192.168.122.40:2222"]})
+			- IP is picked from IPFS peers by nn.
+			- Setting port to 2222 for now.
+	- Generate ClusterSpec.json under the project.
+		- {"TaskIndex": {"192.168.122.171:2222": 0, "192.168.122.40:2222": 1}, "ClusterSpec": {"local": ["192.168.122.171:2222", "192.168.122.40:2222"]}}
+		- User can modify the generated create_worker.py.
 - Cluster deploy
+	- Upload create_worker.py and ClusterSpec.json to IPFS.
+	- message queue to workers.
+	- Dmqtt of worker received the message.
+		- Download create_worker.py and ClusterSpec.json.
+		- Configure the task index and run create_worker.py.
 - User coding
+	- Coding in accordance with ClusterSpec.json.
+		- there are there sample code in the TF project.
+	- run the distributed tensorflow job
 - Execution
+```
+$ python test.py 0
+	# generate create_worker.py and ClusterSpec.json
+$ python test.py 1
+	# Set and start IPDC tensorflow cluster
+$ python example.py
+	# run the distributed tensorflow job
+$ python test.py 2
+	# Close all workers and delete create_worker.py and ClusterSpec.json
+	
+```
 
 
 ### IPDC CL
