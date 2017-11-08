@@ -24,13 +24,6 @@ IPDC is built on IPFS and communicates with M2M through MQTT technology. IPDC is
 
 
 
-## Table of Contents
-
-- [Installation Dependencies](#Installation-Dependencies-(External IP))
-
-
-
-
 ## Installation Dependencies (External IP)
 
 IPDC is built on top of IPFS, IPFS generates a ID when it is initialized (the format such as: QmNXM4uWnd7oLqqDFg4Jo26eSYWQvZz6QCmiqtzmFgJhDD).
@@ -151,10 +144,18 @@ $ cat /tmp/JobID/*
 
 
 ### IPDC TF
+- IPDC node can establish tensorflow cluster
+	- https://learningtensorflow.com/lesson11/
+- IPDC TF is the framework of distributed tensorflow. Users fill in the virtual cluster specification file (ClusterSpec.conf). Then IPDC picks compute nodes from IPFS peers and produces real cluster specs (ClusterSpec.json) to upload to IPFS, so the controller can notify all compute nodes through MQTT to complete the establishment of distributed tensorflow cluster.
 
-IPDC TF is the framework of distributed tensorflow. Users fill in the virtual cluster specification file (ClusterSpec.conf). Then IPDC picks compute nodes from IPFS peers and produces real cluster specs (ClusterSpec.json) to upload to IPFS, so the controller can notify all compute nodes through MQTT to complete the establishment of distributed tensorflow cluster.
+
 
 #### Running IPDC TF project
+- Set ClusterSpec
+- Generate create_worker.py
+- Cluster deploy
+- User coding
+- Execution
 
 
 ### IPDC CL
