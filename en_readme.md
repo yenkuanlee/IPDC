@@ -151,6 +151,13 @@ $ cat /tmp/JobID/*
 
 #### Running IPDC TF project
 - Set ClusterSpec
+	- virtual specs in json
+		- task name
+		- task index
+	- ex : {"local": [0, 1]}
+		- task name : local
+		- task index is 0, 1 respectively
+		- number of workers is 2
 - Generate create_worker.py
 - Cluster deploy
 - User coding
