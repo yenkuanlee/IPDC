@@ -101,31 +101,31 @@ There are some core code in ER project :
 - test.py : Run the MR job
 
 #### Running IPDC MR project
-##### Parameter setting
+- Parameter setting
 ```
 $ vi test.py
 	# we can set the distributed number in function "SetKRunner"
 ```
-##### Input data
-default named "data.dat". 
-We can rename the input data name and modify some part of codes :
+- Input data
+	- default named "data.dat". 
+	- We can rename the input data name and modify some part of codes :
 ```
 control.py:		cmd = "timeout 10 ipfs add data.dat"
 Dmqtt.py:		os.system("rm Map.py* Reduce.py* output.txt data.dat")
 Map.py:		self.InputPath = 'data.dat'
 ```
-##### Mapper
-The bottom of function "RunMap" in Map.py can write some mapper logic.
-##### Reducer
-Function "reduce" in Reduce.py can write some reducer logic.
-##### Run the MR job
+- Mapper
+	- The bottom of function "RunMap" in Map.py can write some mapper logic.
+- Reducer
+	- Function "reduce" in Reduce.py can write some reducer logic.
+- Run the MR job
 ```
 $ python test.py
 ```
-##### Output
-- JobID represent the timestamp of running MR job.
-- The result of the execution is written to /tmp/JobID .
-- There are K results with K distributed number.
+- Output
+	- JobID represent the timestamp of running MR job.
+	- The result of the execution is written to /tmp/JobID .
+	- There are K results with K distributed number.
 ```
 $ cat /tmp/JobID/*
 ```
