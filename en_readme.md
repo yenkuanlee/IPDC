@@ -58,31 +58,52 @@ $ vi ipdc.conf
 
 ### 3. IPDC initialization
 
-```
-$ python deploy.py init
-```
-
 Install some tools :
 - IPFS
 - MQTT (paho, mosquitto)
 - Tensorflow (CPU version)
 - Ethereum (geth, web3)
 
+```
+$ python deploy.py init
+```
+
 
 ### 4. IPDC start
+
+Start IPFS daemon and MQTT listener to become a IPDC node. 
+Different IPDC projects have different Dmqtt.py code (MQTT listener).
 
 ```
 $ python deploy start
 ```
-
-Start IPFS daemon and MQTT listener to become a IPDC node.
 
 
 
 
 ## Starting IPDC project
 
+In this section, we will introduce how to use each of IPDC project.
+
+
 ### IPDC MR
+
+IPDC MR is based on Map-Reduce framework. 
+There are some core code in ER project :
+- control.py
+- Dmqtt.py
+- data.dat
+- Map.py
+- Reduce.py
+- test.py
+
+#### Run MR project
+##### Parameter setting
+##### Input data
+##### Mapper
+##### Reducer
+##### Output
+
 
 ### IPDC TF
 
