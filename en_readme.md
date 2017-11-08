@@ -93,7 +93,6 @@ Note that different IPDC projects have different logic of controll.py and Dmqtt.
 
 ### IPDC MR
 
-```
 IPDC MR is based on Map-Reduce framework with characteristic of decentralized, multi-master and extremely light. Users can write logic in Map.py and Reduce.py under the project. All peers in IPFS can be compute nodes for IPDC (we can set the distributed number).
 
 There are some core code in ER project :
@@ -103,7 +102,6 @@ There are some core code in ER project :
 	- test.py : Run the MR job
 
 The example algorithm of this project is "WordCount".
-```
 
 #### Running IPDC MR project
 - Parameter setting
@@ -147,9 +145,7 @@ $ cat /tmp/JobID/*
 
 ### IPDC TF
 
-```
 IPDC TF is the framework of distributed tensorflow. Users fill in the virtual cluster specification file (ClusterSpec.conf). Then IPDC picks compute nodes from IPFS peers and produces real cluster specs (ClusterSpec.json) to upload to IPFS, so the controller can notify all compute nodes through MQTT to complete the establishment of distributed tensorflow cluster.
-```
 
 #### Running IPDC TF project
 
