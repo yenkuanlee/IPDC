@@ -146,6 +146,10 @@ $ cat /tmp/JobID/*
 - IPDC node can establish tensorflow cluster
 	- https://learningtensorflow.com/lesson11/
 - IPDC TF is the framework of distributed tensorflow. Users fill in the virtual cluster specification file (ClusterSpec.conf). Then IPDC picks compute nodes from IPFS peers and produces real cluster specs (ClusterSpec.json) to upload to IPFS, so the controller can notify all compute nodes through MQTT to complete the establishment of distributed tensorflow cluster.
+- There are some core code in TF project :
+	- ClusterSpec.conf : virtual cluster specification file
+	- example?.py : example code
+	- test.py : Run the TF job
 
 
 
@@ -186,11 +190,11 @@ $ python example.py
 	# run the distributed tensorflow job
 $ python test.py 2
 	# Close all workers and delete create_worker.py and ClusterSpec.json
-	
 ```
 
 
 ### IPDC CL
+- IPDC CL
 
 
 ### IPDC ER
