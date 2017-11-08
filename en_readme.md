@@ -88,17 +88,19 @@ All IPDC project have two python codes :
 - control.py : project controler
 - Dmqtt.py : mqtt listener, receive messages and do the correspond things.
 
-Note that different IPDC projects have different logic of control.py (project controler) and Dmqtt.py (MQTT listener).
+Note that different IPDC projects have different logic of control.py and Dmqtt.py.
 
 
 ### IPDC MR
 
+```
 IPDC MR is based on Map-Reduce framework. 
 There are some core code in ER project :
-- data.dat : input dataset of Mapper
-- Map.py : Mapper
-- Reduce.py : Reducer
-- test.py : Run the MR job
+	- data.dat : input dataset of Mapper
+	- Map.py : Mapper
+	- Reduce.py : Reducer
+	- test.py : Run the MR job
+```
 
 #### Running IPDC MR project
 - Parameter setting
@@ -130,6 +132,7 @@ $ python test.py
 $ cat /tmp/JobID/*
 ```
 
+#### Theorem of IPDC MR
 
 
 ### IPDC TF
