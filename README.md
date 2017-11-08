@@ -221,15 +221,15 @@ $ python test.py
 	- Users can provide their devices for building some private chain.
 	- Chain owner can ask resource to build a private chain through IPDC so that he can manage some blockchain application.
 	- The blockchain architecture is 100% suitable for IPDC.
-- IPDC ER is just a blockchain platform. The important thing is that we can run many Dapps. on IPDC.
+- IPDC ER is just a blockchain platform. The important thing is that we can run many Dapps on IPDC.
 	- Filesign is a wonderful example of Dapp in project ER.
 - There are some core code in ER project :
-	- description.conf
-	- enode_setting.py
-	- ObjectNode.py
-	- LocalVigilante.py
-	- chain.py
-	- CheckDB.py
-	- CheckPeer.py
+	- description.conf : fill some basic information for building a chain
+	- enode_setting.py : set node to become a ethereum node
+	- ObjectNode.py : some function of IPFS object (a merkle dag data structure)
+	- LocalVigilante.py : correct some bad things
+	- chain.py : init / start / stop one chain
+	- CheckDB.py : check the situation of local database
+	- CheckPeer.py : check the situation of ethereum peers
 
 ### IPDC EM
