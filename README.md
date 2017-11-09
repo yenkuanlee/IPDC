@@ -279,12 +279,12 @@ $ python test.py
 	# If resource owner want to join the chain, he can do the following command.
 	$ IPFS pin add QmRxiJ3WjG5YFQSWY3mdXAKBRgfLyyocFwL9cTBEpcfhwX
 	```
-- start a chain
-	- If contributors of resource owner are enough to build a chain (refer to the value of numberofnode in description.conf), the chain owner can do the following command :
+- Start a chain
+	- If contributors of resource owner are enough to build a chain (refer to the value of numberofnode in description.conf), the chain owner can do the following command to start his chain :
 	```
 	$ python chain.py start
 	```
-	- chain owner can manage some application in a chain.
+	- Chain owner can manage some application in a chain.
 		- Basic ethereum transaction.
 		- Filesign will be introduced in the next section.
 	- After a chain is built, chain owner can add IPDC nodes to the chain.
@@ -292,13 +292,37 @@ $ python test.py
 	$ python chain.py add_node 2
 		# add two nodes to the chain
 	```
-- stop a chain
+- Stop a chain
 	- Chain owner can stop the chain
 	```
 	$ python chain.py stop
 	```
 
 #### Filesign : a Dapp example
+- Filesign is a command line tool built on IPDC ER. It is an application about sending the certificate and verify the certificate. There are three roles in the filesign application :
+	- Sender : people or organization who send the certificate to someone
+	- Receiver : people who receives the certificate
+	- Varifier : people who want to verify someone's certificate
+- Filesign command line tool is put on every IPDC ER node, each IPDC ER node is a filesign sender. In the other words, a resource owner in one chain is also a filesign sender node. A filesign sender can create many account of filesign receivers and send certificate to them; A filesign receiver can request the sender to download his certificate which is stored in IPFS; A filesign varifier can upload someone's certificate to filesign sender node to varify the certificate.
+- Execution
+```
+# To the path of FileSign
+$ cd /path/to/ER/FileSign
+
+# For sender
+$ python filesign.py account new
+	# create an receiver account
+$ python filesign.py file send
+	# send certificate to a receiver
+
+# For receiver request
+$ python filesign.py file download
+	# download the receiver's certificate
+
+# For varifier request
+$ python filesign.py varify
+	# upload certificate and varify 
+```
 
 ### IPDC EM
 - IPDC EM is not a clear architecture. It is an attitude !
