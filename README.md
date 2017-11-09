@@ -10,8 +10,12 @@ IPDC(InterPlanetary Distributed Computing) is the Distributed Computation servic
 - [Installation Dependencies](#installation-dependencies)
 	- [External IP](#external-ip)
 - [Getting Started](#getting-started)
-	- [1. Clone the IPDC project](#1.-clone-the-ipdc-project)
 - [Starting IPDC project](#starting-ipdc-project)
+	- [IPDC MR](#ipdc-mr)
+	- [IPDC TF](#ipdc-tf)
+	- [IPDC CL](#ipdc-cl)
+	- [IPDC ER](#ipdc-er)
+	- [IPDC EM](#ipdc-em)
 - [Advantage of IPDC](#advantage-of-ipdc)
 - [License](#license)
 
