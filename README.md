@@ -249,16 +249,16 @@ $ python test.py
 		- rpcport : always 8545 in IPDC ER
 		- date
 	- You can refer to the following format of description.conf
-```
-networkid = 13467912
-chaintype = filesign
-description = This is a kevin chain.
-extradata = 12345
-numberofnode = 3
-rpcport = 8545
-date = 2017-11-02T11:00:00
-chainname = Kevin
-```
+	```
+	networkid = 13467912
+	chaintype = filesign
+	description = This is a kevin chain.
+	extradata = 12345
+	numberofnode = 3
+	rpcport = 8545
+	date = 2017-11-02T11:00:00
+	chainname = Kevin
+	```
 - ask resource
 	- There are an parameter in chain.py is "AskResource"
 		- if AskResource is False, IPDC will skip the step and build a chain directly.
@@ -269,10 +269,10 @@ chainname = Kevin
 	```
 
 	- After chain owner publish his request to IPDC, each resource owner will received the message and record the chain information into a sqlite database(/tmp/.db/chain.db). If one resource owner want to join this chain, he can do the following things:
-```
-$ sqlite3 /tmp/.db/chain.db
-$ select * from AskResource;
-```
+	```
+	$ sqlite3 /tmp/.db/chain.db
+	$ select * from AskResource;
+	```
 - start a chain
 	- manage application
 	- add node
