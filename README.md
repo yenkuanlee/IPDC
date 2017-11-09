@@ -228,16 +228,37 @@ $ python test.py
 - IPDC ER is just a blockchain platform. The important thing is that we can run many Dapps on IPDC.
 	- Filesign is a wonderful example of Dapp in project ER.
 - There are some core code in ER project :
-	- description.conf : fill some basic information for building a chain
-	- enode_setting.py : set node to become a ethereum node
-	- ObjectNode.py : some function of IPFS object (a merkle dag data structure)
+	- description.conf : fill in some basic information for building a chain
+	- enode_setting.py : set IPDC node to become a ethereum node
+	- ObjectNode.py : control of IPFS merkle dag data structure
 	- LocalVigilante.py : correct some bad things
 	- chain.py : ask_resource / start / stop / add_node for one chain
 	- CheckDB.py : check the situation of local database
 	- CheckPeer.py : check the situation of ethereum peers
 
 #### Running IPDC ER project
-- set description
+- set description.conf
+	- When the chain owner want to create a chain, he needs to create a file named "description.conf" under IPDC ER project.
+	- There are some arguments which the chain owner have to fill in :
+		- chainname : name of the chain
+		- networkid : only the same networkid of two IPDC ER node can be connected to one chain.
+		- chaintype : type of the chain
+		- description : description of the chain
+		- extradata : an argument of ethereum
+		- numberofnode : how mant IPDC node you want to use
+		- rpcport : always 8545 in IPDC ER
+		- date
+	- You can refer to the following format
+```
+networkid = 13467912
+chaintype = filesign
+description = This is a kevin chain.
+extradata = 12345
+numberofnode = 3
+rpcport = 8545
+date = 2017-11-02T11:00:00
+chainname = Kevin
+```
 - ask resource
 - start a chain
 	- manage application
@@ -255,3 +276,4 @@ $ python chain stop
 #### Dapps example : Filesign
 
 ### IPDC EM
+- IPDC EM is not a clear architecture. It is an attitude !
