@@ -8,6 +8,9 @@ IPDC(InterPlanetary Distributed Computing) is the Distributed Computation servic
 ## Table of Contents
 - [Abstract](#abstract)
 - [Installation Dependencies](#installation-dependencies)
+- [Getting Started](#getting-started)
+- [Advantage of IPDC](#advantage-of-ipdc)
+- [License](#license)
 
 
 
@@ -31,7 +34,9 @@ IPDC is built on IPFS and communicates with M2M through MQTT technology. IPDC is
 
 
 
-## Installation Dependencies (External IP)
+## Installation Dependencies 
+
+### External IP
 
 IPDC is built on top of IPFS, IPFS generates a ID when it is initialized (the format such as: QmNXM4uWnd7oLqqDFg4Jo26eSYWQvZz6QCmiqtzmFgJhDD).
 
