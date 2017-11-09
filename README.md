@@ -25,7 +25,6 @@ IPDC is built on IPFS and communicates with M2M through MQTT technology. IPDC is
 
 
 ## Table of Contents
-- [Abstract](#abstract)
 - [Installation Dependencies](#installation-dependencies)
 	- [External IP](#external-ip)
 - [Getting Started](#getting-started)
