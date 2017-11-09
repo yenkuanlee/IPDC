@@ -221,6 +221,10 @@ $ python test.py
 	- Users can provide their devices for building some private chain.
 	- Chain owner can ask resource to build a private chain through IPDC so that he can manage some blockchain application.
 	- The blockchain architecture is 100% suitable for IPDC.
+- There are three roles of IPDC ER users
+	- Resource owner : people who contribute his devices to IPDC.
+	- Chain owner : people who use some IPDC nodes to build his private chain for some purpose.
+	- Chain user : people who just use the specific chain, and need not to know anything about IPDC.
 - IPDC ER is just a blockchain platform. The important thing is that we can run many Dapps on IPDC.
 	- Filesign is a wonderful example of Dapp in project ER.
 - There are some core code in ER project :
