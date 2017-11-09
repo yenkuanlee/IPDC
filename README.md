@@ -5,23 +5,6 @@ IPDC(InterPlanetary Distributed Computing) is the Distributed Computation servic
 
 
 
-## Table of Contents
-- [Abstract](#abstract)
-- [Installation Dependencies](#installation-dependencies)
-	- [External IP](#external-ip)
-- [Getting Started](#getting-started)
-- [Starting IPDC project](#starting-ipdc-project)
-	- [IPDC MR](#ipdc-mr)
-	- [IPDC TF](#ipdc-tf)
-	- [IPDC CL](#ipdc-cl)
-	- [IPDC ER](#ipdc-er)
-	- [IPDC EM](#ipdc-em)
-- [Advantage of IPDC](#advantage-of-ipdc)
-- [License](#license)
-
-
-
-
 ## Abstract
 
 IPDC is a decentralized computing system (or service) built on IPFS.
@@ -37,6 +20,23 @@ IPDC is built on IPFS and communicates with M2M through MQTT technology. IPDC is
 - CL (Big Crawler)
 - ER (Ethereum)
 - EM (Edge Computing)
+
+
+
+
+## Table of Contents
+- [Abstract](#abstract)
+- [Installation Dependencies](#installation-dependencies)
+	- [External IP](#external-ip)
+- [Getting Started](#getting-started)
+- [Starting IPDC project](#starting-ipdc-project)
+	- [IPDC MR](#ipdc-mr)
+	- [IPDC TF](#ipdc-tf)
+	- [IPDC CL](#ipdc-cl)
+	- [IPDC ER](#ipdc-er)
+	- [IPDC EM](#ipdc-em)
+- [Advantage of IPDC](#advantage-of-ipdc)
+- [License](#license)
 
 
 
