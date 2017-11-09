@@ -238,7 +238,7 @@ $ python test.py
 
 #### Running IPDC ER project
 - set description.conf
-	- When the chain owner want to create a chain, he needs to create a file named "description.conf" under IPDC ER project.
+	- When the chain owner want to create a chain, he needs to create a file named description.conf under IPDC ER project.
 	- There are some arguments which the chain owner have to fill in :
 		- chainname : name of the chain
 		- networkid : only the same networkid of two IPDC ER node can be connected to one chain.
@@ -248,7 +248,7 @@ $ python test.py
 		- numberofnode : how mant IPDC node you want to use
 		- rpcport : always 8545 in IPDC ER
 		- date
-	- You can refer to the following format
+	- You can refer to the following format of description.conf
 ```
 networkid = 13467912
 chaintype = filesign
@@ -260,6 +260,18 @@ date = 2017-11-02T11:00:00
 chainname = Kevin
 ```
 - ask resource
+	- There are an parameter in chain.py is "AskResource"
+		- if AskResource is False, IPDC will skip the step and build a chain directly.
+		- if AskResource is True, IPDC will ask resource from IPDC ER node before building a chain.
+	- If "AskResource" in chain.py is set to True, you should do the following command. IPDC will send your description.conf to IPFS, and publish the request by MQTT to find some ER node who want to help you to build a chain.
+```
+$ python chain.py ask_resource
+```
+	- After chain owner publish his request to IPDC, each resource owner will received the message and record the chain information into a sqlite database(/tmp/.db/chain.db). If one resource owner want to join this chain, he can do the following things:
+```
+$ sqlite3 /tmp/.db/chain.db
+$ select * from AskResource;
+```
 - start a chain
 	- manage application
 	- add node
