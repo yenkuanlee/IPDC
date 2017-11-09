@@ -222,9 +222,9 @@ $ python test.py
 	- Chain owner can ask resource to build a private chain through IPDC so that he can manage some blockchain application.
 	- The blockchain architecture is 100% suitable for IPDC.
 - There are three roles of IPDC ER users
-	- Resource owner : people who contribute his devices to IPDC.
-	- Chain owner : people who use some IPDC nodes to build his private chain for some purpose.
-	- Chain user : people who just use the specific chain, and need not to know anything about IPDC.
+	- Resource owner : IPDC node, people who contribute his devices to IPDC.
+	- Chain owner : IPDC node, people who want to use some IPDC nodes to build his private chain for some purpose.
+	- Chain user : Non IPDC node, people who just use the specific chain, and need not to know anything about IPDC.
 - IPDC ER is just a blockchain platform. The important thing is that we can run many Dapps on IPDC.
 	- Filesign is a wonderful example of Dapp in project ER.
 - There are some core code in ER project :
@@ -276,23 +276,29 @@ $ python test.py
 	QmRxiJ3WjG5YFQSWY3mdXAKBRgfLyyocFwL9cTBEpcfhwX|Kevin|filesign|3|13467912|12345|8545| This is a kevin chain.
 		# You can see information of the chain
 
-	# If you want to join the chain, you can do the following command.
+	# If resource owner want to join the chain, he can do the following command.
 	$ IPFS pin add QmRxiJ3WjG5YFQSWY3mdXAKBRgfLyyocFwL9cTBEpcfhwX
 	```
 - start a chain
-	- manage application
-	- add node
+	- If contributors of resource owner are enough to build a chain (refer to the value of numberofnode in description.conf), the chain owner can do the following command :
+	```
+	$ python chain.py start
+	```
+	- chain owner can manage some application in a chain.
+		- Basic ethereum transaction.
+		- Filesign will be introduced in the next section.
+	- After a chain is built, chain owner can add IPDC nodes to the chain.
+	```
+	$ python chain.py add_node 2
+		# add two nodes to the chain
+	```
 - stop a chain
-- Execution
-```
-$ vi description.conf
-$ python chain.py ask_resource
-	# ipfs pin add description_hash
-$ python chain start
-	# manage filesign application in next section
-$ python chain stop
-```
-#### Dapps example : Filesign
+	- Chain owner can stop the chain
+	```
+	$ python chain.py stop
+	```
+
+#### Filesign : a Dapp example
 
 ### IPDC EM
 - IPDC EM is not a clear architecture. It is an attitude !
