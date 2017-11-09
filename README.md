@@ -327,3 +327,33 @@ $ python filesign.py varify
 ### IPDC EM
 - IPDC EM is not a clear architecture. It is an attitude !
 - IPDC EM node can become a gateway of edge computing.
+
+
+
+
+## Advantage of IPDC
+- Extremely light
+	- IPFS and MQTT can be installed on a variety of devices.
+	- Even a Raspberry Pi single-board computer with a memory capacity of only 128MB can be used.
+- Extremely flexible
+	- IPDC is a very flexible framework that enables a wide range of decentralized architectures by making the Dmqtt.py channel and modifying the logic of control.py and adding the necessary code.
+	- Not limited to a specific decentralized architecture.
+	- Users can flexibly join / exit IPDC
+- Scalable
+	- IPFS can grow across domains
+	- Users willing to join IPDC can easily and quickly incorporate the huge cluster.
+- Open and fast
+	- IPDC inherits the advantages of IPFS, so that data and code exist in the IPFS.
+		- Hash passed through MQTT to make data and code more open
+		- Merkle-Dag data structure in IPFS make data deduplicate and saving space of storage.
+		- IPFS download data and code by visiting Merkle Dag, parallel to each peers to capture the required file fragments, to enhance the speed of access to files.
+		- IPFS enhanced data backup.
+	- IPDC also has the advantage of MQTT
+		- high speed to publish message.
+		- M2M conforms to the advantages of IPFS decentralization, increasing computing efficiency.
+		- Enhance IPFS from storage to computing.
+- Multi-Master architecture
+	- Any IPDC nodes can be master, but also can be someone else's worker.
+	- Solve the problem of unbalanced load of Master-Slaves.
+	- Better than the existing edge computing architecture, to improve computing efficiency.
+	- Completely decentralized and minimize the redundant transmission.
