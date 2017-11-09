@@ -326,3 +326,4 @@ $ python filesign.py varify
 
 ### IPDC EM
 - IPDC EM is not a clear architecture. It is an attitude !
+- IPDC EM node can become a gateway of edge computing.
