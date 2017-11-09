@@ -271,7 +271,13 @@ $ python test.py
 	- After chain owner publish his request to IPDC, each resource owner will received the message and record the chain information into a sqlite database(/tmp/.db/chain.db). If one resource owner want to join this chain, he can do the following things:
 	```
 	$ sqlite3 /tmp/.db/chain.db
-	$ select * from AskResource;
+
+	sqlite> select * from AskResource;
+	QmRxiJ3WjG5YFQSWY3mdXAKBRgfLyyocFwL9cTBEpcfhwX|Kevin|filesign|3|13467912|12345|8545| This is a kevin chain.
+		# You can see information of the chain
+
+	# If you want to join the chain, you can do the following command.
+	$ IPFS pin add QmRxiJ3WjG5YFQSWY3mdXAKBRgfLyyocFwL9cTBEpcfhwX
 	```
 - start a chain
 	- manage application
