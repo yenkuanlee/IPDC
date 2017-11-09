@@ -264,9 +264,10 @@ chainname = Kevin
 		- if AskResource is False, IPDC will skip the step and build a chain directly.
 		- if AskResource is True, IPDC will ask resource from IPDC ER node before building a chain.
 	- If "AskResource" in chain.py is set to True, you should do the following command. IPDC will send your description.conf to IPFS, and publish the request by MQTT to find some ER node who want to help you to build a chain.
-```
-$ python chain.py ask_resource
-```
+	```
+	$ python chain.py ask_resource
+	```
+
 	- After chain owner publish his request to IPDC, each resource owner will received the message and record the chain information into a sqlite database(/tmp/.db/chain.db). If one resource owner want to join this chain, he can do the following things:
 ```
 $ sqlite3 /tmp/.db/chain.db
