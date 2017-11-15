@@ -345,6 +345,8 @@ $ python filesign.py varify
 ### IPDC EM
 - IPDC EM is not a clear architecture. It is an attitude !
 - IPDC EM node can become a gateway of edge computing.
+- Reference Papers
+  - An Object Store Service for a Fog/Edge Computing Infrastructure Based on IPFS and a Scale-Out NAS. (ICFEC 2017)
 
 
 
