@@ -7,7 +7,7 @@ import time
 import threading
 
 # The callback for when the client receives a CONNACK response from the server.
-def on_connect(client, userdata, rc):
+def on_connect(client, userdata,flags_dict, rc):
 	client.subscribe("test")
 	client.subscribe("Download")
 	client.subscribe("RunCluster")
