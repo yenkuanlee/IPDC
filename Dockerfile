@@ -57,6 +57,7 @@ RUN cd /opt && wget http://www-us.apache.org/dist/tomcat/tomcat-7/v7.0.85/bin/ap
 
 RUN apt-get -qqy install mosquitto 
 RUN apt-get -qqy install mosquitto-clients
+RUN apt-get -qqy install psmisc
 
 # Add localadmin user
 RUN useradd -m localadmin && echo "localadmin:openstack" | chpasswd && adduser localadmin sudo
