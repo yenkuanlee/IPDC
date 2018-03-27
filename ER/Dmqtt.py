@@ -160,6 +160,7 @@ def KeyStore(message):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+    msg.payload = msg.payload.decode("utf-8")
     if msg.topic=='test':
         print(str(msg.payload))
     elif msg.topic=="DownloadAndSetEnode":
