@@ -41,12 +41,12 @@ class Control:
 		self.c.execute("create table if not exists AccountEhash(account text, Ehash text, PRIMARY KEY(account))")
 		self.conn.commit()
 		if Eflag:
-			print "account already existed!!!"
+			print("account already existed!!!")
 			return
 		Ehash = self.web3.personal.newAccount(passwd)
 		self.c.execute("insert into AccountEhash values('"+account+"','"+Ehash+"')")
 		self.conn.commit()
-		print "New Account : "+account
+		print("New Account : "+account)
 	def GetEhash(self,account):
 		try:
 			Ehash = self.c.execute("select Ehash from AccountEhash where account = '"+account+"'")
@@ -61,17 +61,17 @@ class Control:
 	def FileUpload(self,Fname):
 		cmd = "ipfs add "+self.Fpath+"/"+Fname
 		try:
-			Fhash = subprocess.check_output(cmd, shell=True).split(" ")[1]
+			Fhash = subprocess.check_output(cmd, shell=True).decode("utf-8").split(" ")[1]
 			return Fhash
 		except:
-			print "FILE ERROR!"
+			print("FILE ERROR!")
 			exit(0)
 			#return "ERROR"
 	def FileDownload(self,account,OutputFile):
 		Fhash = self.GetFhash(account)
 		cmd = "ipfs get "+Fhash+" -o "+self.Fpath+"/"+OutputFile
-		message = subprocess.check_output(cmd, shell=True)
-		print message
+		message = subprocess.check_output(cmd, shell=True).decode("utf-8")
+		print(message)
 	def FileSign(self, account, passwd, Fname):
 		Ehash = self.GetEhash(account)
 		Fhash = self.FileUpload(Fname)
