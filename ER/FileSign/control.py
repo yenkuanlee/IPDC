@@ -14,7 +14,7 @@ class Control:
 		self.conn = sqlite3.connect(self.DbPath+"/FileSign.db")
 		self.c = self.conn.cursor()
 		self.c.execute("create table if not exists AccountEhash(account text, Ehash text, PRIMARY KEY(account))")
-                self.conn.commit()
+		self.conn.commit()
 		self.c.execute("create table if not exists SendLog(account text, Thash text)")
 		self.conn.commit()
 		self.c.execute("create table if not exists SignFhash(SignHash text, Fhash text, PRIMARY KEY(SignHash))")
