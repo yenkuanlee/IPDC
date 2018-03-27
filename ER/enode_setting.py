@@ -86,7 +86,7 @@ Ethread.start()
 
 # Set Peer
 cmd = "timeout 10 ipfs id -f='<id>'"
-peerID = subprocess.check_output(cmd, shell=True)
+peerID = subprocess.check_output(cmd, shell=True).decode("utf-8")
 ThisIP = "INIT"
 PeerSet = set()
 for x in Jobject['Links']:
