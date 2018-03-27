@@ -12,8 +12,8 @@ RUN apt-get -qqy install vim
 RUN apt-get -qqy install sqlite3
 RUN apt-get -qqy install net-tools # ifconfig
 RUN apt-get -qqy install python-pkg-resources # iservstor need it, only for ubuntu 14.04
-RUN apt-get -qqy install mosquitto 
-RUN apt-get -qqy install mosquitto-clients
+###RUN apt-get -qqy install mosquitto 
+###RUN apt-get -qqy install mosquitto-clients
 
 
 # update java
@@ -55,8 +55,24 @@ RUN chmod 755 -R /usr/local/lib/python*/dist-packages
 # tomcat
 RUN cd /opt && wget http://www-us.apache.org/dist/tomcat/tomcat-7/v7.0.85/bin/apache-tomcat-7.0.85.tar.gz && tar xzf apache-tomcat-7.0.85.tar.gz&& mv apache-tomcat-7.0.85 tomcat7 && echo 'export CATALINA_HOME="/opt/tomcat7"' >> ~/.bashrc
 
+RUN apt-get -qqy install mosquitto 
+RUN apt-get -qqy install mosquitto-clients
+
 # Add localadmin user
 RUN useradd -m localadmin && echo "localadmin:openstack" | chpasswd && adduser localadmin sudo
 USER localadmin
 RUN echo 'export LC_ALL=zh_TW.utf8' >> /home/localadmin/.bashrc
 
+# clone IPDC project and setting
+RUN cd && \
+git clone https://github.com/yenkuanlee/IPDC
+
+USER root
+RUN cd /home/localadmin/IPDC && \
+cp .ipfs/geth /usr/local/bin && \
+chmod 755 /usr/local/bin/pip && \
+chmod 755 -R /usr/local/lib/python2.7/dist-packages && \
+service mosquitto restart
+
+USER localadmin
+RUN cd
