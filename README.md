@@ -328,17 +328,17 @@ $ python test.py
 $ cd /path/to/ER/FileSign
 
 # For sender
-$ python filesign.py account new
+$ python3 filesign.py account new
 	# create an receiver account
-$ python filesign.py file send
+$ python3 filesign.py file send
 	# send certificate to a receiver
 
 # For receiver request
-$ python filesign.py file download
+$ python3 filesign.py file download
 	# download the receiver's certificate
 
 # For varifier request
-$ python filesign.py varify
+$ python3 filesign.py varify
 	# upload certificate and varify 
 ```
 
