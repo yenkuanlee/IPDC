@@ -101,13 +101,13 @@ class Control:
 		Tdict = self.web3.eth.getTransaction(Thash)
 		return (Tdict['from'],Tdict['to'],Tdict['input'])
 	def Varify(self,account,passwd,ToAccount,Fname):
-		FromEhash = self.GetEhash(account)
-		ToEhash = self.GetEhash(ToAccount)
+		FromEhash = self.GetEhash(account).upper()
+		ToEhash = self.GetEhash(ToAccount).upper()
 		SignHashSet = set()
 		Thash = self.c.execute("select Thash from SendLog where account = '"+ToAccount+"'")
 		for x in Thash:
 			tmp = self.GetSignHash(x[0])
-			if tmp[0]!=FromEhash or tmp[1]!=ToEhash:
+			if tmp[0].upper()!=FromEhash or tmp[1].upper()!=ToEhash:
 				continue
 			SignHashSet.add(tmp[2])
 		Fsign = self.FileSign(account, passwd, Fname)
