@@ -11,12 +11,12 @@ if sys.argv[1] == "account":
 	elif sys.argv[2] == "ehash":
 		user = raw_input("Enter user account : ")
 		ehash = a.GetEhash(user)
-		print "Ehash : "+ehash
+		print("Ehash : "+ehash)
 elif sys.argv[1] == "file":
 	if sys.argv[2] == "upload":
 		fname = raw_input("Enter file name : ")
 		fhash = a.FileUpload(fname)
-		print "File Hash : "+fhash
+		print("File Hash : "+fhash)
 	elif sys.argv[2] == "download":
 		user = raw_input("Enter user account : ")
 		a.FileDownload(user,user+".txt")
@@ -25,21 +25,21 @@ elif sys.argv[1] == "file":
                 pwd = getpass.getpass()
 		fname = raw_input("Enter file name : ")
 		SignHash = a.FileSign(user,pwd,fname)
-		print "Sign Hash : "+SignHash
+		print("Sign Hash : "+SignHash)
 	elif sys.argv[2] == "send":
 		sender = raw_input("Enter sender account : ")
 		pwd = getpass.getpass()
 		reciver = raw_input("Enter reciver account : ")
 		fname = raw_input("Enter file name : ")
 		Thash = a.SendFile(sender,pwd,fname,reciver)
-		print "Transaction Hash : "+Thash
+		print("Transaction Hash : "+Thash)
 elif sys.argv[1] == "varify":
 	sender = raw_input("Enter sender account : ")
         pwd = getpass.getpass()
         reciver = raw_input("Enter reciver account : ")
         fname = raw_input("Enter file name : ")
 	result = a.Varify(sender,pwd,reciver,fname)
-	print "Result : "+str(result)
+	print("Result : "+str(result))
 #a.AccountNew('kevin2','123')
 #print a.GetEhash('kevin2')
 #print a.FileUpload('test.txt')

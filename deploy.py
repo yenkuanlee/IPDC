@@ -89,6 +89,8 @@ except:
 	exit(0)
 
 if sys.argv[1] == "init":
+        os.system("sudo service mosquitto restart")
+        time.sleep(1)
 	# install mqtt and paho
 	print "Installing MQTT..."
 	os.system("sudo apt-get install python-pip python-dev -y")
