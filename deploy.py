@@ -51,6 +51,8 @@ def DmqttDaemon(project):
 	os.system("cp "+project+"/Dmqtt.py /tmp")
 	os.chdir("/tmp")
         cmd = "python Dmqtt.py"
+        if project == "ER":
+            cmd = "python3 Dmqtt.py"
         try:
             p = Popen(cmd.split())
 	    os.chdir(Npath)
