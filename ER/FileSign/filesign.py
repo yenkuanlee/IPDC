@@ -33,10 +33,10 @@ elif sys.argv[1] == "file":
         fname = input("Enter file name : ")
         Thash = a.SendFile(sender,pwd,fname,reciver)
         print("Transaction Hash : "+Thash)
-    elif sys.argv[1] == "varify":
-        sender = input("Enter sender account : ")
-        pwd = getpass.getpass()
-        reciver = input("Enter reciver account : ")
-        fname = input("Enter file name : ")
-        result = a.Varify(sender,pwd,reciver,fname)
-        print("Result : "+str(result))
+elif sys.argv[1] == "varify":
+    sender = input("Enter sender account : ")
+    pwd = getpass.getpass()
+    reciver = input("Enter reciver account : ")
+    fname = input("Enter file name : ")
+    result = a.Varify(sender,pwd,reciver,fname)
+    print("Result : "+str(result))
