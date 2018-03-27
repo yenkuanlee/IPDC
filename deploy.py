@@ -141,6 +141,7 @@ if sys.argv[1] == "stop":
 	print "done."
 
 elif sys.argv[1] == "start":
+        os.system("sudo service mosquitto restart")
 	# set ipfs
 	os.system("sudo rm -rf /usr/local/bin/ipfs")
 	os.system("sudo cp .ipfs/ipfs /usr/local/bin")
