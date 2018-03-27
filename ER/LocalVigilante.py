@@ -77,7 +77,12 @@ def GetKhash():
 def GetDbHash():
 	cmd = "timeout 300 ipfs add -r "+DbPath
 	DbDict = dict()
-	Dblist = subprocess.check_output(cmd, shell=True).split("\n")
+        while True:
+                try:
+                        Dblist = subprocess.check_output(cmd, shell=True).split("\n")
+                        break
+                except:
+                        pass
 	for x in Dblist:
 		try:
 			tmp = x.split(" ")
