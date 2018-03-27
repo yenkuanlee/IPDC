@@ -92,7 +92,7 @@ PeerSet = set()
 for x in Jobject['Links']:
 	NodeHash = x['Hash']
 	cmd = "timeout 10 ipfs object get "+NodeHash
-	NodePeer = json.loads(subprocess.check_output(cmd, shell=True))['Data']
+	NodePeer = json.loads(subprocess.check_output(cmd, shell=True).decode("utf-8"))['Data']
 	if NodePeer == peerID:
 		ThisIP = x['Name'].split("###")[1]
 	elif "node-" in x['Name'] and "###" and x['Name']:
