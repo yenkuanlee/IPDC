@@ -13,7 +13,7 @@ while True:
         if not line:
                 break
         cmd = "timeout 10 ipfs object get "+line
-        Jobject = json.loads(subprocess.check_output(cmd, shell=True))
+        Jobject = json.loads(subprocess.check_output(cmd, shell=True).decode("utf-8"))
         break
 
 # Download description.conf

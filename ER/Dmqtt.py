@@ -33,7 +33,7 @@ def Publish(target,channel,message):
 
 def SetEnode(Eclient):
 	print("Setting Enode")
-	cmd = "python /tmp/enode_setting.py"
+	cmd = "python3 /tmp/enode_setting.py"
 	try:
 		p = Popen(cmd.split())
 		Eclient.WorkerPID = str(p.pid)
@@ -111,7 +111,7 @@ def RunningChain(message):
 	conn.commit()
 	# delete from AskResource table
 	cmd = "ipfs object get "+message
-	Object = subprocess.check_output(cmd, shell=True)
+	Object = subprocess.check_output(cmd, shell=True).decode("utf-8")
 	JsonObject = json.loads(Object)
 	Dhash = "TaiwanNumberOne"
 	for x in JsonObject['Links']:
