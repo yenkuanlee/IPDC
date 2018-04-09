@@ -12,9 +12,6 @@ RUN apt-get -qqy install vim
 RUN apt-get -qqy install sqlite3
 RUN apt-get -qqy install net-tools # ifconfig
 RUN apt-get -qqy install python-pkg-resources # iservstor need it, only for ubuntu 14.04
-###RUN apt-get -qqy install mosquitto 
-###RUN apt-get -qqy install mosquitto-clients
-
 
 # update java
 RUN apt-get -qq update
@@ -55,9 +52,12 @@ RUN chmod 755 -R /usr/local/lib/python*/dist-packages
 # tomcat
 RUN cd /opt && wget http://www-us.apache.org/dist/tomcat/tomcat-7/v7.0.85/bin/apache-tomcat-7.0.85.tar.gz && tar xzf apache-tomcat-7.0.85.tar.gz&& mv apache-tomcat-7.0.85 tomcat7 && echo 'export CATALINA_HOME="/opt/tomcat7"' >> ~/.bashrc
 
+# somthing need
 RUN apt-get -qqy install mosquitto 
 RUN apt-get -qqy install mosquitto-clients
 RUN apt-get -qqy install psmisc
+RUN apt-get -qqy install ant
+RUN apt-get -qqy install cmake
 
 # Add localadmin user
 RUN useradd -m localadmin && echo "localadmin:openstack" | chpasswd && adduser localadmin sudo
@@ -67,6 +67,18 @@ RUN echo 'export LC_ALL=zh_TW.utf8' >> /home/localadmin/.bashrc
 # clone IPDC project and setting
 RUN cd && \
 git clone https://github.com/yenkuanlee/IPDC
+
+# VOltDB
+RUN cd && \
+wget https://github.com/VoltDB/voltdb/archive/voltdb-8.0.tar.gz && \
+tar -zxf voltdb-8.0.tar.gz && \
+mv voltdb-voltdb-8.0/ voltdb && \
+cd voltdb && \
+ant clean ; ant -Djmemcheck=NO_MEMCHECK && \
+echo 'export CLASSPATH="$CLASSPATH:$HOME/voltdb/voltdb/*:$HOME/voltdb/lib/*:./"' >> /home/localadmin/.bashrc && \
+echo 'alias voltdb="/home/localadmin/voltdb/bin/sqlcmd"' >> /home/localadmin/.bashrc && \
+/home/localadmin/voltdb/bin/voltdb init
+
 
 USER root
 RUN cd /home/localadmin/IPDC && \
