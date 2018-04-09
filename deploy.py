@@ -200,7 +200,10 @@ elif sys.argv[1] == "start":
 			continue
 		elif "/127.0.0.1/" in x: # localhost no use and need not to publish
 			continue
+                peerID = x.split("/")[-1]
+                address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/4002/ipfs/"+peerID
 		ConnectSet.add(x)
+                break
 	X = ""
 	for x in ConnectSet:
 		X += x+"###"
