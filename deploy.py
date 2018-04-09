@@ -5,11 +5,11 @@ import sys
 import threading
 import time
 
-def Publish(target, channel, message):
+def Publish(target, channel, message, mqtt_port):
 	import paho.mqtt.client as mqtt
 	Pclient = mqtt.Client()
         Pclient.max_inflight_messages_set(200000)
-        Pclient.connect(target, 1884)
+        Pclient.connect(target, int(mqtt_port))
         Pclient.loop_start()
         msg_info = Pclient.publish(channel, message, qos=1)
         #if msg_info.is_published() == False:
@@ -201,7 +201,7 @@ elif sys.argv[1] == "start":
 		elif "/127.0.0.1/" in x: # localhost no use and need not to publish
 			continue
                 peerID = x.split("/")[-1]
-                address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/4002/ipfs/"+peerID
+                address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/"+Cdict["IPFS_PORT"]+"/ipfs/"+peerID
 		ConnectSet.add(address)
                 break
 	X = ""
@@ -211,7 +211,7 @@ elif sys.argv[1] == "start":
 		if Cdict["MANAGEMENT_IP"] in X:
 			print "Welcome to be a IPDC Domain Portal."
 		else:
-			Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X)
+			Publish(Cdict["MANAGEMENT_IP"],"PortalConnect",X, Cdict['MQTT_PORT'])
 			cnt = 1
 			while True:
 				cmd = "ipfs swarm peers"
