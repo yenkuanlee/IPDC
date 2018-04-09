@@ -9,7 +9,7 @@ def Publish(target, channel, message):
 	import paho.mqtt.client as mqtt
 	Pclient = mqtt.Client()
         Pclient.max_inflight_messages_set(200000)
-        Pclient.connect(target, 1883)
+        Pclient.connect(target, 1884)
         Pclient.loop_start()
         msg_info = Pclient.publish(channel, message, qos=1)
         #if msg_info.is_published() == False:
@@ -202,7 +202,7 @@ elif sys.argv[1] == "start":
 			continue
                 peerID = x.split("/")[-1]
                 address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/4002/ipfs/"+peerID
-		ConnectSet.add(x)
+		ConnectSet.add(address)
                 break
 	X = ""
 	for x in ConnectSet:
