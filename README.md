@@ -53,9 +53,24 @@ We will not connect to the IPFS official gateway, so we need external IP to conn
 In addition, the MQTT communication mechanism that we use now also uses external fixed IP. Making IP more flexible is one of the topics that IPDC can optimize in the future.
 
 
+## Install IPDC by Docker
 
+Strongly suggest using docker to install IPDC now.
 
-## Getting Started
+```
+$ sudo docker pull yenkuanlee/ipdc:latest
+$ sudo docker run -dti --network=host yenkuanlee/ipdc /bin/sh
+$ sudo docker exec -ti $CONTAINER_ID bash
+$ cd ~/IPDC
+$ git pull
+$ vi ipdc.conf 
+    # modify and safe
+$ python deploy.py start
+```
+
+## IPFS Installation
+
+You can skip the step if you have already installed IPDC by Docker.
 
 
 ### 1. Clone the IPDC project
@@ -87,7 +102,7 @@ $ python deploy.py init
 ```
 
 
-### 4. IPDC start
+### 4. Getting Start
 
 Start IPFS daemon and MQTT listener to become a IPDC node. 
 
