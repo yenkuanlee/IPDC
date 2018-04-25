@@ -159,7 +159,9 @@ elif sys.argv[1] == "start":
 	os.system("sudo chmod 755 /opt/iservstor/conf/iservstor.conf")
 	os.system("rm -rf ~/.ipfs")
 	os.system("ipfs init")
-	os.system("ipfs config Addresses.Gateway /ip4/127.0.0.1/tcp/8082")
+	os.system("ipfs config Addresses.Gateway /ip4/127.0.0.1/tcp/"+Cdict["IPFS_GATEWAY"])
+	os.system("sed -i 's/4001/"+Cdict["IPFS_SWARM"]+"/g' ~/.ipfs/config")
+	os.system("sed -i 's/5001/"+Cdict["IPFS_API"]+"/g' ~/.ipfs/config")
 	KillProcess("ipfs")
 	###IpfsDaemon()
 	Ithread = threading.Thread(target=IpfsDaemon, name='T1')
@@ -201,7 +203,7 @@ elif sys.argv[1] == "start":
 		elif "/127.0.0.1/" in x: # localhost no use and need not to publish
 			continue
                 peerID = x.split("/")[-1]
-                address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/"+Cdict["IPFS_PORT"]+"/ipfs/"+peerID
+                address = "/ip4/"+Cdict["DATA_NODE_IP"]+"/tcp/"+Cdict["IPFS_SWARM"]+"/ipfs/"+peerID
 		ConnectSet.add(address)
                 break
 	X = ""
