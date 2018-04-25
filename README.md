@@ -53,9 +53,9 @@ In addition, the MQTT communication mechanism that we use now also uses external
 
 ## Install IPDC by Docker
 
-- Strongly suggest using docker to install IPDC now.
+Strongly suggest using docker to install IPDC now.
 
-- Unfortunately, not for mac!!!
+Unfortunately, not for mac!!!
   - https://github.com/docker/for-mac/issues/68
 
 ```
