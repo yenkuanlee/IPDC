@@ -28,7 +28,6 @@ IPDC is built on IPFS and communicates with M2M through MQTT technology. IPDC is
 - [External IP](#external-ip)
 - [Install IPDC by Docker](#install-ipdc-by-docker)
 - [IPDC Installation](#ipdc-installation)
-- [Getting Started](#getting-started)
 - [Starting IPDC project](#starting-ipdc-project)
 	- [IPDC MR](#ipdc-mr)
 	- [IPDC TF](#ipdc-tf)
@@ -101,7 +100,7 @@ $ python deploy.py init
 ```
 
 
-### 4. Getting Started
+### 4. start IPDC
 
 Start IPFS daemon and MQTT listener to become a IPDC node. 
 
