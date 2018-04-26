@@ -9,7 +9,6 @@ import threading
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata,flags_dict, rc):
 	client.subscribe("test")
-	client.subscribe("Download")
 	client.subscribe("RunCluster")
 	client.subscribe("CloseCluster")
 	client.subscribe("CleanUp")
@@ -23,40 +22,23 @@ def Publish(target,channel,message):
 	#time.sleep(0.01)
 	print "DMQTT RESULT : "+str(rc)
 
-def VoltDBDaemon(port):
+def VoltDBDaemon(host,port,hostcount):
 	os.system("rm -rf volt*")
 	os.system("/home/localadmin/voltdb/bin/voltdb init")
-	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port+" -B"
+	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port+" -c "+hostcount+" -H "+host+" -B"
         try:
             p = Popen(cmd.split())
         except Exception as e:
             print e
 
-def KillProcess(process):
-        try:
-                f = open(process+'.pid','r')
-                while True:
-                        line = f.readline()
-                        if not line:
-                                break
-                        line = line.replace("\n","")
-                        os.system("kill -9 "+line)
-                        os.system("echo '' > "+process+".pid")
-        except Exception as e:
-                print e
-
-def Download(message):
-	# format : Fhash###Fname
-	print "CallDownload : "+message
-	tmp = message.split("###")
-	Fhash = tmp[0]
-	Fname = tmp[1]
-	os.system("timeout 10 ipfs get "+Fhash+" -o /tmp/"+Fname)
-
 def RunCluster(message,client):
         print "RunCluster : "+message
+	tmp = message.split("###")
+	host=tmp[0]
+	port=tmp[1]
+	hostcount=tmp[2]
         try:
-            VoltDBDaemon(message)
+            VoltDBDaemon(host,port,hostcount)
         except Exception as e:
             print "CREATE WORKER ERROR"
 
