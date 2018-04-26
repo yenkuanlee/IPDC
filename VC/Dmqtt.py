@@ -29,9 +29,6 @@ def VoltDBDaemon(port):
 	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port+" -B"
         try:
             p = Popen(cmd.split())
-            fw = open('voltdb.pid','w')
-            fw.write(str(p.pid))
-            fw.close()
         except Exception as e:
             print e
 
