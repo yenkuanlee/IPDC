@@ -2,6 +2,7 @@ import subprocess
 import paho.mqtt.client as mqtt
 import json
 import time
+import os
 class Control:
 	def __init__(self):
 		self.Runner = set()
@@ -16,19 +17,19 @@ class Control:
                         msg_info.wait_for_publish()
                 client.disconnect()
 
-	def GetSwarm(self):
-		Rset = set()
-		cmd = "ipfs swarm peers"
-		output = subprocess.check_output(cmd, shell=True)
-		tmp = output.split("\n")
-		for x in tmp:
-			if x=="":continue
-			Rset.add(x.split("/")[2])
-		return Rset
-
 	def SetKRunner(self,K):
 		# How to choose K good machine...
 		# To be continued...
+		K = K-1 # i am one of K
+		try:
+			f = open('runner.json','r')
+			line = f.readline()
+			Jline = json.loads(line)
+			if len(Jline)!=0:
+				self.Runner = set(Jline)
+				return
+		except:
+			pass
                 Rset = set()
                 cmd = "ipfs swarm peers"
                 output = subprocess.check_output(cmd, shell=True)
@@ -37,26 +38,27 @@ class Control:
 			if i >= K or tmp[i]=="": break
                         tmpp = tmp[i].split("/")
                         self.Runner.add((tmpp[2],tmpp[len(tmpp)-1],i)) # format : tuple(IP, NodeID, RunnerID)
-                print self.Runner
+		fw = open('runner.json','w')
+                fw.write(json.dumps(list(self.Runner)))
+		fw.close()
 
+
+	def VoltDBDaemon(self,host,port,hostcount):
+		os.system("rm -rf volt*")
+		os.system("/home/localadmin/voltdb/bin/voltdb init")
+		cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port+" -c "+hostcount+" -H "+host+" -B"
+		os.system(cmd)
+		print "waiting voltdb daemon..."
+		time.sleep(5)
+		for x in self.Runner:
+			self.Publish(x[0],"RunCluster",host+"###"+port+"###"+hostcount)
+		print "waiting for worker setting..."
+		time.sleep(10)
+		print "done!"
+		time.sleep(1)
+		
 
 
 	def CloseCluster(self):
-		if len(self.Runner) != 0:
-                        for x in self.Runner:
-                                self.Publish(x[0],"CloseCluster","KEVIN")
-                else:
-                        f = open("ClusterSpec.json",'r')
-                        while True:
-                                line = f.readline()
-                                if not line:
-                                        break
-                                try:
-                                        Jline = json.loads(line)
-                                        Tkey = Jline["TaskIndex"].keys()
-                                        for x in Tkey:
-                                                RemoteIP = x.split(":")[0]
-                                                self.Publish(RemoteIP,"CloseCluster","KEVIN")
-                                except:
-                                        print "No Good ClusterSpec.json"
-                                        exit(0)
+		os.system("/home/localadmin/voltdb/bin/voltadmin shutdown")
+		os.system("rm runner.json")

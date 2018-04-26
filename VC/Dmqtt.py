@@ -10,7 +10,6 @@ import threading
 def on_connect(client, userdata,flags_dict, rc):
 	client.subscribe("test")
 	client.subscribe("RunCluster")
-	client.subscribe("CloseCluster")
 	client.subscribe("CleanUp")
 	client.subscribe("PortalConnect")
 
@@ -50,8 +49,6 @@ def on_message(client, userdata, msg):
 		RCthread = threading.Thread(target=RunCluster, name="RunCluster", args=(str(msg.payload),client))
 		RCthread.setDaemon = True
 		RCthread.start()
-	elif msg.topic=="CloseCluster":
-		os.system("~/voltdb/bin/voltadmin shutdown")
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:
