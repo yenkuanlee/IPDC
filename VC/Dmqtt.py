@@ -46,15 +46,12 @@ def RunCluster(message,client):
 def on_message(client, userdata, msg):
 	if msg.topic=='test':
 		print str(msg.payload)
-	elif msg.topic=="Download":
-		Download(str(msg.payload))
 	elif msg.topic=="RunCluster":
 		RCthread = threading.Thread(target=RunCluster, name="RunCluster", args=(str(msg.payload),client))
 		RCthread.setDaemon = True
 		RCthread.start()
 	elif msg.topic=="CloseCluster":
 		os.system("~/voltdb/bin/voltadmin shutdown")
-
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:
