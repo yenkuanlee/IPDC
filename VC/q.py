@@ -23,6 +23,18 @@ def VoltDBDaemon():
             print "CREATE WORKER ERROR"
             print e
 
+def VoltDBDaemon(port):
+	os.system("rm -rf volt*")
+	os.system("/home/localadmin/voltdb/bin/voltdb init")
+	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port
+        try:
+            p = Popen(cmd.split())
+            fw = open('voltdb.pid','w')
+            fw.write(str(p.pid))
+            fw.close()
+        except Exception as e:
+            print e
+
 def IpfsDaemon():
         cmd = "ipfs daemon"
         try:

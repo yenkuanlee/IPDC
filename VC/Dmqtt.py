@@ -26,7 +26,7 @@ def Publish(target,channel,message):
 def VoltDBDaemon(port):
 	os.system("rm -rf volt*")
 	os.system("/home/localadmin/voltdb/bin/voltdb init")
-	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port
+	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port+" -B"
         try:
             p = Popen(cmd.split())
             fw = open('voltdb.pid','w')
