@@ -74,9 +74,7 @@ def on_message(client, userdata, msg):
 		RCthread.setDaemon = True
 		RCthread.start()
 	elif msg.topic=="CloseCluster":
-		os.system("kill -9 "+client.WorkerPID)
-		print "KEVIN KILLED "+client.WorkerPID
-		client.WorkerPID = ""
+		os.system("~/voltdb/bin/voltadmin shutdown")
 
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
