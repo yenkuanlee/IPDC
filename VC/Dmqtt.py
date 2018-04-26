@@ -23,6 +23,31 @@ def Publish(target,channel,message):
 	#time.sleep(0.01)
 	print "DMQTT RESULT : "+str(rc)
 
+def VoltDBDaemon(port):
+	os.system("rm -rf volt*")
+	os.system("/home/localadmin/voltdb/bin/voltdb init")
+	cmd = "/home/localadmin/voltdb/bin/voltdb start --http=localhost:"+port
+        try:
+            p = Popen(cmd.split())
+            fw = open('voltdb.pid','w')
+            fw.write(str(p.pid))
+            fw.close()
+        except Exception as e:
+            print e
+
+def KillProcess(process):
+        try:
+                f = open(process+'.pid','r')
+                while True:
+                        line = f.readline()
+                        if not line:
+                                break
+                        line = line.replace("\n","")
+                        os.system("kill -9 "+line)
+                        os.system("echo '' > "+process+".pid")
+        except Exception as e:
+                print e
+
 def Download(message):
 	# format : Fhash###Fname
 	print "CallDownload : "+message
@@ -33,10 +58,8 @@ def Download(message):
 
 def RunCluster(message,client):
         print "RunCluster : "+message
-        cmd = "python /tmp/create_worker.py "+message
         try:
-            p = Popen(cmd.split())
-            client.WorkerPID = str(p.pid)
+            VoltDBDaemon(message)
         except Exception as e:
             print "CREATE WORKER ERROR"
 
@@ -54,6 +77,7 @@ def on_message(client, userdata, msg):
 		os.system("kill -9 "+client.WorkerPID)
 		print "KEVIN KILLED "+client.WorkerPID
 		client.WorkerPID = ""
+
 	elif msg.topic=="PortalConnect":
 		ConnectIpList = str(msg.payload).split("###")
 		for x in ConnectIpList:
@@ -74,8 +98,8 @@ def on_message(client, userdata, msg):
 			except:
 				pass
 	elif msg.topic=="CleanUp":
-		os.system("rm Map.py* Reduce.py* output.txt data.dat")
-	#time.sleep(0.01)
+		os.system("rm volt*")
+
 
 client = mqtt.Client()
 client.WorkerPID = ""
